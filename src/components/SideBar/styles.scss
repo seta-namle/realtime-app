@@ -1,0 +1,20 @@
+$sidebarwidth: 220;
+$background: #2d3446;
+:export {
+  // stylelint-disable
+  sidebarwidth: $sidebarwidth;
+  // stylelint-enable
+}
+
+.sider {
+  background: $background !important;
+  margin-top: 60px;
+
+  .ant-layout-sider-trigger {
+    background: $background !important;
+  }
+}
+
+.menu {
+  background: $background !important;
+}

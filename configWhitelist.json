@@ -1,0 +1,9 @@
+[
+  "apiRoot",
+  "switchAppRoute",
+  "loginRoute",
+  "graphQLEndpoint",
+  "OAuthClientID",
+  "useOAuthGrant",
+  "pendoKey"
+]
