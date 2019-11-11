@@ -1,4 +1,3 @@
-
 import React from 'react';
 import 'antd/dist/antd.css';
 import { Layout, Menu, Breadcrumb, Icon } from 'antd';
@@ -10,13 +9,11 @@ import { connect } from 'react-redux';
 import {
   ROUTE_JOBS,
   ROUTE_TASKS,
-  ROUTE_HOME
+  ROUTE_HOME,
+  selectCurrentRoutePayload
 } from '../../state/modules/routing';
 import { func, node } from 'prop-types';
-
-import {
-  ON_CLICK_MENU
-} from '../../state/modules/sideBar';
+import { ON_CLICK_MENU } from '../../state/modules/sideBar';
 class SideBar extends React.Component {
   static propTypes = {
     onClickMenu: func,
@@ -24,19 +21,19 @@ class SideBar extends React.Component {
   };
 
   state = {
-    collapsed: false,
+    collapsed: false
   };
   onCollapse = collapsed => {
     this.setState({ collapsed });
   };
-  handleClick = (event) => {
+  handleClick = event => {
     const payload = {
-      tabName: event.key,
-    }
+      tabName: event.key
+    };
     this.props.onClickMenu(payload);
-  }
+  };
   render() {
-    const getMenuItem = (item) => {
+    const getMenuItem = item => {
       if (item.children) {
         return (
           <SubMenu
@@ -48,69 +45,72 @@ class SideBar extends React.Component {
               </span>
             }
           >
-            {
-              item.children.map((sub) => {
-                return (
-                  <Menu.Item key={sub.key}>
-                    {sub.label}
-                  </Menu.Item>
-                )
-              })
-            }
+            {item.children.map(sub => {
+              return <Menu.Item key={sub.key}>{sub.label}</Menu.Item>;
+            })}
           </SubMenu>
-        )
+        );
       }
       return (
         <Menu.Item key={item.key}>
           <Icon type="file" />
           <span>{item.label}</span>
         </Menu.Item>
-      )
-    }
-    const { children } = this.props;
+      );
+    };
+    const { children, routePayload } = this.props;
     return (
       <Layout style={{ minHeight: `${window.innerHeight}px` }}>
         <Sider
-          collapsible collapsed={this.state.collapsed} onCollapse={this.onCollapse} className={styles['sider']}
+          collapsible
+          collapsed={this.state.collapsed}
+          onCollapse={this.onCollapse}
+          className={styles['sider']}
           style={{
             overflow: 'auto',
             height: '100vh',
             position: 'fixed',
-            left: 0,
+            left: 0
           }}
         >
           <div className="logo" />
-          <Menu theme="dark" defaultSelectedKeys={['1000']} mode="inline" className={styles['menu']} onClick={this.handleClick}>
-            {
-              options.map(item => getMenuItem(item))
-            }
+          <Menu
+            theme="dark"
+            defaultSelectedKeys={['1000']}
+            mode="inline"
+            className={styles['menu']}
+            onClick={this.handleClick}
+          >
+            {options.map(item => getMenuItem(item))}
           </Menu>
         </Sider>
         <Layout style={{ marginLeft: 200 }}>
           <Header style={{ background: '#fff', padding: 0 }} />
           <Content style={{ margin: '24px 16px 0', overflow: 'initial' }}>
             <Breadcrumb style={{ margin: '16px 0' }}>
-              <Breadcrumb.Item>User</Breadcrumb.Item>
-              <Breadcrumb.Item>Bill</Breadcrumb.Item>
+              {routePayload.tabName && (
+                <Breadcrumb.Item>{routePayload.tabName}</Breadcrumb.Item>
+              )}
+              {routePayload.id && (
+                <Breadcrumb.Item>{`${routePayload.tabName} detail: ${
+                  routePayload.id
+                }`}</Breadcrumb.Item>
+              )}
             </Breadcrumb>
-            <div>
-              {children}
-            </div>
+            <div>{children}</div>
           </Content>
           <Footer style={{ textAlign: 'center' }}>Veritone ©2019</Footer>
         </Layout>
-
-
-
       </Layout>
     );
   }
 }
 export default connect(
   state => ({
+    routePayload: selectCurrentRoutePayload(state)
   }),
   {
-    onClickMenu: (payload) => ({
+    onClickMenu: payload => ({
       type: ON_CLICK_MENU,
       payload: payload
     })
