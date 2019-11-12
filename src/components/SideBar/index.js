@@ -4,20 +4,16 @@ import { Layout, Menu, Breadcrumb, Icon } from 'antd';
 import styles from './styles.scss';
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
+import { func, node, objectOf, string } from 'prop-types';
 import options from './options';
 import { connect } from 'react-redux';
-import {
-  ROUTE_JOBS,
-  ROUTE_TASKS,
-  ROUTE_HOME,
-  selectCurrentRoutePayload
-} from '../../state/modules/routing';
-import { func, node } from 'prop-types';
+import { selectCurrentRoutePayload } from '../../state/modules/routing';
 import { ON_CLICK_MENU } from '../../state/modules/sideBar';
 class SideBar extends React.Component {
   static propTypes = {
     onClickMenu: func,
-    children: node
+    children: node,
+    routePayload: objectOf(string)
   };
 
   state = {
@@ -29,6 +25,13 @@ class SideBar extends React.Component {
   handleClick = event => {
     const payload = {
       tabName: event.key
+    };
+    this.props.onClickMenu(payload);
+  };
+  onClickBreadCrumb = event => {
+    const tabName = event.currentTarget.getAttribute('data-name');
+    const payload = {
+      tabName
     };
     this.props.onClickMenu(payload);
   };
@@ -88,9 +91,17 @@ class SideBar extends React.Component {
           <Header style={{ background: '#fff', padding: 0 }} />
           <Content style={{ margin: '24px 16px 0', overflow: 'initial' }}>
             <Breadcrumb style={{ margin: '16px 0' }}>
-              <Breadcrumb.Item>{`Home`}</Breadcrumb.Item>
+              <Breadcrumb.Item
+                onClick={this.onClickBreadCrumb}
+                data-name={'/'}
+              >{`Home`}</Breadcrumb.Item>
               {routePayload.tabName && (
-                <Breadcrumb.Item>{routePayload.tabName}</Breadcrumb.Item>
+                <Breadcrumb.Item
+                  onClick={this.onClickBreadCrumb}
+                  data-name={routePayload.tabName}
+                >
+                  {routePayload.tabName}
+                </Breadcrumb.Item>
               )}
               {routePayload.id && (
                 <Breadcrumb.Item>{`${routePayload.tabName} detail: ${
