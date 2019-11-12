@@ -2,10 +2,13 @@ import React, { Component, Fragment } from 'react';
 import { Card, Row, Col, Typography, Progress, Button, Modal } from 'antd';
 import { Table } from 'antd';
 const { Title, Text } = Typography;
+import { string } from 'prop-types';
 import styles from './styles.scss';
 class TaskDetail extends Component {
+  static propTypes = {
+    taskId: string
+  };
   state = { visible: false };
-
   onClickRow = () => {
     this.setState({
       visible: true
@@ -197,8 +200,8 @@ class TaskDetail extends Component {
         <Card>
           <Row>
             <Col span={18}>
-              <Title level={3}>123456789-897-789</Title>
-              <Text>JobId</Text>
+              <Title level={3}>{this.props.taskId}</Title>
+              <Text>Task Instance Id</Text>
             </Col>
             <Col span={6}>
               <Text>64.89%</Text> <br />
@@ -355,7 +358,7 @@ class TaskDetail extends Component {
               </table>
             </Col>
             <Col span={12} className={styles['task-detail-right']}>
-              <Text>Log file output</Text> <br />
+              <Text>Log file output related to error</Text> <br />
             </Col>
             <Col span={24} className={styles['task-detail-action']}>
               <Button type="primary">Export</Button>

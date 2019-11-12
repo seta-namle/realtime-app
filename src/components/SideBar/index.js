@@ -88,6 +88,7 @@ class SideBar extends React.Component {
           <Header style={{ background: '#fff', padding: 0 }} />
           <Content style={{ margin: '24px 16px 0', overflow: 'initial' }}>
             <Breadcrumb style={{ margin: '16px 0' }}>
+              <Breadcrumb.Item>{`Home`}</Breadcrumb.Item>
               {routePayload.tabName && (
                 <Breadcrumb.Item>{routePayload.tabName}</Breadcrumb.Item>
               )}
