@@ -6,7 +6,7 @@ function* watchOnclickMenu() {
   const tabName = yield select(selectCurrentRoutePayload);
   if (OPTIONS.includes(tabName)) {
     yield put(
-      redirect({
+      ({
         type: ROUTE_HOME,
         payload: { tabName: 'home' }
       })
@@ -15,14 +15,14 @@ function* watchOnclickMenu() {
   yield takeLatest(ON_CLICK_MENU, function*(action) {
     if (OPTIONS.includes(action.payload.tabName)) {
       yield put(
-        redirect({
+        ({
           type: ROUTE_HOME,
           payload: { tabName: action.payload.tabName }
         })
       );
     } else {
       yield put(
-        redirect({
+        ({
           type: ROUTE_HOME,
           payload: { tabName: 'home' }
         })
@@ -35,7 +35,7 @@ function* watchOnclickDetail() {
   yield takeLatest(ON_CLICK_DETAIL, function*(action) {
     const { tabName, id } = action.payload;
     yield put(
-      redirect({
+      ({
         type: ROUTE_HOME,
         payload: { tabName, id }
       })
