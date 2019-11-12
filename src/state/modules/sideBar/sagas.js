@@ -1,39 +1,47 @@
-import {
-  all,
-  fork,
-  takeLatest,
-  put
-} from 'redux-saga/effects';
+import { all, fork, takeLatest, put, select } from 'redux-saga/effects';
 import { redirect } from 'redux-first-router';
-import {
-  ON_CLICK_MENU,
-  ON_CLICK_DETAIL
-} from './';
-import {
-  ROUTE_HOME,
-} from '../../modules/routing'
-
+import { ON_CLICK_MENU, ON_CLICK_DETAIL, OPTIONS } from './';
+import { ROUTE_HOME, selectCurrentRoutePayload } from '../../modules/routing';
 function* watchOnclickMenu() {
-  yield takeLatest(ON_CLICK_MENU, function* (action){
-    yield put(redirect({
-      type: ROUTE_HOME,
-      payload: {tabName: action.payload.tabName}
-    }))
-  })
+  const tabName = yield select(selectCurrentRoutePayload);
+  if (OPTIONS.includes(tabName)) {
+    yield put(
+      redirect({
+        type: ROUTE_HOME,
+        payload: { tabName: 'home' }
+      })
+    );
+  }
+  yield takeLatest(ON_CLICK_MENU, function*(action) {
+    if (OPTIONS.includes(action.payload.tabName)) {
+      yield put(
+        redirect({
+          type: ROUTE_HOME,
+          payload: { tabName: action.payload.tabName }
+        })
+      );
+    } else {
+      yield put(
+        redirect({
+          type: ROUTE_HOME,
+          payload: { tabName: 'home' }
+        })
+      );
+    }
+  });
 }
 
 function* watchOnclickDetail() {
-  yield takeLatest(ON_CLICK_DETAIL, function* (action){
+  yield takeLatest(ON_CLICK_DETAIL, function*(action) {
     const { tabName, id } = action.payload;
-    yield put(redirect({
-      type: ROUTE_HOME,
-      payload: {tabName, id}
-    }))
-  })
+    yield put(
+      redirect({
+        type: ROUTE_HOME,
+        payload: { tabName, id }
+      })
+    );
+  });
 }
 export default function* sideBar() {
-  yield all([
-    fork(watchOnclickMenu),
-    fork(watchOnclickDetail)
-  ]);
+  yield all([fork(watchOnclickMenu), fork(watchOnclickDetail)]);
 }
