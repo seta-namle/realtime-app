@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { Card, Row, Col, Typography, Progress, Button, Modal } from 'antd';
+import { Card, Row, Col, Typography, Progress, Button, Modal, Descriptions } from 'antd';
 import { Table } from 'antd';
 const { Title, Text } = Typography;
 import { string } from 'prop-types';
@@ -217,16 +217,18 @@ class TaskDetail extends Component {
             </Col>
 
             <Col span={12} className={styles['task-detail-left']}>
-              <table className={styles['table-detail']}>
-                {dataTaskDetail.map(item => {
-                  return (
-                    <tr key={item.name}>
-                      <th>{item.name}</th>
-                      <th>{item.value}</th>
-                    </tr>
-                  );
-                })}
-              </table>
+              <Descriptions
+                bordered
+                column={{ xxl: 1, xl: 1, lg: 1, md: 1, sm: 1, xs: 1 }}
+              >
+                {
+                  dataTaskDetail.map(item => {
+                    return (
+                      <Descriptions.Item key label={item.name}>{item.value}</Descriptions.Item>
+                    )
+                  })
+                }
+              </Descriptions>
             </Col>
             <Col span={12} className={styles['task-detail-right']}>
               <Text>Log file output</Text> <br />
@@ -249,16 +251,18 @@ class TaskDetail extends Component {
             </Col>
 
             <Col span={24} className={styles['task-detail-left']}>
-              <table className={styles['table-detail']}>
-                {dataJobDetail.map(item => {
-                  return (
-                    <tr key={item.name}>
-                      <th>{item.name}</th>
-                      <th>{item.value}</th>
-                    </tr>
-                  );
-                })}
-              </table>
+              <Descriptions
+                bordered
+                column={{ xxl: 1, xl: 1, lg: 1, md: 1, sm: 1, xs: 1 }}
+              >
+                {
+                  dataJobDetail.map(item => {
+                    return (
+                      <Descriptions.Item key label={item.name}>{item.value}</Descriptions.Item>
+                    )
+                  })
+                }
+              </Descriptions>
             </Col>
             <Col span={24} className={styles['task-detail-action']}>
               <Button type="primary">Export</Button>
@@ -290,16 +294,18 @@ class TaskDetail extends Component {
             </Col>
 
             <Col span={24} className={styles['task-detail-left']}>
-              <table className={styles['table-detail']}>
-                {dataSelectedTaskDetail.map(item => {
-                  return (
-                    <tr key={item.name}>
-                      <th>{item.name}</th>
-                      <th>{item.value}</th>
-                    </tr>
-                  );
-                })}
-              </table>
+              <Descriptions
+                bordered
+                column={{ xxl: 1, xl: 1, lg: 1, md: 1, sm: 1, xs: 1 }}
+              >
+                {
+                  dataSelectedTaskDetail.map(item => {
+                    return (
+                      <Descriptions.Item key label={item.name}>{item.value}</Descriptions.Item>
+                    )
+                  })
+                }
+              </Descriptions>
             </Col>
             <Col span={24} className={styles['task-detail-action']}>
               <Button type="primary">Export</Button>
@@ -346,16 +352,18 @@ class TaskDetail extends Component {
             </Col>
 
             <Col span={12} className={styles['task-detail-left']}>
-              <table className={styles['table-detail']}>
-                {dataTaskDetail.map(item => {
-                  return (
-                    <tr key={item.name}>
-                      <th>{item.name}</th>
-                      <th>{item.value}</th>
-                    </tr>
-                  );
-                })}
-              </table>
+              <Descriptions
+                bordered
+                column={{ xxl: 1, xl: 1, lg: 1, md: 1, sm: 1, xs: 1 }}
+              >
+                {
+                  dataTaskDetail.map(item => {
+                    return (
+                      <Descriptions.Item key label={item.name}>{item.value}</Descriptions.Item>
+                    )
+                  })
+                }
+              </Descriptions>
             </Col>
             <Col span={12} className={styles['task-detail-right']}>
               <Text>Log file output related to error</Text> <br />
