@@ -3,24 +3,16 @@ import { Card, Row, Col, Typography, Progress } from 'antd';
 const { Title, Text } = Typography;
 import styles from './styles.scss';
 
-const JobImageComponent = ({ imageUrl }) => {
-  return (
-    <div
-      style={{ backgroundImage: `url(${imageUrl})` }}
-      className={styles['job-image-component']}
-    />
-  );
-};
 
 const JobStatusComponent = ({ percent = 20 }) => {
   return (
     <div>
-      <Row gutter={10} style={{height: '80px'}}>
-        <Col span={16}>69% completed</Col>
-        <Col span={8}>69% completed</Col>
+      <Row gutter={10} style={{ paddingLeft: 3 }}>
+        <div style={{ fontSize: 25, color: '#52c41a' }}>{percent}%</div>
+        <div style={{ fontSize: 15 }}>completed</div>
       </Row>
       <Row>
-        <Progress percent={percent} />
+        <Progress percent={percent} showInfo={false} strokeColor="#52c41a"/>
       </Row>
     </div>
   );
@@ -29,16 +21,9 @@ const JobStatusComponent = ({ percent = 20 }) => {
 class JobDetail extends Component {
   render() {
     return (
-      <Card style={{height: 150}}>
+      <Card>
         <Row gutter={20}>
-          <Col span={2}>
-            <JobImageComponent
-              imageUrl={
-                'https://lh3.googleusercontent.com/coMv1dl31PCfEs6essJoEUwVryaqKHKQvENdZ_WYpN-PXa8Qfitkg3grQxIVN22W5A'
-              }
-            />
-          </Col>
-          <Col span={16}>
+          <Col span={18}>
             <Title level={3}>123456789-897-789</Title>
             <Text>JobId</Text>
           </Col>
