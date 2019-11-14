@@ -6,6 +6,7 @@ import { func, string } from 'prop-types';
 import { ON_CLICK_DETAIL } from '../../state/modules/sideBar';
 import { selectCurrentRoutePayload } from 'state/modules/routing';
 import JobDetail from './TaskDetail';
+import ActiveTaskTable from './ActiveTaskTable'
 class Tasks extends Component {
   static propTypes = {
     onClickDetail: func,
@@ -96,6 +97,7 @@ class Tasks extends Component {
             };
           }}
         />
+        <ActiveTaskTable />
       </Fragment>
     );
   }
