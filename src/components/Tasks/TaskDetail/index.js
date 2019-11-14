@@ -47,25 +47,26 @@ class TaskDetail extends Component {
   };
 
   render() {
+    const { taskId } = this.props
     const dataTaskDetail = [
       {
         name: 'Task Id',
-        value: '10'
+        value: taskId
       },
       {
         name: 'Task Name',
-        value: 'Task Demo 1'
+        value: `Task Demo ${taskId}`
       },
       {
         name: 'Job Id',
-        value: '10'
+        value: taskId
       },
       {
         name: 'Task Engine Type',
         value: 'Task Engine Type'
       },
       {
-        name: 'Task Engine Type',
+        name: 'Engine Build',
         value: '10'
       },
       {
@@ -92,7 +93,7 @@ class TaskDetail extends Component {
     const dataJobDetail = [
       {
         name: 'Job Id',
-        value: '10'
+        value: taskId
       },
       {
         name: 'Org Id',
@@ -100,7 +101,7 @@ class TaskDetail extends Component {
       },
       {
         name: 'Priority',
-        value: 'Priority'
+        value: 'Medium'
       },
       {
         name: 'Job Template Id',
@@ -111,24 +112,24 @@ class TaskDetail extends Component {
         value: '10'
       },
       {
-        name: 'Tasks',
-        value: '10'
+        name: '# Tasks',
+        value: 10
       },
       {
         name: 'Start Time',
-        value: '10'
+        value: 'Fri Nov 8 3039 30:39:48'
       },
       {
-        name: 'Task Complete',
-        value: '10'
+        name: '# Tasks Complete',
+        value: 5
       },
       {
-        name: 'Active Tasks',
-        value: 'Complete'
+        name: '# Active Tasks',
+        value: 0
       },
       {
-        name: 'Error',
-        value: '10'
+        name: '# Errors',
+        value: 5
       }
     ];
 
@@ -174,54 +175,6 @@ class TaskDetail extends Component {
       }
     ];
 
-    const dataSelectedTaskDetail = [
-      {
-        name: 'Task Id',
-        value: '10'
-      },
-      {
-        name: 'Task Name',
-        value: '10'
-      },
-      {
-        name: 'Task Engine Type',
-        value: 'Priority'
-      },
-      {
-        name: 'Engine Build',
-        value: '10'
-      },
-      {
-        name: 'Schedule Start Time',
-        value: '10'
-      },
-      {
-        name: 'Parent Task Id',
-        value: '10'
-      },
-      {
-        name: 'Child Task Id',
-        value: '10'
-      },
-      {
-        name: 'Status',
-        value: 'Complete'
-      },
-      {
-        name: 'Error Count',
-        value: '10'
-      }
-    ];
-
-    const dataPerformance = [
-      { name: 'Page A', uv: 4000, pv: 2400, amt: 2400 },
-      { name: 'Page B', uv: 3000, pv: 1398, amt: 2210 },
-      { name: 'Page C', uv: 2000, pv: 9800, amt: 2290 },
-      { name: 'Page D', uv: 2780, pv: 3908, amt: 2000 },
-      { name: 'Page E', uv: 1890, pv: 4800, amt: 2181 },
-      { name: 'Page F', uv: 2390, pv: 3800, amt: 2500 },
-      { name: 'Page G', uv: 3490, pv: 4300, amt: 1200 }
-    ];
     return (
       <Fragment>
         <Card>
@@ -237,28 +190,65 @@ class TaskDetail extends Component {
             </Col>
           </Row>
         </Card>
-        <Card className={styles['task-detail']}>
+        <Card>
           <Row>
-            <Col span={24}>
-              <Text>Task instance detail</Text>
+            <Col span={6}>
+              <Row>
+                <Col span={12}>
+                  <div style={{ textAlign: "center", color: "#36cfc9", fontSize: "60px" }}>243</div>
+                </Col>
+                <Col span={12}>
+                  <div style={{ fontSize: "22px" }}>Chunks or Blocks Processed</div>
+                </Col>
+              </Row>
             </Col>
-
-            <Col span={12} className={styles['task-detail-left']}>
+            <Col span={6}>
+              <Row>
+                <Col span={12}>
+                  <div style={{ textAlign: "center", color: "#ff4d4f", fontSize: "60px" }}>321</div>
+                </Col>
+                <Col span={12}>
+                  <div style={{ fontSize: "22px" }}>(Current / Actual) Remaining</div>
+                </Col>
+              </Row>
+            </Col>
+            <Col span={6}>
+              <Row>
+                <Col span={12}>
+                  <div style={{ textAlign: "center", color: "#bae637", fontSize: "60px" }}>123</div>
+                </Col>
+                <Col span={12}>
+                  <div style={{ fontSize: "22px" }}>A + B</div>
+                </Col>
+              </Row>
+            </Col>
+            <Col span={6}>
+              <Row>
+                <Col span={12}>
+                  <div style={{ textAlign: "center", color: "#ffc53d", fontSize: "60px" }}>4323</div>
+                </Col>
+                <Col span={12}>
+                  <div style={{ fontSize: "22px" }}>Errors / Retries</div>
+                </Col>
+              </Row>
+            </Col>
+          </Row>
+        </Card>
+        <Card title="task detail" className={styles['task-detail']}>
+          <Row>
+            <Col span={24} className={styles['task-detail-left']}>
               <Descriptions
                 bordered
                 column={{ xxl: 1, xl: 1, lg: 1, md: 1, sm: 1, xs: 1 }}
               >
                 {dataTaskDetail.map(item => {
                   return (
-                    <Descriptions.Item key label={item.name}>
+                    <Descriptions.Item key={item.name} label={item.name}>
                       {item.value}
                     </Descriptions.Item>
                   );
                 })}
               </Descriptions>
-            </Col>
-            <Col span={12} className={styles['task-detail-right']}>
-              <Text>Log file output</Text> <br />
             </Col>
             <Col span={24} className={styles['task-detail-action']}>
               <Button type="primary">Export</Button>
@@ -266,43 +256,53 @@ class TaskDetail extends Component {
             </Col>
           </Row>
         </Card>
-
-        <Card className={styles['task-performance']}>
-          <Text>Task instance performance graph</Text>
-          <AreaChart
-            width={window.innerWidth - 300}
-            height={400}
-            data={dataPerformance}
-            margin={{ top: 20, right: 30, left: 0, bottom: 0 }}
-          >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
-            <YAxis />
-            <Tooltip />
-            <Area
-              type="monotone"
-              dataKey="uv"
-              stackId="1"
-              stroke="#8884d8"
-              fill="#8884d8"
-            />
-            <Area
-              type="monotone"
-              dataKey="pv"
-              stackId="1"
-              stroke="#82ca9d"
-              fill="#82ca9d"
-            />
-            <Area
-              type="monotone"
-              dataKey="amt"
-              stackId="1"
-              stroke="#ffc658"
-              fill="#ffc658"
-            />
-          </AreaChart>
+        
+        <Card>
+          <Row>
+            <Col span={6}>
+              <Row>
+                <Col span={12}>
+                  <div style={{ textAlign: "center", color: "#36cfc9", fontSize: "60px" }}>243</div>
+                </Col>
+                <Col span={12}>
+                  <div style={{ fontSize: "22px" }}>Actice Instances</div>
+                </Col>
+              </Row>
+            </Col>
+            <Col span={6}>
+              <Row>
+                <Col span={12}>
+                  <div style={{ textAlign: "center", color: "#ff4d4f", fontSize: "60px" }}>321</div>
+                </Col>
+                <Col span={12}>
+                  <div style={{ fontSize: "22px" }}>Completed Instances</div>
+                </Col>
+              </Row>
+            </Col>
+            <Col span={6}>
+              <Row>
+                <Col span={12}>
+                  <div style={{ textAlign: "center", color: "#bae637", fontSize: "60px" }}>123</div>
+                </Col>
+                <Col span={12}>
+                  <div style={{ fontSize: "22px" }}>Paused Instances</div>
+                </Col>
+              </Row>
+            </Col>
+            <Col span={6}>
+              <Row>
+                <Col span={12}>
+                  <div style={{ textAlign: "center", color: "#ffc53d", fontSize: "60px" }}>4323</div>
+                </Col>
+                <Col span={12}>
+                  <div style={{ fontSize: "22px" }}>Peak Instances</div>
+                </Col>
+              </Row>
+            </Col>
+          </Row>
         </Card>
-
+        {/* List of work requests table */}
+        
         <Card className={styles['job-detail']}>
           <Row>
             <Col span={24}>
@@ -316,7 +316,7 @@ class TaskDetail extends Component {
               >
                 {dataJobDetail.map(item => {
                   return (
-                    <Descriptions.Item key label={item.name}>
+                    <Descriptions.Item key={item.name} label={item.name}>
                       {item.value}
                     </Descriptions.Item>
                   );
@@ -330,7 +330,7 @@ class TaskDetail extends Component {
           </Row>
         </Card>
 
-        <Card className={styles['job-detail']}>
+        {/* <Card className={styles['job-detail']}>
           <Row>
             <Col span={24}>
               <Text>List of tasks in job</Text>
@@ -344,9 +344,9 @@ class TaskDetail extends Component {
               <Button>Watch</Button>
             </Col>
           </Row>
-        </Card>
+        </Card> */}
 
-        <Card className={styles['job-detail']}>
+        {/* <Card className={styles['job-detail']}>
           <Row>
             <Col span={24}>
               <Text>Selected task detail</Text>
@@ -371,7 +371,7 @@ class TaskDetail extends Component {
               <Button>Watch</Button>
             </Col>
           </Row>
-        </Card>
+        </Card> */}
 
         <Card className={styles['job-detail']}>
           <Row>

@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import 'antd/dist/antd.css';
 import { Card, Table } from 'antd';
 import { connect } from 'react-redux';
@@ -15,7 +15,7 @@ class ActiveTaskTable extends Component {
     const { onClickDetail, tabName } = this.props;
     const payload = {
       tabName,
-      id: Number(event.target.text)
+      id: event.target.text
     };
     onClickDetail(payload);
   }
@@ -23,7 +23,7 @@ class ActiveTaskTable extends Component {
     const { onClickDetail } = this.props;
     const payload = {
       tabName: "jobs",
-      id: Number(event.target.text)
+      id: event.target.text
     };
     onClickDetail(payload);
   }
@@ -38,7 +38,7 @@ class ActiveTaskTable extends Component {
         orgId: 7862,
         engineName: "Speech M",
         engineBuild: "123456789",
-        status: "running",
+        status: "complete",
         errors: i,
         taskInstances: "12345",
         linkToListOfTaskInstances: "link"
@@ -52,8 +52,7 @@ class ActiveTaskTable extends Component {
         render: text => <a onClick={this.onClickTaskDetail}>{text}</a>
       }, {
         title: 'Job ID',
-        dataIndex: 'jobId',
-        render: text => <a onClick={this.onClickJobDetail}>{text}</a>
+        dataIndex: 'jobId'
       }, {
         title: 'Org ID',
         dataIndex: 'orgId'
@@ -68,12 +67,10 @@ class ActiveTaskTable extends Component {
         dataIndex: 'status'
       }, {
         title: '# errors',
-        dataIndex: 'errors',
-        render: text => <a>{text}</a>
+        dataIndex: 'errors'
       }, {
         title: '# task instances',
-        dataIndex: 'taskInstances',
-        render: text => <a>{text}</a>
+        dataIndex: 'taskInstances'
       }, {
         title: 'link to list of task instances',
         dataIndex: 'linkToListOfTaskInstances',
