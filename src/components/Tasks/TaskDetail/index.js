@@ -303,7 +303,7 @@ class TaskDetail extends Component {
           </AreaChart>
         </Card>
 
-        <Card className={styles['job-detail']}>
+        <Card className={styles['task-detail']}>
           <Row>
             <Col span={24}>
               <Text>Job detail</Text>
@@ -330,7 +330,7 @@ class TaskDetail extends Component {
           </Row>
         </Card>
 
-        <Card className={styles['job-detail']}>
+        <Card className={styles['task-detail']}>
           <Row>
             <Col span={24}>
               <Text>List of tasks in job</Text>
@@ -346,7 +346,7 @@ class TaskDetail extends Component {
           </Row>
         </Card>
 
-        <Card className={styles['job-detail']}>
+        <Card className={styles['task-detail']}>
           <Row>
             <Col span={24}>
               <Text>Selected task detail</Text>
@@ -373,7 +373,7 @@ class TaskDetail extends Component {
           </Row>
         </Card>
 
-        <Card className={styles['job-detail']}>
+        <Card className={styles['task-detail']}>
           <Row>
             <Col span={24}>
               <Text>Error In Task Instance</Text>
