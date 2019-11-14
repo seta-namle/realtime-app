@@ -14,165 +14,179 @@ class ActiveTaskTable extends Component {
   state = {
     data: [
       {
-        key: 1,
-        taskId: 1,
-        jobId: 1,
+        key: '19114508_pCJAAcUsmKkHwNA',
+        taskId: '19114508_pCJAAcUsmKkHwNA',
+        jobId: '19114508_pCJAAcUsmK',
         orgId: 7862,
-        engineName: "Speech M",
-        engineBuild: "123456789",
-        status: "complete",
+        engineName: 'Webstream Adapter',
+        engineBuild: '123456789',
+        status: 'running',
         errors: 1,
-        taskInstances: "12345",
-        linkToListOfTaskInstances: "link",
-        category: 'translation'
-      },
-      {
-        key: 2,
-        taskId: 2,
-        jobId: 2,
-        orgId: 7862,
-        engineName: "Speech M",
-        engineBuild: "123456789",
-        status: "complete",
-        errors: 2,
-        taskInstances: "12345",
-        linkToListOfTaskInstances: "link",
-        category: 'faceDetection'
-      },
-      {
-        key: 3,
-        taskId: 3,
-        jobId: 3,
-        orgId: 7862,
-        engineName: "Speech M",
-        engineBuild: "123456789",
-        status: "complete",
-        errors: 3,
-        taskInstances: "12345",
-        linkToListOfTaskInstances: "link",
+        taskInstances: '12345',
+        linkToListOfTaskInstances: 'link',
         category: 'transcription'
       },
       {
-        key: 4,
-        taskId: 4,
-        jobId: 4,
+        key: '19114611_7hQPac339weJIIX',
+        taskId: '19114611_7hQPac339weJIIX',
+        jobId: '19114508_pCJAAcUsmK',
         orgId: 7862,
-        engineName: "Speech M",
-        engineBuild: "123456789",
-        status: "complete",
+        engineName: 'Stream Ingestion',
+        engineBuild: '123456789',
+        status: 'running',
+        errors: 2,
+        taskInstances: '12345',
+        linkToListOfTaskInstances: 'link',
+        category: 'transcription'
+      },
+      {
+        key: '19114611_JXZKztSMGmorIrG',
+        taskId: '19114611_JXZKztSMGmorIrG',
+        jobId: '19114508_pCJAAcUsmK',
+        orgId: 7862,
+        engineName: 'Speech M',
+        engineBuild: '123456789',
+        status: 'running',
+        errors: 3,
+        taskInstances: '12345',
+        linkToListOfTaskInstances: 'link',
+        category: 'transcription'
+      },
+      {
+        key: '19104324_5O1HkLY3ueRrOce',
+        taskId: '19104324_5O1HkLY3ueRrOce',
+        jobId: '19104324_5O1HkLY3ue',
+        orgId: 7862,
+        engineName: 'Speech M',
+        engineBuild: '123456789',
+        status: 'running',
         errors: 4,
-        taskInstances: "12345",
-        linkToListOfTaskInstances: "link",
-        category: 'logoRecognition'
+        taskInstances: '12345',
+        linkToListOfTaskInstances: 'link',
+        category: 'translation'
       },
       {
-        key: 5,
-        taskId: 5,
-        jobId: 5,
+        key: '19104216_cjhoUa7SvlHAvj7',
+        taskId: '19104216_cjhoUa7SvlHAvj7',
+        jobId: '19104216_cjhoUa7Svl',
         orgId: 7862,
-        engineName: "Speech M",
-        engineBuild: "123456789",
-        status: "complete",
+        engineName: 'Face Detection',
+        engineBuild: '123456789',
+        status: 'paused',
         errors: 5,
-        taskInstances: "12345",
-        linkToListOfTaskInstances: "link",
-        category: 'licensePlate'
+        taskInstances: '12345',
+        linkToListOfTaskInstances: 'link',
+        category: 'faceDetection'
       },
       {
-        key: 6,
-        taskId: 6,
-        jobId: 6,
+        key: '19104215_LVx9IShCPLdXqli',
+        taskId: '19104215_LVx9IShCPLdXqli',
+        jobId: '19104215_LVx9IShCPL',
         orgId: 7862,
-        engineName: "Speech M",
-        engineBuild: "123466789",
-        status: "complete",
+        engineName: 'Face Detection',
+        engineBuild: '123466789',
+        status: 'running',
         errors: 6,
-        taskInstances: "12345",
-        linkToListOfTaskInstances: "link",
-        category: 'licensePlate'
+        taskInstances: '12345',
+        linkToListOfTaskInstances: 'link',
+        category: 'faceDetection'
       },
       {
-        key: 7,
-        taskId: 7,
-        jobId: 7,
+        key: '19104215_ix3Vn8jstsF8T6e',
+        taskId: '19104215_ix3Vn8jstsF8T6e',
+        jobId: '19104215_ix3Vn8jsts',
         orgId: 7862,
-        engineName: "Speech M",
-        engineBuild: "123476789",
-        status: "complete",
+        engineName: 'Face Detection',
+        engineBuild: '123476789',
+        status: 'running',
         errors: 7,
-        taskInstances: "12345",
-        linkToListOfTaskInstances: "link",
-        category: 'licensePlate'
-      },
+        taskInstances: '12345',
+        linkToListOfTaskInstances: 'link',
+        category: 'faceDetection'
+      }
     ]
   };
- 
-  onClickTaskDetail = (event) => {
+
+  onClickTaskDetail = event => {
     const { onClickDetail, tabName } = this.props;
     const payload = {
       tabName,
       id: event.target.text
     };
     onClickDetail(payload);
-  }
-  onClickJobDetail = (event) => {
+  };
+  onClickJobDetail = event => {
     const { onClickDetail } = this.props;
     const payload = {
-      tabName: "jobs",
+      tabName: 'jobs',
       id: event.target.text
     };
     onClickDetail(payload);
-  }
-  
+  };
+
   render() {
     const activeTaskListTable = {
-      title: "active (running and paused) task list",
-      columns: [{
-        title: 'Task ID',
-        dataIndex: 'taskId',
-        render: text => <a onClick={this.onClickTaskDetail}>{text}</a>
-      }, {
-        title: 'Job ID',
-        dataIndex: 'jobId'
-      }, {
-        title: 'Org ID',
-        dataIndex: 'orgId'
-      }, {
-        title: 'Engine Name',
-        dataIndex: 'engineName'
-      }, {
-        title: 'Engine Build',
-        dataIndex: 'engineBuild'
-      }, {
-        title: 'status',
-        dataIndex: 'status'
-      }, {
-        title: '# errors',
-        dataIndex: 'errors'
-      }, {
-        title: '# task instances',
-        dataIndex: 'taskInstances'
-      }, {
-        title: 'link to list of task instances',
-        dataIndex: 'linkToListOfTaskInstances',
-        render: text => <a>{text}</a>
-      }],
+      title: 'active (running and paused) task list',
+      columns: [
+        {
+          title: 'Task ID',
+          dataIndex: 'taskId',
+          render: text => <a onClick={this.onClickTaskDetail}>{text}</a>
+        },
+        {
+          title: 'Job ID',
+          dataIndex: 'jobId'
+        },
+        {
+          title: 'Org ID',
+          dataIndex: 'orgId'
+        },
+        {
+          title: 'Engine Name',
+          dataIndex: 'engineName'
+        },
+        {
+          title: 'Engine Build',
+          dataIndex: 'engineBuild'
+        },
+        {
+          title: 'status',
+          dataIndex: 'status'
+        },
+        {
+          title: '# errors',
+          dataIndex: 'errors'
+        },
+        {
+          title: '# task instances',
+          dataIndex: 'taskInstances'
+        },
+        {
+          title: 'link to list of task instances',
+          dataIndex: 'linkToListOfTaskInstances',
+          render: text => <a>{text}</a>
+        }
+      ],
       data: this.state.data
-    }
+    };
     const { type } = this.props;
-   
+
     let dataRow = this.state.data;
-    if(type !== 'all'){
-      dataRow = dataRow.filter(item=>item.category === type);
+    if (type !== 'all') {
+      dataRow = dataRow.filter(item => item.category === type);
     }
     return (
-      < Card title={activeTaskListTable.title} bordered={false} style={{ marginTop: "10px" }}>
+      <Card
+        title={activeTaskListTable.title}
+        bordered={false}
+        style={{ marginTop: '10px' }}
+      >
         <Table
           pagination={{ pageSize: 10 }}
           columns={activeTaskListTable.columns}
           dataSource={dataRow}
         />
-      </Card >
+      </Card>
     );
   }
 }

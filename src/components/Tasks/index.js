@@ -16,7 +16,44 @@ import ActiveTaskTable from './ActiveTaskTable';
 import ErrorTable from './ErrorTable';
 import PerformanceChart from './PerformanceChart';
 import PerformanceData from './PerformanceChart.json';
+import { random } from 'node-forge';
 const { Option } = Select;
+const TOTAL_HOURS = 12;
+const _all = [];
+for (let j = 1; j <= 6; j++) {
+  let _key = 'all';
+  switch (j) {
+    case 1:
+      _key = 'all';
+      break;
+    case 2:
+      _key = 'translation';
+      break;
+    case 3:
+      _key = 'faceDetection';
+      break;
+    case 4:
+      _key = 'transcription';
+      break;
+    case 5:
+      _key = 'logoRecognition';
+      break;
+    case 6:
+      _key = 'licensePlate';
+  }
+  for (let i = 1; i <= TOTAL_HOURS; i++) {
+    const tmp = {
+      name: `${i}:00 AM`,
+      Running: Math.round(Math.random() * 10000),
+      Started: Math.round(Math.random() * 5000),
+      Paused: Math.round(Math.random() * 2000),
+      'Error rate': Math.round(Math.random() * 1000),
+      key: _key
+    };
+    _all.push(tmp);
+  }
+}
+
 class Tasks extends Component {
   static propTypes = {
     onClickDetail: func,
@@ -26,589 +63,7 @@ class Tasks extends Component {
 
   state = {
     filterBarChart: 'all',
-    dataBarChart: [
-      {
-        name: '01:00 AM',
-        Running: 4000,
-        Started: 2400,
-        Paused: 2400,
-        'Error rate': 2400,
-        key: 'all'
-      },
-      {
-        name: '02:00 AM',
-        Running: 3000,
-        Started: 1398,
-        Paused: 2210,
-        'Error rate': 1200,
-        key: 'all'
-      },
-      {
-        name: '03:00 AM',
-        Running: 2000,
-        Started: 9800,
-        Paused: 2290,
-        'Error rate': 2000,
-        key: 'all'
-      },
-      {
-        name: '04:00 AM',
-        Running: 2780,
-        Started: 3908,
-        Paused: 2000,
-        'Error rate': 3000,
-        key: 'all'
-      },
-      {
-        name: '05:00 AM',
-        Running: 1890,
-        Started: 4800,
-        Paused: 2181,
-        'Error rate': 2200,
-        key: 'all'
-      },
-      {
-        name: '06:00 AM',
-        Running: 2390,
-        Started: 3800,
-        Paused: 2500,
-        'Error rate': 1000,
-        key: 'all'
-      },
-      {
-        name: '07:00 AM',
-        Running: 3490,
-        Started: 4300,
-        Paused: 2100,
-        'Error rate': 1200,
-        key: 'all'
-      },
-      {
-        name: '08:00 AM',
-        Running: 3490,
-        Started: 4300,
-        Paused: 2100,
-        'Error rate': 1200,
-        key: 'all'
-      },
-      {
-        name: '09:00 AM',
-        Running: 3490,
-        Started: 4300,
-        Paused: 2100,
-        'Error rate': 1200,
-        key: 'all'
-      },
-      {
-        name: '10:00 AM',
-        Running: 3490,
-        Started: 4300,
-        Paused: 2100,
-        'Error rate': 1200,
-        key: 'all'
-      },
-      {
-        name: '11:00 AM',
-        Running: 3490,
-        Started: 4300,
-        Paused: 2100,
-        'Error rate': 1200,
-        key: 'all'
-      },
-      {
-        name: '12:00 AM',
-        Running: 3490,
-        Started: 4300,
-        Paused: 2100,
-        'Error rate': 1200,
-        key: 'all'
-      },
-
-      {
-        name: '01:00 AM',
-        Running: 800,
-        Started: 300,
-        Paused: 300,
-        'Error rate': 800,
-        key: 'translation'
-      },
-      {
-        name: '02:00 AM',
-        Running: 600,
-        Started: 200,
-        Paused: 500,
-        'Error rate': 400,
-        key: 'translation'
-      },
-      {
-        name: '03:00 AM',
-        Running: 500,
-        Started: 1800,
-        Paused: 500,
-        'Error rate': 300,
-        key: 'translation'
-      },
-      {
-        name: '04:00 AM',
-        Running: 580,
-        Started: 780,
-        Paused: 500,
-        'Error rate': 200,
-        key: 'translation'
-      },
-      {
-        name: '05:00 AM',
-        Running: 300,
-        Started: 800,
-        Paused: 200,
-        'Error rate': 100,
-        key: 'translation'
-      },
-      {
-        name: '06:00 AM',
-        Running: 320,
-        Started: 300,
-        Paused: 220,
-        'Error rate': 100,
-        key: 'translation'
-      },
-      {
-        name: '07:00 AM',
-        Running: 200,
-        Started: 820,
-        Paused: 220,
-        'Error rate': 200,
-        key: 'translation'
-      },
-      {
-        name: '08:00 AM',
-        Running: 3490,
-        Started: 4300,
-        Paused: 2100,
-        'Error rate': 1200,
-        key: 'translation'
-      },
-      {
-        name: '09:00 AM',
-        Running: 3490,
-        Started: 4300,
-        Paused: 2100,
-        'Error rate': 1200,
-        key: 'translation'
-      },
-      {
-        name: '10:00 AM',
-        Running: 3490,
-        Started: 4300,
-        Paused: 2100,
-        'Error rate': 1200,
-        key: 'translation'
-      },
-      {
-        name: '11:00 AM',
-        Running: 3490,
-        Started: 4300,
-        Paused: 2100,
-        'Error rate': 1200,
-        key: 'translation'
-      },
-      {
-        name: '12:00 AM',
-        Running: 3490,
-        Started: 4300,
-        Paused: 2100,
-        'Error rate': 1200,
-        key: 'translation'
-      },
-
-      {
-        name: '01:00 AM',
-        Running: 680,
-        Started: 300,
-        Paused: 300,
-        'Error rate': 120,
-        key: 'faceDetection'
-      },
-      {
-        name: '02:00 AM',
-        Running: 580,
-        Started: 200,
-        Paused: 500,
-        'Error rate': 220,
-        key: 'faceDetection'
-      },
-      {
-        name: '03:00 AM',
-        Running: 460,
-        Started: 1800,
-        Paused: 500,
-        'Error rate': 200,
-        key: 'faceDetection'
-      },
-      {
-        name: '04:00 AM',
-        Running: 580,
-        Started: 780,
-        Paused: 500,
-        'Error rate': 300,
-        key: 'faceDetection'
-      },
-      {
-        name: '05:00 AM',
-        Running: 300,
-        Started: 800,
-        Paused: 200,
-        'Error rate': 320,
-        key: 'faceDetection'
-      },
-      {
-        name: '06:00 AM',
-        Running: 320,
-        Started: 300,
-        Paused: 220,
-        'Error rate': 120,
-        key: 'faceDetection'
-      },
-      {
-        name: '07:00 AM',
-        Running: 200,
-        Started: 820,
-        Paused: 220,
-        'Error rate': 100,
-        key: 'faceDetection'
-      },
-      {
-        name: '08:00 AM',
-        Running: 3490,
-        Started: 4300,
-        Paused: 2100,
-        'Error rate': 1200,
-        key: 'faceDetection'
-      },
-      {
-        name: '09:00 AM',
-        Running: 3490,
-        Started: 4300,
-        Paused: 2100,
-        'Error rate': 1200,
-        key: 'faceDetection'
-      },
-      {
-        name: '10:00 AM',
-        Running: 3490,
-        Started: 4300,
-        Paused: 2100,
-        'Error rate': 1200,
-        key: 'faceDetection'
-      },
-      {
-        name: '11:00 AM',
-        Running: 3490,
-        Started: 4300,
-        Paused: 2100,
-        'Error rate': 1200,
-        key: 'faceDetection'
-      },
-      {
-        name: '12:00 AM',
-        Running: 3490,
-        Started: 4300,
-        Paused: 2100,
-        'Error rate': 1200,
-        key: 'faceDetection'
-      },
-
-      {
-        name: '01:00 AM',
-        Running: 380,
-        Started: 200,
-        Paused: 200,
-        'Error rate': 220,
-        key: 'transcription'
-      },
-      {
-        name: '02:00 AM',
-        Running: 240,
-        Started: 200,
-        Paused: 180,
-        'Error rate': 120,
-        key: 'transcription'
-      },
-      {
-        name: '03:00 AM',
-        Running: 180,
-        Started: 800,
-        Paused: 280,
-        'Error rate': 210,
-        key: 'transcription'
-      },
-      {
-        name: '04:00 AM',
-        Running: 180,
-        Started: 200,
-        Paused: 200,
-        'Error rate': 180,
-        key: 'transcription'
-      },
-      {
-        name: '05:00 AM',
-        Running: 300,
-        Started: 220,
-        Paused: 200,
-        'Error rate': 140,
-        key: 'transcription'
-      },
-      {
-        name: '06:00 AM',
-        Running: 120,
-        Started: 200,
-        Paused: 100,
-        'Error rate': 420,
-        key: 'transcription'
-      },
-      {
-        name: '07:00 AM',
-        Running: 180,
-        Started: 180,
-        Paused: 200,
-        'Error rate': 180,
-        key: 'transcription'
-      },
-      {
-        name: '08:00 AM',
-        Running: 3490,
-        Started: 4300,
-        Paused: 2100,
-        'Error rate': 1200,
-        key: 'transcription'
-      },
-      {
-        name: '09:00 AM',
-        Running: 3490,
-        Started: 4300,
-        Paused: 2100,
-        'Error rate': 1200,
-        key: 'transcription'
-      },
-      {
-        name: '10:00 AM',
-        Running: 3490,
-        Started: 4300,
-        Paused: 2100,
-        'Error rate': 1200,
-        key: 'transcription'
-      },
-      {
-        name: '11:00 AM',
-        Running: 3490,
-        Started: 4300,
-        Paused: 2100,
-        'Error rate': 1200,
-        key: 'transcription'
-      },
-      {
-        name: '12:00 AM',
-        Running: 3490,
-        Started: 4300,
-        Paused: 2100,
-        'Error rate': 1200,
-        key: 'transcription'
-      },
-
-      {
-        name: '01:00 AM',
-        Running: 200,
-        Started: 100,
-        Paused: 200,
-        'Error rate': 100,
-        key: 'logoRecognition'
-      },
-      {
-        name: '02:00 AM',
-        Running: 80,
-        Started: 60,
-        Paused: 80,
-        'Error rate': 120,
-        key: 'logoRecognition'
-      },
-      {
-        name: '03:00 AM',
-        Running: 60,
-        Started: 80,
-        Paused: 98,
-        'Error rate': 240,
-        key: 'logoRecognition'
-      },
-      {
-        name: '04:00 AM',
-        Running: 180,
-        Started: 80,
-        Paused: 200,
-        'Error rate': 210,
-        key: 'logoRecognition'
-      },
-      {
-        name: '05:00 AM',
-        Running: 110,
-        Started: 220,
-        Paused: 80,
-        'Error rate': 260,
-        key: 'logoRecognition'
-      },
-      {
-        name: '06:00 AM',
-        Running: 180,
-        Started: 100,
-        Paused: 30,
-        'Error rate': 200,
-        key: 'logoRecognition'
-      },
-      {
-        name: '07:00 AM',
-        Running: 100,
-        Started: 120,
-        Paused: 200,
-        'Error rate': 320,
-        key: 'logoRecognition'
-      },
-      {
-        name: '08:00 AM',
-        Running: 3490,
-        Started: 4300,
-        Paused: 2100,
-        'Error rate': 1200,
-        key: 'logoRecognition'
-      },
-      {
-        name: '09:00 AM',
-        Running: 3490,
-        Started: 4300,
-        Paused: 2100,
-        'Error rate': 1200,
-        key: 'logoRecognition'
-      },
-      {
-        name: '10:00 AM',
-        Running: 3490,
-        Started: 4300,
-        Paused: 2100,
-        'Error rate': 1200,
-        key: 'logoRecognition'
-      },
-      {
-        name: '11:00 AM',
-        Running: 3490,
-        Started: 4300,
-        Paused: 2100,
-        'Error rate': 1200,
-        key: 'logoRecognition'
-      },
-      {
-        name: '12:00 AM',
-        Running: 3490,
-        Started: 4300,
-        Paused: 2100,
-        'Error rate': 1200,
-        key: 'logoRecognition'
-      },
-
-      {
-        name: '01:00 AM',
-        Running: 2000,
-        Started: 1200,
-        Paused: 1200,
-        'Error rate': 420,
-        key: 'licensePlate'
-      },
-      {
-        name: '02:00 AM',
-        Running: 600,
-        Started: 800,
-        Paused: 1000,
-        'Error rate': 260,
-        key: 'licensePlate'
-      },
-      {
-        name: '03:00 AM',
-        Running: 600,
-        Started: 3000,
-        Paused: 1000,
-        'Error rate': 220,
-        key: 'licensePlate'
-      },
-      {
-        name: '04:00 AM',
-        Running: 1400,
-        Started: 1800,
-        Paused: 1000,
-        'Error rate': 200,
-        key: 'licensePlate'
-      },
-      {
-        name: '05:00 AM',
-        Running: 1600,
-        Started: 2200,
-        Paused: 1000,
-        'Error rate': 120,
-        key: 'licensePlate'
-      },
-      {
-        name: '06:00 AM',
-        Running: 1800,
-        Started: 1800,
-        Paused: 2200,
-        'Error rate': 100,
-        key: 'licensePlate'
-      },
-      {
-        name: '07:00 AM',
-        Running: 3200,
-        Started: 2800,
-        Paused: 2100,
-        'Error rate': 80,
-        key: 'licensePlate'
-      },
-      {
-        name: '08:00 AM',
-        Running: 3490,
-        Started: 4300,
-        Paused: 2100,
-        'Error rate': 1200,
-        key: 'licensePlate'
-      },
-      {
-        name: '09:00 AM',
-        Running: 3490,
-        Started: 4300,
-        Paused: 2100,
-        'Error rate': 1200,
-        key: 'licensePlate'
-      },
-      {
-        name: '10:00 AM',
-        Running: 3490,
-        Started: 4300,
-        Paused: 2100,
-        'Error rate': 1200,
-        key: 'licensePlate'
-      },
-      {
-        name: '11:00 AM',
-        Running: 3490,
-        Started: 4300,
-        Paused: 2100,
-        'Error rate': 1200,
-        key: 'licensePlate'
-      },
-      {
-        name: '12:00 AM',
-        Running: 3490,
-        Started: 4300,
-        Paused: 2100,
-        'Error rate': 1200,
-        key: 'licensePlate'
-      }
-    ],
+    dataBarChart: [..._all],
     activeIndex: null,
     chartData: PerformanceData.data,
     activeInstanceData: [],
@@ -819,11 +274,11 @@ class Tasks extends Component {
       { name: 'Page G', uv: 3490, pv: 4300, amt: 2100 }
     ];
     const dataPieChart = [
-      { name: 'Translation', value: 150, key: 'translation' },
-      { name: 'Face Detection', value: 150, key: 'faceDetection' },
-      { name: 'Transcription', value: 80, key: 'transcription' },
-      { name: 'Logo Recognition ', value: 20, key: 'logoRecognition' },
-      { name: 'License Plate (ALPR)', value: 600, key: 'licensePlate' }
+      { name: 'Translation', value: 5231, key: 'translation' },
+      { name: 'Face Detection', value: 4236, key: 'faceDetection' },
+      { name: 'Transcription', value: 25380, key: 'transcription' },
+      { name: 'Logo Recognition ', value: 4274, key: 'logoRecognition' },
+      { name: 'License Plate (ALPR)', value: 3200, key: 'licensePlate' }
     ];
     const colors = ['#48a5a8', '#616d82', '#ef7c4d', '#ec4258', '#57d094'];
 
@@ -852,9 +307,9 @@ class Tasks extends Component {
             <DashBoardCard
               dataChart={dataChart}
               chartColor="#57d094"
-              cardTitle="3231120"
-              cardDes="completed tasks (24 hrs)"
-              cardValue="20%"
+              cardTitle="100200"
+              cardDes="completed tasks (12 hrs)"
+              cardValue="70%"
               cardIcon="folder-open"
             />
           </Col>
@@ -862,9 +317,9 @@ class Tasks extends Component {
             <DashBoardCard
               dataChart={dataChart}
               chartColor="#ed4661"
-              cardTitle="120"
-              cardDes="completed errors (24 hrs)"
-              cardValue="20%"
+              cardTitle="1500"
+              cardDes="completed errors (12 hrs)"
+              cardValue="1%"
               cardIcon="folder-open"
             />
           </Col>
@@ -914,47 +369,44 @@ class Tasks extends Component {
           }}
         /> */}
         <ActiveTaskTable type={filterBarChart} />
-      
-     
-      
-       
-        <Card style={{marginTop: 10}}> 
-        <Row>
-          <Col span={16} />
 
-          <Col span={8}>
-            <Input.Group compact suffix={<Icon type="caret-up" />}>
-              <Select
-                style={{ width: '100%' }}
-                defaultValue="Sort"
-                onChange={this.handleSortChange}
-              >
-                <Option value="ascending">Ascending</Option>
-                <Option value="descending">Descending</Option>
-              </Select>
-            </Input.Group>
-          </Col>
-        </Row>
-        <PerformanceChart
-          data={this.state.chartData}
-          onClick={this.handleSelectBar}
-          onClickLegend={this.handleClickLegend}
-          selectedLegend={this.state.selectedLegend}
-        />
+        <Card style={{ marginTop: 10 }}>
+          <Row>
+            <Col span={16} />
+
+            <Col span={8}>
+              <Input.Group compact suffix={<Icon type="caret-up" />}>
+                <Select
+                  style={{ width: '100%' }}
+                  defaultValue="Sort"
+                  onChange={this.handleSortChange}
+                >
+                  <Option value="ascending">Ascending</Option>
+                  <Option value="descending">Descending</Option>
+                </Select>
+              </Input.Group>
+            </Col>
+          </Row>
+          <PerformanceChart
+            data={this.state.chartData}
+            onClick={this.handleSelectBar}
+            onClickLegend={this.handleClickLegend}
+            selectedLegend={this.state.selectedLegend}
+          />
         </Card>
-        <Card style={{marginTop: 10}}> 
-        <Table
-          rowSelection={rowSelection}
-          columns={activeInstanceColumn}
-          dataSource={
-            this.state.activeInstanceData.length
-              ? this.state.activeInstanceData
-              : this.props.initialInstanceData
-          }
-        />
+        <Card style={{ marginTop: 10 }}>
+          <Table
+            rowSelection={rowSelection}
+            columns={activeInstanceColumn}
+            dataSource={
+              this.state.activeInstanceData.length
+                ? this.state.activeInstanceData
+                : this.props.initialInstanceData
+            }
+          />
         </Card>
-        
-          <ErrorTable />
+
+        <ErrorTable />
       </Fragment>
     );
   }

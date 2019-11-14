@@ -42,7 +42,7 @@ class TaskDetail extends Component {
   };
 
   render() {
-    const { taskId } = this.props
+    const { taskId } = this.props;
     const dataTaskDetail = [
       {
         name: 'Task Id',
@@ -245,7 +245,7 @@ class TaskDetail extends Component {
     ];
 
     const sameOptionPerformance = {
-      colors: ['#ff4d4d', '#339966', '#ff704d', '#52527a', '#ffcc66'],
+      colors: ['#D98186', '#C2D4C1', '#ff704d', '#52527a', '#FEE2CB'],
       series: {
         0: { type: 'bars' },
         2: { type: 'scatter' },
@@ -262,23 +262,23 @@ class TaskDetail extends Component {
     const dataBoxStatistic = [
       {
         name: 'Page A',
-        uv: 4000
+        uv: 1000
       },
       {
         name: 'Page B',
-        uv: 3000
-      },
-      {
-        name: 'Page C',
         uv: 2000
       },
       {
+        name: 'Page C',
+        uv: 3000
+      },
+      {
         name: 'Page D',
-        uv: 2780
+        uv: 4780
       },
       {
         name: 'Page E',
-        uv: 1890
+        uv: 3890
       },
       {
         name: 'Page F',
@@ -286,7 +286,27 @@ class TaskDetail extends Component {
       },
       {
         name: 'Page G',
-        uv: 3490
+        uv: 1000
+      },
+      {
+        name: 'Page H',
+        uv: 2000
+      },
+      {
+        name: 'Page I',
+        uv: 3000
+      },
+      {
+        name: 'Page L',
+        uv: 4780
+      },
+      {
+        name: 'Page L',
+        uv: 3890
+      },
+      {
+        name: 'Page M',
+        uv: 2390
       }
     ];
 
@@ -306,8 +326,6 @@ class TaskDetail extends Component {
           </Row>
         </Card>
         <div className={styles['task-box-statistic']}>
-
-
           <Row gutter={20}>
             <Col span={8}>
               <Card bordered={false}>
@@ -424,46 +442,81 @@ class TaskDetail extends Component {
             <Col span={6}>
               <Row>
                 <Col span={12}>
-                  <div style={{ textAlign: "center", color: "#36cfc9", fontSize: "60px" }}>243</div>
+                  <div
+                    style={{
+                      textAlign: 'center',
+                      color: '#36cfc9',
+                      fontSize: '60px'
+                    }}
+                  >
+                    243
+                  </div>
                 </Col>
                 <Col span={12}>
-                  <div style={{ fontSize: "22px" }}>Chunks or Blocks Processed</div>
-                </Col>
-              </Row>
-            </Col>
-            <Col span={6}>
-              <Row>
-                <Col span={12}>
-                  <div style={{ textAlign: "center", color: "#ff4d4f", fontSize: "60px" }}>321</div>
-                </Col>
-                <Col span={12}>
-                  <div style={{ fontSize: "22px" }}>(Current / Actual) Remaining</div>
-                </Col>
-              </Row>
-            </Col>
-            <Col span={6}>
-              <Row>
-                <Col span={12}>
-                  <div style={{ textAlign: "center", color: "#bae637", fontSize: "60px" }}>123</div>
-                </Col>
-                <Col span={12}>
-                  <div style={{ fontSize: "22px" }}>A + B</div>
+                  <div style={{ fontSize: '22px' }}>
+                    Chunks or Blocks Processed
+                  </div>
                 </Col>
               </Row>
             </Col>
             <Col span={6}>
               <Row>
                 <Col span={12}>
-                  <div style={{ textAlign: "center", color: "#ffc53d", fontSize: "60px" }}>4323</div>
+                  <div
+                    style={{
+                      textAlign: 'center',
+                      color: '#ff4d4f',
+                      fontSize: '60px'
+                    }}
+                  >
+                    321
+                  </div>
                 </Col>
                 <Col span={12}>
-                  <div style={{ fontSize: "22px" }}>Errors / Retries</div>
+                  <div style={{ fontSize: '22px' }}>
+                    (Current / Actual) Remaining
+                  </div>
+                </Col>
+              </Row>
+            </Col>
+            <Col span={6}>
+              <Row>
+                <Col span={12}>
+                  <div
+                    style={{
+                      textAlign: 'center',
+                      color: '#bae637',
+                      fontSize: '60px'
+                    }}
+                  >
+                    123
+                  </div>
+                </Col>
+                <Col span={12}>
+                  <div style={{ fontSize: '22px' }}>A + B</div>
+                </Col>
+              </Row>
+            </Col>
+            <Col span={6}>
+              <Row>
+                <Col span={12}>
+                  <div
+                    style={{
+                      textAlign: 'center',
+                      color: '#ffc53d',
+                      fontSize: '60px'
+                    }}
+                  >
+                    4323
+                  </div>
+                </Col>
+                <Col span={12}>
+                  <div style={{ fontSize: '22px' }}>Errors / Retries</div>
                 </Col>
               </Row>
             </Col>
           </Row>
         </Card>
-
 
         <Card title="task detail" className={styles['task-detail']}>
           <Row>
@@ -493,47 +546,77 @@ class TaskDetail extends Component {
             <Col span={6}>
               <Row>
                 <Col span={12}>
-                  <div style={{ textAlign: "center", color: "#36cfc9", fontSize: "60px" }}>243</div>
+                  <div
+                    style={{
+                      textAlign: 'center',
+                      color: '#36cfc9',
+                      fontSize: '60px'
+                    }}
+                  >
+                    243
+                  </div>
                 </Col>
                 <Col span={12}>
-                  <div style={{ fontSize: "22px" }}>Actice Instances</div>
-                </Col>
-              </Row>
-            </Col>
-            <Col span={6}>
-              <Row>
-                <Col span={12}>
-                  <div style={{ textAlign: "center", color: "#ff4d4f", fontSize: "60px" }}>321</div>
-                </Col>
-                <Col span={12}>
-                  <div style={{ fontSize: "22px" }}>Completed Instances</div>
+                  <div style={{ fontSize: '22px' }}>Actice Instances</div>
                 </Col>
               </Row>
             </Col>
             <Col span={6}>
               <Row>
                 <Col span={12}>
-                  <div style={{ textAlign: "center", color: "#bae637", fontSize: "60px" }}>123</div>
+                  <div
+                    style={{
+                      textAlign: 'center',
+                      color: '#ff4d4f',
+                      fontSize: '60px'
+                    }}
+                  >
+                    321
+                  </div>
                 </Col>
                 <Col span={12}>
-                  <div style={{ fontSize: "22px" }}>Paused Instances</div>
+                  <div style={{ fontSize: '22px' }}>Completed Instances</div>
                 </Col>
               </Row>
             </Col>
             <Col span={6}>
               <Row>
                 <Col span={12}>
-                  <div style={{ textAlign: "center", color: "#ffc53d", fontSize: "60px" }}>4323</div>
+                  <div
+                    style={{
+                      textAlign: 'center',
+                      color: '#bae637',
+                      fontSize: '60px'
+                    }}
+                  >
+                    123
+                  </div>
                 </Col>
                 <Col span={12}>
-                  <div style={{ fontSize: "22px" }}>Peak Instances</div>
+                  <div style={{ fontSize: '22px' }}>Paused Instances</div>
+                </Col>
+              </Row>
+            </Col>
+            <Col span={6}>
+              <Row>
+                <Col span={12}>
+                  <div
+                    style={{
+                      textAlign: 'center',
+                      color: '#ffc53d',
+                      fontSize: '60px'
+                    }}
+                  >
+                    4323
+                  </div>
+                </Col>
+                <Col span={12}>
+                  <div style={{ fontSize: '22px' }}>Peak Instances</div>
                 </Col>
               </Row>
             </Col>
           </Row>
         </Card>
-
-
 
         <Card className={styles['task-detail']}>
           <Row>
@@ -562,7 +645,7 @@ class TaskDetail extends Component {
           </Row>
         </Card>
 
-        <Card className={styles['task-detail']}>
+        {/* <Card className={styles['task-detail']}>
           <Row>
             <Col span={24}>
               <Text>List of tasks in job</Text>
@@ -576,9 +659,9 @@ class TaskDetail extends Component {
               <Button>Watch</Button>
             </Col>
           </Row>
-        </Card>
+        </Card> */}
 
-        <Card className={styles['task-detail']}>
+        {/* <Card className={styles['task-detail']}>
           <Row>
             <Col span={24}>
               <Text>Selected task detail</Text>
@@ -603,7 +686,7 @@ class TaskDetail extends Component {
               <Button>Watch</Button>
             </Col>
           </Row>
-        </Card>
+        </Card> */}
 
         <Card className={styles['task-detail']}>
           <Row>
