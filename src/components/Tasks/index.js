@@ -11,6 +11,8 @@ import PieChart from '../PieChart';
 import BarChart from '../BarChart';
 
 import styles from './styles.scss';
+import ActiveTaskTable from './ActiveTaskTable';
+import ErrorTable from './ErrorTable';
 class Tasks extends Component {
   static propTypes = {
     onClickDetail: func,
@@ -614,8 +616,6 @@ class Tasks extends Component {
     onClickDetail(payload);
   };
   onClickPieChart = (data, index) => {
-    console.log('data', data);
-    console.log('index', index);
     const { activeIndex } = this.state;
     const filterBarChart = data.payload.payload.key;
     if (activeIndex || activeIndex === 0) {
@@ -798,6 +798,8 @@ class Tasks extends Component {
             };
           }}
         /> */}
+        <ActiveTaskTable type={filterBarChart} />
+        <ErrorTable />
       </Fragment>
     );
   }

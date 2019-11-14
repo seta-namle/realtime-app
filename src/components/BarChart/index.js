@@ -11,11 +11,13 @@ import {
   Line,
   ComposedChart
 } from 'recharts';
-import { Card } from 'antd';
+import { Card, Typography } from 'antd';
 import PropTypes from 'prop-types';
 import styles from './styles.scss';
+const { Text } = Typography;
 const BarChartComponent = ({ data }) => (
   <Card className={styles['card-chart']}>
+  <Text>Tasks by status</Text>
     <ResponsiveContainer width="100%" height={350}>
       <ComposedChart
         data={data}
