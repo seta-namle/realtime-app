@@ -1,4 +1,4 @@
-$sidebarwidth: 220;
+$sidebarwidth: 250;
 $background: #2d3446;
 :export {
   // stylelint-disable
@@ -9,9 +9,14 @@ $background: #2d3446;
 .sider {
   background: $background !important;
   margin-top: 60px;
+  height: calc(100% - 108px) !important;
 
   .ant-layout-sider-trigger {
     background: $background !important;
+  }
+
+  svg {
+    margin-bottom: 6px;
   }
 }
 

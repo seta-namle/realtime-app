@@ -1,160 +1,160 @@
 const options = [
   {
-    key: 'watch',
-    label: 'Watch',
-    leftIcon: 'ion-android-mail'
+    key: 'home',
+    label: 'Home',
+    leftIcon: 'home'
   },
   {
-    key: 'performance',
-    label: 'Performance',
-    leftIcon: 'ion-android-mail',
+    key: 'tag',
+    label: 'Tagged',
+    leftIcon: 'tags'
   },
   {
     key: 'processing',
     label: 'Processing',
-    leftIcon: 'ion-bag',
+    leftIcon: 'sync',
     children: [
       {
+        key: 'organizations',
+        label: 'Organizations'
+      },
+      {
         key: 'jobs',
-        label: 'Jobs',
+        label: 'Jobs'
       },
       {
         key: 'tasks',
-        label: 'Tasks',
+        label: 'Tasks'
       },
       {
-        key: 'organizations',
-        label: 'Organizations',
+        key: 'priority',
+        label: 'Priority'
       }
-    ],
-  },
-  {
-    key: 'priority',
-    label: 'Priority',
-    leftIcon: 'ion-android-mail',
+    ]
   },
   {
     key: 'servers',
     label: 'Servers',
-    leftIcon: 'ion-android-mail',
+    leftIcon: 'cloud-server'
   },
   {
     key: 'aiEngines',
     label: 'AI Engines',
-    leftIcon: 'ion-map',
+    leftIcon: 'deployment-unit',
     children: [
       {
         key: 'activity',
-        label: 'Activity',
+        label: 'Activity'
       },
       {
         key: 'repository',
-        label: 'Repository',
-      },
-    ],
+        label: 'Repository'
+      }
+    ]
   },
   {
     key: 'database',
     label: 'Database',
-    leftIcon: 'ion-clipboard',
+    leftIcon: 'database'
   },
   {
     key: 'userManagement',
     label: 'User Management',
-    leftIcon: 'ion-fireball',
+    leftIcon: 'team',
 
     children: [
       {
         key: 'users',
-        label: 'Users',
+        label: 'Users'
       },
       {
         key: 'tokens',
-        label: 'Tokens',
-      },
-    ],
+        label: 'Tokens'
+      }
+    ]
   },
   {
     key: 'errors',
     label: 'Errors',
-    leftIcon: 'ion-fireball',
+    leftIcon: 'close-circle',
 
     children: [
       {
         key: 'task',
-        label: 'Task',
+        label: 'Task'
       },
       {
         key: 'organzination',
-        label: 'Organzination',
-      },
-    ],
+        label: 'Organzination'
+      }
+    ]
   },
   {
     key: 'services',
     label: 'Services',
-    leftIcon: 'ion-arrow-graph-up-right',
+    leftIcon: 'cloud',
     children: [
       {
         key: 'unassigned',
-        label: 'Unassigned',
+        label: 'Unassigned'
       },
       {
         key: 'controller',
-        label: 'Controller',
+        label: 'Controller'
       },
       {
         key: 'db',
-        label: 'DB',
+        label: 'DB'
       },
       {
         key: 'engine',
-        label: 'Engine',
+        label: 'Engine'
       },
       {
         key: 'repository',
-        label: 'Repository',
-      }, {
-        key: 'agent',
-        label: 'Agent',
+        label: 'Repository'
       },
-    ],
+      {
+        key: 'agent',
+        label: 'Agent'
+      }
+    ]
   },
   {
     key: 'logs',
     label: 'Logs',
-    leftIcon: 'ion-clipboard',
+    leftIcon: 'info-circle'
   },
   {
-    key: 'congiguration',
-    label: 'Congiguration',
-    leftIcon: 'ion-android-mail',
+    key: 'configuration',
+    label: 'Configuration',
+    leftIcon: 'setting',
     children: [
       {
-        key: 'aiengines',
-        label: 'AI Engines',
+        key: 'deployment',
+        label: 'Deployment'
       },
       {
-        key: 'services',
-        label: 'Services',
+        key: 'subAIEngine',
+        label: 'AI Engines'
       },
       {
-        key: 'cloud',
-        label: 'Cloud',
+        key: 'subServices',
+        label: 'Services'
       },
       {
         key: 'access',
-        label: 'Access',
+        label: 'Access'
       },
       {
         key: 'adminui',
-        label: 'Admin Ui',
+        label: 'Admin Ui'
       },
       {
         key: 'syslog',
-        label: 'Syslog',
-      },
-    ],
+        label: 'Syslog'
+      }
+    ]
   }
 ];
 export default options;
