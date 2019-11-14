@@ -1,12 +1,12 @@
 const options = [
   {
-    key: 'watch',
-    label: 'Watch',
+    key: 'home',
+    label: 'Home',
     leftIcon: 'ion-android-mail'
   },
   {
-    key: 'performance',
-    label: 'Performance',
+    key: 'tagged',
+    label: 'Tagged',
     leftIcon: 'ion-android-mail',
   },
   {

@@ -1,7 +1,7 @@
 {
-  "apiRoot": "https://api.aws-dev.veritone.com",
-  "switchAppRoute": "https://www.aws-dev.veritone.com/switch-app",
-  "loginRoute": "https://www.aws-dev.veritone.com/login/#",
+  "apiRoot": "https://api.stage.veritone.com",
+  "switchAppRoute": "https://www.stage.veritone.com/switch-app",
+  "loginRoute": "https://www.stage.veritone.com/login/#",
   "graphQLEndpoint": "v3/graphql",
   "OAuthClientID": "8b3eac1c-5150-448e-8d99-fb7b860e7e41",
   "pendoKey": null,
