@@ -4,7 +4,8 @@
       "name": "Server 1",
       "transcription": 4000,
       "faceDetection": 1200,
-      "translation": 2400
+      "translation": 2400,
+      "total": 7600
     },
     {
       "name": "Server 2",

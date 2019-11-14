@@ -1,13 +1,15 @@
 import React, { Component, Fragment } from 'react';
 import 'antd/dist/antd.css';
-import { Table, Progress } from 'antd';
+import { Table, Progress, Input, Select, Icon, Row, Col } from 'antd';
 import { connect } from 'react-redux';
 import { func, string } from 'prop-types';
 import { ON_CLICK_DETAIL } from '../../state/modules/sideBar';
 import { selectCurrentRoutePayload } from 'state/modules/routing';
+import { getInitialTaskIntance } from 'state/modules/sideBar';
 import JobDetail from './TaskDetail';
 import PerformanceChart from './PerformanceChart';
 import PerformanceData from './PerformanceChart.json';
+const { Option } = Select;
 class Tasks extends Component {
   static propTypes = {
     onClickDetail: func,
@@ -15,40 +17,9 @@ class Tasks extends Component {
     taskId: string
   };
   state = {
-    activeInstanceData: [
-      {
-        key: '123-466-789',
-        task_type: 'All',
-        color: '',
-        total: 120000,
-        percentage_total: 100,
-        unique_build: 78
-      },
-      {
-        key: '123-466-123',
-        task_type: 'transcription',
-        color: <Progress strokeColor="#ff7f7f" percent={54} showInfo={false} />,
-        total: 12000,
-        percentage_total: 54,
-        unique_build: 3
-      },
-      {
-        key: '123-466-536',
-        task_type: 'faceDetection',
-        color: <Progress strokeColor="#7fbf7f" percent={12} showInfo={false} />,
-        total: 3100,
-        percentage_total: 12,
-        unique_build: 1
-      },
-      {
-        key: '123-466-878',
-        task_type: 'translation',
-        color: <Progress strokeColor="#6666ff" percent={42} showInfo={false} />,
-        total: 26000,
-        percentage_total: 42,
-        unique_build: 12
-      }
-    ]
+    chartData: PerformanceData.data,
+    activeInstanceData: [],
+    selectedLegend: 'all'
   };
 
   onClickRow = value => {
@@ -99,6 +70,37 @@ class Tasks extends Component {
       }
     }, []);
     this.setState({ activeInstanceData: tableData });
+  };
+
+  handleSortChange = (value, options) => {
+    const data = [...this.state.chartData];
+    if (value === 'ascending') {
+      this.setState({
+        chartData: data.sort((a, b) => a.total - b.total)
+      });
+    } else {
+      this.setState({
+        chartData: data.sort((a, b) => b.total - a.total)
+      });
+    }
+  };
+  handleClickLegend = data => {
+    const { id } = data;
+    const activeItem = this.props.initialInstanceData.filter(
+      item => item.task_type === id
+    );
+    console.log('aciveItem', activeItem);
+    let activeInstanceData = this.props.initialInstanceData;
+    if (activeItem.length) {
+      activeInstanceData = PerformanceData.data.reduce((result, value) => {
+        result[0].total += value[id];
+        return result;
+      }, activeItem);
+    }
+    this.setState({
+      activeInstanceData,
+      selectedLegend: id
+    });
   };
 
   render() {
@@ -211,15 +213,38 @@ class Tasks extends Component {
               }
             };
           }}
+          pagination={false}
         />
+        <Row>
+          <Col span={16} />
+
+          <Col span={8}>
+            <Input.Group compact suffix={<Icon type="caret-up" />}>
+              <Select
+                style={{ width: '100%' }}
+                defaultValue="Sort"
+                onChange={this.handleSortChange}
+              >
+                <Option value="ascending">Ascending</Option>
+                <Option value="descending">Descending</Option>
+              </Select>
+            </Input.Group>
+          </Col>
+        </Row>
         <PerformanceChart
-          data={PerformanceData.data}
+          data={this.state.chartData}
           onClick={this.handleSelectBar}
+          onClickLegend={this.handleClickLegend}
+          selectedLegend={this.state.selectedLegend}
         />
         <Table
           rowSelection={rowSelection}
           columns={activeInstanceColumn}
-          dataSource={this.state.activeInstanceData}
+          dataSource={
+            this.state.activeInstanceData.length
+              ? this.state.activeInstanceData
+              : this.props.initialInstanceData
+          }
         />
       </Fragment>
     );
@@ -228,7 +253,8 @@ class Tasks extends Component {
 export default connect(
   state => ({
     tabName: selectCurrentRoutePayload(state).tabName,
-    taskId: selectCurrentRoutePayload(state).id
+    taskId: selectCurrentRoutePayload(state).id,
+    initialInstanceData: getInitialTaskIntance(state)
   }),
   {
     onClickDetail: payload => ({
