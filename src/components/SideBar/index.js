@@ -1,6 +1,6 @@
 import React from 'react';
 import 'antd/dist/antd.css';
-import { Layout, Menu, Breadcrumb, Icon } from 'antd';
+import { Layout, Menu, Breadcrumb, Icon, Select, Row, Col } from 'antd';
 import styles from './styles.scss';
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
@@ -9,6 +9,7 @@ import options from './options';
 import { connect } from 'react-redux';
 import { selectCurrentRoutePayload } from '../../state/modules/routing';
 import { ON_CLICK_MENU } from '../../state/modules/sideBar';
+const { Option } = Select;
 class SideBar extends React.Component {
   static propTypes = {
     onClickMenu: func,
@@ -90,26 +91,43 @@ class SideBar extends React.Component {
         <Layout style={{ marginLeft: 200 }}>
           <Header style={{ background: '#fff', padding: 0 }} />
           <Content style={{ margin: '24px 16px 0', overflow: 'initial' }}>
-            <Breadcrumb style={{ margin: '16px 0' }}>
-              <Breadcrumb.Item
-                onClick={this.onClickBreadCrumb}
-                data-name={'/'}
-              >{`Home`}</Breadcrumb.Item>
-              {routePayload.tabName && (
-                <Breadcrumb.Item
-                  onClick={this.onClickBreadCrumb}
-                  data-name={routePayload.tabName}
-                >
-                  {routePayload.tabName}
-                </Breadcrumb.Item>
-              )}
-              {routePayload.id && (
-                <Breadcrumb.Item>{`${routePayload.tabName} detail: ${
-                  routePayload.id
-                }`}</Breadcrumb.Item>
-              )}
-            </Breadcrumb>
-            <div>{children}</div>
+
+
+
+            <Row>
+              <Col span={20}>
+                <Breadcrumb style={{ margin: '16px 0' }}>
+                  <Breadcrumb.Item
+                    onClick={this.onClickBreadCrumb}
+                    data-name={'/'}
+                  >{`Home`}</Breadcrumb.Item>
+                  {routePayload.tabName && (
+                    <Breadcrumb.Item
+                      onClick={this.onClickBreadCrumb}
+                      data-name={routePayload.tabName}
+                    >
+                      {routePayload.tabName}
+                    </Breadcrumb.Item>
+                  )}
+                  {routePayload.id && (
+                    <Breadcrumb.Item>{`${routePayload.tabName} detail: ${
+                      routePayload.id
+                      }`}</Breadcrumb.Item>
+                  )}
+                </Breadcrumb>
+              </Col>
+
+              <Col span={4}>
+                <Select defaultValue="12h" style={{ width: '100%' }}>
+                  <Option value="12h">12 hrs</Option>
+                </Select>
+              </Col>
+            </Row>
+            <Row>
+              {children}
+            </Row>
+
+
           </Content>
           <Footer style={{ textAlign: 'center' }}>Veritone ©2019</Footer>
         </Layout>
