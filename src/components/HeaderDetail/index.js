@@ -2,11 +2,11 @@ import React from 'react';
 import { Card, Row, Col, Typography, Progress } from 'antd';
 const { Title, Text } = Typography;
 import Proptypes from 'prop-types';
-const HeaderDetail = ({ taskId, title, processValue, processTime }) => (
+const HeaderDetail = ({ id, title, processValue, processTime }) => (
     <Card>
         <Row>
             <Col span={18}>
-                <Title level={3}>{taskId}</Title>
+                <Title level={3}>{id}</Title>
                 <Text>{title}</Text>
             </Col>
             <Col span={6}>
@@ -18,7 +18,7 @@ const HeaderDetail = ({ taskId, title, processValue, processTime }) => (
     </Card>
 )
 HeaderDetail.propTypes = {
-    taskId: Proptypes.string,
+    id: Proptypes.string,
     title: Proptypes.string,
     processValue: Proptypes.string,
     processTime: Proptypes.string

@@ -70,29 +70,12 @@ class Jobs extends Component {
     ];
     const { jobId } = this.props;
     if (jobId) {
-      return <JobDetail />;
+      return <JobDetail jobId={jobId} />;
     }
-
-    // rowSelection object indicates the need for row selection
-    const rowSelection = {
-      onChange: (selectedRowKeys, selectedRows) => {
-        console.log(
-          `selectedRowKeys: ${selectedRowKeys}`,
-          'selectedRows: ',
-          selectedRows
-        );
-      },
-      getCheckboxProps: record => ({
-        disabled: record.name === 'Disabled User', // Column configuration not to be checked
-        name: record.name
-      })
-    };
-
     return (
       <Fragment>
         JOBS
         <Table
-          rowSelection={rowSelection}
           columns={columns}
           dataSource={data}
           onRow={(record, rowIndex) => {

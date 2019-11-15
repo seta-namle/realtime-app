@@ -26,25 +26,10 @@ import { ON_CLICK_DETAIL } from '../../../state/modules/sideBar';
 import { selectCurrentRoutePayload } from 'state/modules/routing';
 import { func, number, bool, arrayOf, object } from 'prop-types';
 const { Title, Text } = Typography;
+import HeaderDetail from '../../HeaderDetail';
 import styles from './styles.scss';
 
-const JobStatusComponent = ({ percent = 20 }) => {
-  return (
-    <div>
-      <Row gutter={10} style={{ paddingLeft: 3 }}>
-        <div style={{ fontSize: 25, color: '#52c41a' }}>{percent}%</div>
-        <div style={{ fontSize: 15 }}>completed</div>
-      </Row>
-      <Row>
-        <Progress percent={percent} showInfo={false} strokeColor="#52c41a" />
-      </Row>
-    </div>
-  );
-};
 
-JobStatusComponent.propTypes = {
-  percent: number
-};
 
 const ErrorModal = ({
   handleOk,
@@ -298,20 +283,15 @@ class JobDetail extends Component {
       }
     ];
 
-    const listErrors = [];
+    const {jobId} = this.props.jobId;
     return (
       <Fragment>
-        <Card>
-          <Row gutter={20}>
-            <Col span={18}>
-              <Title level={3}>123456789-897-789</Title>
-              <Text>JobId</Text>
-            </Col>
-            <Col span={6}>
-              <JobStatusComponent />
-            </Col>
-          </Row>
-        </Card>
+        <HeaderDetail
+          taskId={jobId}
+          title={`Task Instance Id`}
+          processValue={`64.89%`}
+          processTime={`1m31sec ETC`}
+        />
         <Card className={styles['task-detail']}>
           <Row>
             <Col span={24}>
