@@ -8,12 +8,14 @@ import Tasks from 'components/Tasks';
 import DashBoard from 'components/DashBoard';
 import { string } from 'prop-types';
 import styles from './styles.scss';
+import Login from 'components/Login';
 class Home extends React.Component {
   static propTypes = {
     routeTab: string
   };
   render() {
     const TabComponent = {
+      loginPath: Login,
       jobs: Jobs,
       tasks: Tasks,
       home: DashBoard

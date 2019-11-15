@@ -222,32 +222,6 @@ class Tasks extends Component {
         dataIndex: 'expand_row_link'
       }
     ];
-    const data = [
-      {
-        key: '123456789-897-789',
-        name: 'Tasks demo 1',
-        status: 'Complete',
-        date: 'Fri Nov 8 2019 10:19:48'
-      },
-      {
-        key: '123456789-897-787',
-        name: 'Tasks demo 2',
-        status: 'Complete',
-        date: 'Fri Nov 8 2019 10:19:48'
-      },
-      {
-        key: '123456789-897-987',
-        name: 'Tasks demo 3',
-        status: 'Complete',
-        date: 'Fri Nov 8 2019 10:19:48'
-      },
-      {
-        key: '123456789-897-888',
-        name: 'Tasks demo 4',
-        status: 'Complete',
-        date: 'Fri Nov 8 2019 10:19:48'
-      }
-    ];
 
     // rowSelection object indicates the need for row selection
     const rowSelection = {
