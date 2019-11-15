@@ -337,13 +337,27 @@ class Tasks extends Component {
       { name: 'Page F', uv: 2390, pv: 3800, amt: 2500 },
       { name: 'Page G', uv: 3490, pv: 4300, amt: 2100 }
     ];
-    const dataPieChart = [
+    const activeDataPieChart = [
       { name: 'Translation', value: 5231, key: 'translation' },
       { name: 'Face Detection', value: 4236, key: 'faceDetection' },
       { name: 'Transcription', value: 25380, key: 'transcription' },
       { name: 'Logo Recognition ', value: 4274, key: 'logoRecognition' },
       { name: 'License Plate (ALPR)', value: 3200, key: 'licensePlate' }
     ];
+    const completeDataPieChart = [
+        { name: 'Translation', value: 15231, key: 'translation' },
+        { name: 'Face Detection', value: 4236, key: 'faceDetection' },
+        { name: 'Transcription', value: 72380, key: 'transcription' },
+        { name: 'Logo Recognition ', value: 4153, key: 'logoRecognition' },
+        { name: 'License Plate (ALPR)', value: 3200, key: 'licensePlate' }
+      ];
+      const errorDataPieChart = [
+        { name: 'Translation', value: 531, key: 'translation' },
+        { name: 'Face Detection', value: 236, key: 'faceDetection' },
+        { name: 'Transcription', value: 538, key: 'transcription' },
+        { name: 'Logo Recognition ', value: 95, key: 'logoRecognition' },
+        { name: 'License Plate (ALPR)', value: 100, key: 'licensePlate' }
+      ];
     const colors = ['#48a5a8', '#616d82', '#ef7c4d', '#ec4258', '#57d094'];
 
     const { taskId } = this.props;
@@ -386,7 +400,7 @@ class Tasks extends Component {
         <Row gutter={[10, 10]}>
           <Col span={8}>
             <PieChart
-              data={dataPieChart}
+              data={activeDataPieChart}
               colors={colors}
               title={`Active tasks by engine category`}
               onClick={this.onClickPieChart}
@@ -397,7 +411,7 @@ class Tasks extends Component {
           </Col>
           <Col span={8}>
             <PieChart
-              data={dataPieChart}
+              data={completeDataPieChart}
               colors={colors}
               title={`Completed tasks by engine category`}
               onClick={this.onClickPieChart}
@@ -408,7 +422,7 @@ class Tasks extends Component {
           </Col>
           <Col span={8}>
             <PieChart
-              data={dataPieChart}
+              data={errorDataPieChart}
               colors={colors}
               title={`Task errors by engine category`}
               onClick={this.onClickPieChart}
