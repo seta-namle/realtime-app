@@ -14,9 +14,9 @@ import { Card, Typography } from 'antd';
 import PropTypes from 'prop-types';
 import styles from './styles.scss';
 const { Text } = Typography;
-const BarChartComponent = ({ data, type, dataBar, onClickLegend, legendPayload }) => (
+const BarChartComponent = ({ data, type, dataBar, onClickLegend, legendPayload, title }) => (
   <Card className={styles['card-chart']}>
-    <Text>{type} tasks by status</Text>
+    <Text>{`${type} ${title}`}</Text>
     <ResponsiveContainer width="100%" height={350}>
       <ComposedChart
         data={data}
@@ -44,6 +44,7 @@ BarChartComponent.propTypes = {
   type: PropTypes.string,
   dataBar: PropTypes.arrayOf(PropTypes.shape({})),
   onClickLegend: PropTypes.func,
-  legendPayload: PropTypes.arrayOf(PropTypes.shape({}))
+  legendPayload: PropTypes.arrayOf(PropTypes.shape({})),
+  title: PropTypes.string
 };
 export default BarChartComponent;

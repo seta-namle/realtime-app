@@ -283,14 +283,15 @@ class JobDetail extends Component {
       }
     ];
 
-    const {jobId} = this.props.jobId;
+    const {jobId} = this.props;
+    console.log('jobIdsdadasd', jobId)
     return (
       <Fragment>
         <HeaderDetail
-          taskId={jobId}
-          title={`Task Instance Id`}
+          id={jobId}
+          title={`Job Id`}
           processValue={`64.89%`}
-          processTime={`1m31sec ETC`}
+          processTime={`Complete`}
         />
         <Card className={styles['task-detail']}>
           <Row>
@@ -413,7 +414,7 @@ class JobDetail extends Component {
 export default connect(
   state => ({
     tabName: selectCurrentRoutePayload(state).tabName,
-    jobId: selectCurrentRoutePayload(state).id
+    //jobId: selectCurrentRoutePayload(state).id
   }),
   {
     onClickDetail: payload => ({
