@@ -99,10 +99,12 @@ class Tasks extends Component {
   //   })
   // }
 
-  handleSelectBar = (data, index) => {
+  handleSelectBar = data => {
     const { transcription, faceDetection, translation } = data.payload;
     const totalNum = transcription + faceDetection + translation;
-    const holder = [...this.state.activeInstanceData];
+    const { activeInstanceData } = this.state;
+    const { initialInstanceData } = this.props;
+    const holder = activeInstanceData.length ? [...activeInstanceData] : initialInstanceData;
     const tableData = holder.reduce((acc, value, index) => {
       if (value.task_type === 'All') {
         const all = {
