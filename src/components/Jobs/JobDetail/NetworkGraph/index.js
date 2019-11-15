@@ -16,10 +16,7 @@ const NetworkGraph = () => {
     };
 
     const options = {
-        edges: {
-            shape: "circle"
-        },
-        height: "500px"
+        height: "220px"
     };
 
     const events = {

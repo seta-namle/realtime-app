@@ -139,11 +139,11 @@ class JobDetail extends Component {
     });
   };
 
-  onClickTaskRow = (task = { id: 0 }) => {
+  onClickTaskRow = (value) => {
     const { onClickDetail } = this.props;
     const payload = {
       tabName: 'tasks',
-      id: 10
+      id: '19114508_pCJAAcUsmKkHwNA'
     };
     onClickDetail(payload);
   };
@@ -170,34 +170,6 @@ class JobDetail extends Component {
         mem: 9800,
         gpu: 1200,
         byteWrittenErrors: 2290
-      },
-      {
-        name: 'Task 4',
-        cpu: 2780,
-        mem: 3908,
-        gpu: 200,
-        byteWrittenErrors: 2000
-      },
-      {
-        name: 'Task 5',
-        cpu: 1890,
-        mem: 4800,
-        gpu: 1000,
-        byteWrittenErrors: 2181
-      },
-      {
-        name: 'Task 6',
-        cpu: 2390,
-        mem: 3800,
-        gpu: 1200,
-        byteWrittenErrors: 2500
-      },
-      {
-        name: 'Task 7',
-        cpu: 3490,
-        mem: 4300,
-        gpu: 1200,
-        byteWrittenErrors: 2100
       }
     ];
     const columns = [
@@ -231,47 +203,21 @@ class JobDetail extends Component {
       {
         key: '3',
         name: 'Tasks demo 3',
-        status: 'Complete',
-        date: 'Fri Nov 8 2019 10:19:48'
-      },
-      {
-        key: '4',
-        name: 'Tasks demo 4',
-        status: 'Complete',
+        status: 'Running',
         date: 'Fri Nov 8 2019 10:19:48'
       }
     ];
     const dataJobDetail = [
       {
-        name: 'Task Id',
-        value: '10'
-      },
-      {
-        name: 'Task Name',
-        value: 'Task Demo 1'
-      },
-      {
         name: 'Job Id',
-        value: '10'
+        value: this.props.jobId
       },
       {
-        name: 'Task Engine Type',
-        value: 'Task Engine Type'
-      },
-      {
-        name: 'Task Engine Type',
-        value: '10'
+        name: 'Engine Type',
+        value: 'Engine Type'
       },
       {
         name: 'Schedule Start Time',
-        value: '10'
-      },
-      {
-        name: 'Parent Task Id',
-        value: '10'
-      },
-      {
-        name: 'Child Task Id',
         value: '10'
       },
       {
@@ -285,7 +231,6 @@ class JobDetail extends Component {
     ];
 
     const {jobId} = this.props;
-    console.log('jobIdsdadasd', jobId)
     return (
       <Fragment>
         <HeaderDetail
@@ -314,9 +259,12 @@ class JobDetail extends Component {
                 })}
               </Descriptions>{' '}
             </Col>
+            
             <Col span={12}>
-              {/* <Text>Log file output</Text> <br /> */}
-              <NetworkGraph/>
+            <Card>
+            <NetworkGraph/>
+            </Card>
+          
             </Col>
             <Col span={24} className={styles['task-detail-action']}>
               <Button type="primary">Export</Button>
@@ -325,6 +273,8 @@ class JobDetail extends Component {
             </Col>
           </Row>
         </Card>
+
+        
         <Card className={styles['task-detail']}>
           <Row>
             <Col span={24}>
@@ -342,7 +292,17 @@ class JobDetail extends Component {
             </Col>
 
             <Col span={24} className={styles['task-detail-left']}>
-              <Table columns={columns} dataSource={data} />
+              <Table 
+              columns={columns} 
+              dataSource={data} 
+              onRow={(record, rowIndex) => {
+                return {
+                  onClick: () => {
+                    this.onClickTaskRow(record);
+                  }
+                };
+              }}
+               />
             </Col>
             <Col span={24} className={styles['task-detail-action']}>
               <Button type="primary">Export</Button>
