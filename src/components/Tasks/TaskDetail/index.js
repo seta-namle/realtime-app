@@ -7,7 +7,7 @@ import { BarChart, Bar, Cell } from 'recharts';
 
 import { Chart } from 'react-google-charts';
 import DashBoardCard from '../../Cards';
-import ErrorTable from '../ErrorTable';
+import ErrorListTable from '../../ErrorListTable';
 import TaskDetailTable from './TaskDetailTable';
 import JobDetailTable from '../../Jobs/JobDetail/JobDetailTable';
 import ListOfWorkRequestsTable from './ListOfWorkRequestsTable';
@@ -341,7 +341,7 @@ class TaskDetail extends Component {
 
         <JobDetailTable />
 
-        <ErrorTable filter={{ field: 'taskId', value: taskId }} />
+        <ErrorListTable filter={{ field: 'taskId', value: taskId }} />
       </Fragment>
     );
   }

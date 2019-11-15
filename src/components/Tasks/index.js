@@ -12,7 +12,7 @@ import PieChart from '../PieChart';
 import BarChart from '../BarChart';
 import styles from './styles.scss';
 import ActiveTaskTable from './ActiveTaskTable';
-import ErrorTable from './ErrorTable';
+import ErrorListTable from '../ErrorListTable';
 import PerformanceChart from './PerformanceChart';
 import PerformanceData from './PerformanceChart.json';
 const { Option } = Select;
@@ -479,7 +479,7 @@ class Tasks extends Component {
           />
         </Card>
 
-        <ErrorTable />
+        <ErrorListTable />
       </Fragment>
     );
   }

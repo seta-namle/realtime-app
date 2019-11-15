@@ -1,85 +1,12 @@
 import React, { Component } from 'react';
 import 'antd/dist/antd.css';
 import { Card, Table, Button, Modal, Row, Col, Descriptions } from 'antd';
-import styles from './TaskDetail/styles.scss';
-class ErrorTable extends Component {
+import styles from './styles.scss';
+import data from './data_mock';
+class ErrorListTable extends Component {
   state = {
     visible: false,
-    dataModal: [],
-    data: [
-      {
-        key: 'error1',
-        errorId: 'error1',
-        errorCode: 'errorCode1',
-        errorSourceType: 'Audio',
-        sourceId: '66053',
-        severity: 'Normal',
-        timestamp: 'Fri Nov 8 3039 30:39:48',
-        linkToDetails: 'link to details',
-        taskId: '19104324_5O1HkLY3ueRrOce',
-        jobId: '19104324_5O1HkLY3ue'
-      },
-      {
-        key: 'error2',
-        errorId: 'error2',
-        errorCode: 'errorCode2',
-        errorSourceType: 'Audio',
-        sourceId: '66053',
-        severity: 'Normal',
-        timestamp: 'Fri Nov 8 3039 30:39:48',
-        linkToDetails: 'link to details',
-        taskId: '19104324_5O1HkLY3ueRrOce',
-        jobId: '19104324_5O1HkLY3ue'
-      },
-      {
-        key: 'error3',
-        errorId: 'error3',
-        errorCode: 'errorCode3',
-        errorSourceType: 'Video',
-        sourceId: '66529',
-        severity: 'Normal',
-        timestamp: 'Fri Nov 8 3039 30:39:48',
-        linkToDetails: 'link to details',
-        taskId: '19104216_cjhoUa7SvlHAvj7',
-        jobId: '19104216_cjhoUa7Svl'
-      },
-      {
-        key: 'error4',
-        errorId: 'error4',
-        errorCode: 'errorCode4',
-        errorSourceType: 'Audio',
-        sourceId: '66528',
-        severity: 'Normal',
-        timestamp: 'Fri Nov 8 3039 30:39:48',
-        linkToDetails: 'link to details',
-        taskId: '19104215_LVx9IShCPLdXqli',
-        jobId: '19104215_LVx9IShCPL'
-      },
-      {
-        key: 'error5',
-        errorId: 'error5',
-        errorCode: 'errorCode5',
-        errorSourceType: 'Audio',
-        sourceId: '66528',
-        severity: 'Normal',
-        timestamp: 'Fri Nov 8 3039 30:39:48',
-        linkToDetails: 'link to details',
-        taskId: '19104215_LVx9IShCPLdXqli',
-        jobId: '19104215_LVx9IShCPL'
-      },
-      {
-        key: 'error6',
-        errorId: 'error6',
-        errorCode: 'errorCode6',
-        errorSourceType: 'Audio',
-        sourceId: '66528',
-        severity: 'Normal',
-        timestamp: 'Fri Nov 8 3039 30:39:48',
-        linkToDetails: 'link to details',
-        taskId: '19104215_LVx9IShCPLdXqli',
-        jobId: '19104215_LVx9IShCPL'
-      }
-    ]
+    dataModal: []
   };
   closeModal = e => {
     this.setState({
@@ -88,7 +15,7 @@ class ErrorTable extends Component {
   };
   showModal = e => {
     console.log(`event ${e.target}`);
-    const errorDetail = this.state.data.filter(
+    const errorDetail = data.filter(
       item => item.errorId == e.target.text
     )[0];
     const dataModal = [
@@ -143,9 +70,9 @@ class ErrorTable extends Component {
     const { filter } = this.props;
     if (filter) {
       const { field, value } = filter;
-      errorListData = this.state.data.filter(item => item[field] === value);
+      errorListData = data.filter(item => item[field] === value);
     } else {
-      errorListData = this.state.data;
+      errorListData = data;
     }
 
     const errorListTable = {
@@ -206,7 +133,7 @@ class ErrorTable extends Component {
           width="90%"
         >
           <Row>
-            <Col span={12} className={styles['task-detail-left']}>
+            <Col span={12}>
               <Descriptions
                 bordered
                 column={{ xxl: 1, xl: 1, lg: 1, md: 1, sm: 1, xs: 1 }}
@@ -220,10 +147,10 @@ class ErrorTable extends Component {
                 })}
               </Descriptions>
             </Col>
-            <Col span={12} className={styles['task-detail-right']}>
+            <Col span={12} className={styles['error-detail-right']}>
               <div>Log file output related to error</div> <br />
             </Col>
-            <Col span={24} className={styles['task-detail-action']}>
+            <Col span={24}>
               <Button type="primary">Export</Button>
               <Button>Assign</Button>
               <Button>Mute Error Code</Button>
@@ -234,4 +161,4 @@ class ErrorTable extends Component {
     );
   }
 }
-export default ErrorTable;
+export default ErrorListTable;
