@@ -14,13 +14,18 @@ const DashBoardCard = ({
   cardDes,
   cardValue,
   cardIcon,
-  type
+  type,
+  titleColor
 }) => {
   if (type === 'activeTasks') {
     return (
       <Card className={styles['card-dashboard-active']}>
         <div className={styles['card-dashboard-content']}>
-          <Title level={1} className={styles['card-title']}>
+          <Title
+            level={1}
+            className={styles['card-title']}
+            style={{ color: titleColor }}
+          >
             {formatNumber(cardTitle)}
           </Title>
           <Text>{cardDes}</Text>
@@ -67,6 +72,7 @@ DashBoardCard.propTypes = {
   cardDes: PropTypes.string,
   cardValue: PropTypes.string,
   cardIcon: PropTypes.string,
-  type: PropTypes.string
+  type: PropTypes.string,
+  titleColor: PropTypes.string
 };
 export default DashBoardCard;

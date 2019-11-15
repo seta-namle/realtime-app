@@ -355,19 +355,7 @@ class Tasks extends Component {
         <BarChart
           data={dataBarChart.filter(item => item.key === filterBarChart)}
         />
-        {/* TASKS
-        <Table
-          rowSelection={rowSelection}
-          columns={columns}
-          dataSource={data}
-          onRow={(record, rowIndex) => {
-            return {
-              onClick: event => {
-                this.onClickRow(record);
-              }
-            };
-          }}
-        /> */}
+
         <ActiveTaskTable type={filterBarChart} />
 
         <Card style={{ marginTop: 10 }}>
