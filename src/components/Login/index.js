@@ -10,6 +10,7 @@ class Login extends React.Component {
         this.props.form.validateFields((err, values) => {
             if (!err) {
                 console.log("Received values of form: ", values);
+                this.props.onLogin()
             }
         });
     };
@@ -53,7 +54,7 @@ class Login extends React.Component {
                                     initialValue: true
                                 })(<Checkbox>Remember me</Checkbox>)}
                                 <a className={style["login-form-forgot"]} href="">
-                                    Forgot password
+                                    Forgot password?
                             </a>
                                 <Button
                                     icon="key"
