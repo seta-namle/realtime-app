@@ -13,9 +13,10 @@ import { Table } from 'antd';
 const { Title, Text } = Typography;
 import { string } from 'prop-types';
 import styles from './styles.scss';
-import { BarChart, Bar, Cell } from 'recharts';
+import { BarChart, Bar } from 'recharts';
+import ComboChart from '../../ComboChart';
+import BoxStatisticChart from '../../BoxStatisticChart';
 
-import { Chart } from 'react-google-charts';
 class TaskDetail extends Component {
   static propTypes = {
     taskId: string
@@ -244,20 +245,19 @@ class TaskDetail extends Component {
       [new Date(2019, 11, 14, 23), 25, 34, 50, 67, 84]
     ];
 
-    const sameOptionPerformance = {
-      colors: ['#D98186', '#C2D4C1', '#ff704d', '#52527a', '#FEE2CB'],
-      series: {
-        0: { type: 'bars' },
-        2: { type: 'scatter' },
-        3: { type: 'line' }
-      },
-      isStacked: true,
-      bar: {
-        groupWidth: '97%'
-      },
-      areaOpacity: 1,
-      curveType: 'function'
+    const seriesPerformance = {
+      0: { type: 'bars' },
+      2: { type: 'scatter' },
+      3: { type: 'line' }
     };
+
+    const colorsPerformance = [
+      '#D98186',
+      '#C2D4C1',
+      '#ff704d',
+      '#52527a',
+      '#FEE2CB'
+    ];
 
     const dataBoxStatistic = [
       {
@@ -328,115 +328,41 @@ class TaskDetail extends Component {
         <div className={styles['task-box-statistic']}>
           <Row gutter={20}>
             <Col span={8}>
-              <Card bordered={false}>
-                <Row>
-                  <Col span={12}>
-                    <Title level={3}>32m53.2s</Title>
-                    <Text>Processing Time</Text>
-                  </Col>
-                  <Col span={12}>
-                    <BarChart width={150} height={40} data={dataBoxStatistic}>
-                      <Bar yAxisId="right" dataKey="uv" fill="#ff6600" />
-                    </BarChart>
-                  </Col>
-                </Row>
-              </Card>
+              <BoxStatisticChart
+                title="32m53.2s"
+                subTitle="Processing Time"
+                dataKey="uv"
+                data={dataBoxStatistic}
+                color="#ff6600"
+              />
             </Col>
             <Col span={8}>
-              <Card bordered={false}>
-                <Row>
-                  <Col span={12}>
-                    <Title level={3}>196.5</Title>
-                    <Text>CPU Minutes</Text>
-                  </Col>
-                  <Col span={12}>
-                    <BarChart width={150} height={40} data={dataBoxStatistic}>
-                      <Bar yAxisId="right" dataKey="uv" fill="#82ca9d" />
-                    </BarChart>
-                  </Col>
-                </Row>
-              </Card>
+              <BoxStatisticChart
+                title="196.5"
+                subTitle="CPU Minutes"
+                dataKey="uv"
+                data={dataBoxStatistic}
+                color="#82ca9d"
+              />
             </Col>
             <Col span={8}>
-              <Card bordered={false}>
-                <Row>
-                  <Col span={12}>
-                    <Title level={3}>3.2% / min</Title>
-                    <Text>Processing Rate</Text>
-                  </Col>
-                  <Col span={12}>
-                    <BarChart width={150} height={40} data={dataBoxStatistic}>
-                      <Bar yAxisId="right" dataKey="uv" fill="#ff1a1a" />
-                    </BarChart>
-                  </Col>
-                </Row>
-              </Card>
+              <BoxStatisticChart
+                title="3.2% / min"
+                subTitle="Processing Rate"
+                dataKey="uv"
+                data={dataBoxStatistic}
+                color="#ff1a1a"
+              />
             </Col>
           </Row>
         </div>
-        <Card className={styles['task-performance']}>
-          <Text>Task instance performance graph</Text>
-          <Chart
-            width="100%"
-            chartType="ComboChart"
-            loader={<div>Loading Chart</div>}
-            data={dataPerformance}
-            options={{
-              ...sameOptionPerformance,
-              seriesType: 'area',
-              vAxis: {
-                minValue: 0,
-                gridlines: { color: 'white' },
-                baselineColor: 'none',
-                textPosition: 'none'
-              },
-              hAxis: {
-                gridlines: { color: 'white' },
-                textPosition: 'none',
-                baselineColor: 'black'
-              },
-              chartArea: { width: '100%', height: '100%' },
-              legend: { position: 'in' }
-            }}
-            rootProps={{ 'data-testid': '1' }}
-            render={({ renderControl, renderChart }) => {
-              return (
-                <div>
-                  {renderChart()}
-                  <div style={{ maxHeight: 70, overflow: 'hidden' }}>
-                    {renderControl(() => true)}
-                  </div>
-                </div>
-              );
-            }}
-            controls={[
-              {
-                controlType: 'ChartRangeFilter',
-                options: {
-                  filterColumnIndex: 0,
-                  ui: {
-                    chartType: 'AreaChart',
-                    chartOptions: {
-                      ...sameOptionPerformance,
-                      chartArea: { width: '100%', height: '30%' },
-                      hAxis: { baselineColor: 'none' }
-                    }
-                  }
-                },
-                controlPosition: 'bottom',
-                controlWrapperParams: {
-                  state: {
-                    range: {
-                      start: new Date(2019, 11, 14, 0),
-                      end: new Date(2019, 11, 14, 23)
-                    }
-                  }
-                }
-              }
-            ]}
-          />
-        </Card>
-
+        <ComboChart
+          title="Task instance performance graph"
+          data={dataPerformance}
+          series={seriesPerformance}
+          colors={colorsPerformance}
+          isRangeFilter
+        />
         <Card>
           <Row>
             <Col span={6}>
