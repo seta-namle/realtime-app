@@ -47,3 +47,18 @@
   padding: 20px;
   text-align: right;
 }
+
+.card-dashboard-custom{
+  height: 110px;
+  position: relative;
+
+  h1{
+    font-size: 40px !important;
+    text-align: center;
+  }
+
+  span {
+    text-align: center;
+    display: block;
+  }
+}
