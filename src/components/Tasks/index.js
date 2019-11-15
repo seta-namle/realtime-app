@@ -427,6 +427,7 @@ class Tasks extends Component {
           legend={this.state.legend}
           legendPayload={this.state.legendPayload}
         />
+
         <ActiveTaskTable type={filterBarChart} />
         <Card style={{ marginTop: 10 }}>
           <Row>
