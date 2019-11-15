@@ -21,6 +21,7 @@ import {
   Legend
 } from 'recharts';
 import { connect } from 'react-redux';
+import NetworkGraph from './NetworkGraph';
 
 import { ON_CLICK_DETAIL } from '../../../state/modules/sideBar';
 import { selectCurrentRoutePayload } from 'state/modules/routing';
@@ -313,8 +314,9 @@ class JobDetail extends Component {
                 })}
               </Descriptions>{' '}
             </Col>
-            <Col span={12} className={styles['task-detail-right']}>
-              <Text>Log file output</Text> <br />
+            <Col span={12}>
+              {/* <Text>Log file output</Text> <br /> */}
+              <NetworkGraph/>
             </Col>
             <Col span={24} className={styles['task-detail-action']}>
               <Button type="primary">Export</Button>
