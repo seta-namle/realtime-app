@@ -5,23 +5,57 @@ import styles from './styles.scss';
 import ComboChart from '../../ComboChart';
 import BoxStatisticChart from '../../BoxStatisticChart';
 import DashBoardCard from '../../Cards';
-import ErrorTable from '../ErrorTable';
-import TaskDetailTable from './TaskDetailTable';
-import JobDetailTable from '../../Jobs/JobDetail/JobDetailTable';
-import ListOfWorkRequestsTable from './ListOfWorkRequestsTable';
 import HeaderDetail from '../../HeaderDetail';
+import TableDetail from '../../TableDetail';
+import TableList from '../../TableList';
+import { dataJobDetail } from '../../Jobs/JobDetail/mockData';
 import {
   dataPerformance,
   boxsStatistic,
   taskDetailCards,
-  instancesCards
+  instancesCards,
+  listOfWorkRequests
 } from './mockData';
-
+import { dataActiveTask, dataErrorTask } from '../../Tasks/mockData';
 class TaskDetail extends Component {
   static propTypes = {
     taskId: string
   };
-  state = { visible: false };
+  state = {
+    visible: false,
+    errorColumns: [
+      {
+        title: 'Error ID',
+        dataIndex: 'errorId',
+        render: text => <a onClick={this.showModal}>{text}</a>
+      },
+      {
+        title: 'Error Code',
+        dataIndex: 'errorCode'
+      },
+      {
+        title: 'Error Source Type',
+        dataIndex: 'errorSourceType'
+      },
+      {
+        title: 'Source ID',
+        dataIndex: 'sourceId'
+      },
+      {
+        title: 'Severity',
+        dataIndex: 'severity'
+      },
+      {
+        title: 'timestamp',
+        dataIndex: 'timestamp'
+      },
+      {
+        title: 'link to details',
+        dataIndex: 'linkToDetails',
+        render: text => <a>{text}</a>
+      }
+    ]
+  };
   onClickRow = () => {
     this.setState({
       visible: true
@@ -58,6 +92,53 @@ class TaskDetail extends Component {
       '#52527a',
       '#FEE2CB'
     ];
+    const dataActiveTaskById = dataActiveTask.find(item => item.taskId === taskId);
+    let dataTaskDetail = [];
+    if (dataActiveTaskById) {
+      dataTaskDetail = [
+        {
+          name: 'Task Id',
+          value: dataActiveTaskById.taskId
+        },
+        {
+          name: 'Task Name',
+          value: `Task Demo ${taskId}`
+        },
+        {
+          name: 'Job Id',
+          value: dataActiveTaskById.jobId
+        },
+        {
+          name: 'Task Engine Type',
+          value: dataActiveTaskById.category
+        },
+        {
+          name: 'Engine Build',
+          value: dataActiveTaskById.engineBuild
+        },
+        {
+          name: 'Schedule Start Time',
+          value: dataActiveTaskById.scheduleStartTime
+        },
+        {
+          name: 'Parent Task Id',
+          value: dataActiveTaskById.parentTaskId
+        },
+        {
+          name: 'Child Task Id',
+          value: dataActiveTaskById.childTaskId
+        },
+        {
+          name: 'Status',
+          value: dataActiveTaskById.status
+        },
+        {
+          name: 'Error Count',
+          value: dataActiveTaskById.errors
+        }
+      ];
+    }
+
 
     return (
       <Fragment>
@@ -105,8 +186,10 @@ class TaskDetail extends Component {
             </Col>
           ))}
         </Row>
-        <TaskDetailTable taskId={taskId} />
-
+        <TableDetail
+          title={`Task Detail`}
+          data={dataTaskDetail}
+        />
         <Row className={styles['card-row']}>
           {instancesCards.map(item => (
             <Col key={item.cardTitle} span={6}>
@@ -120,12 +203,21 @@ class TaskDetail extends Component {
             </Col>
           ))}
         </Row>
+        <TableList
+          columns={listOfWorkRequests.columns}
+          title={listOfWorkRequests.title}
+          dataRow={listOfWorkRequests.data}
+        />
+        <TableDetail
+          title={`Job Detail`}
+          data={dataJobDetail}
+        />
+        <TableList
+          columns={this.state.errorColumns}
+          title={`error list`}
+          dataRow={dataErrorTask}
+        />
 
-        <ListOfWorkRequestsTable />
-
-        <JobDetailTable />
-
-        <ErrorTable filter={{ field: 'taskId', value: taskId }} />
       </Fragment>
     );
   }

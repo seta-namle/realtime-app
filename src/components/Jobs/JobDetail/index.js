@@ -29,6 +29,7 @@ const { Title, Text } = Typography;
 import HeaderDetail from '../../HeaderDetail';
 import styles from './styles.scss';
 import { dataChart, dataTableDetail } from './mockData';
+import TableDetail from '../../TableDetail';
 
 const ErrorModal = ({
   handleOk,
@@ -195,39 +196,20 @@ class JobDetail extends Component {
           processValue={`64.89%`}
           processTime={`Complete`}
         />
-        <Card className={styles['task-detail']}>
-          <Row>
-            <Col span={24}>
-              <Text>Job detail</Text>
-            </Col>
+        <Row gutter={[10, 10]}>
+          <Col span={12} className={styles['task-detail-left']}>
+            <TableDetail
+              title={`Job Detail`}
+              data={dataJobDetail}
+            />
+          </Col>
 
-            <Col span={12} className={styles['task-detail-left']}>
-              <Descriptions
-                bordered
-                column={{ xxl: 1, xl: 1, lg: 1, md: 1, sm: 1, xs: 1 }}
-              >
-                {dataJobDetail.map(item => {
-                  return (
-                    <Descriptions.Item key label={item.name}>
-                      {item.value}
-                    </Descriptions.Item>
-                  );
-                })}
-              </Descriptions>{' '}
-            </Col>
-
-            <Col span={12}>
-              <Card>
-                <NetworkGraph />
-              </Card>
-            </Col>
-            <Col span={24} className={styles['task-detail-action']}>
-              <Button type="primary">Export</Button>
-              <Button>Share</Button>
-              <Button>Watch</Button>
-            </Col>
-          </Row>
-        </Card>
+          <Col span={12} className={styles['task-detail']}>
+            <Card>
+              <NetworkGraph />
+            </Card>
+          </Col>
+        </Row>
 
         <Card className={styles['task-detail']}>
           <Row>

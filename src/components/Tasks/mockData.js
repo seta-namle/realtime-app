@@ -62,12 +62,12 @@ const generateDataBarChart = () => {
     for (let i = 1; i <= TOTAL_HOURS; i++) {
       const tmp = {
         name: `${i}:00 AM`,
-        Running: Math.round(Math.random() * 10000),
-        Started: Math.round(Math.random() * 5000),
-        Paused: Math.round(Math.random() * 2000),
-        'Error rate': Math.round(Math.random() * 1000),
-        Completed: Math.round(Math.random() * 2000),
-        Error: Math.round(Math.random() * 2000),
+        running: Math.round(Math.random() * 10000),
+        started: Math.round(Math.random() * 5000),
+        paused: Math.round(Math.random() * 2000),
+        'error rate': Math.round(Math.random() * 1000),
+        completed: Math.round(Math.random() * 2000),
+        error: Math.round(Math.random() * 2000),
         key: _key
       };
       _all.push(tmp);
@@ -94,7 +94,10 @@ export const dataActiveTask = [
     errors: 0,
     taskInstances: '12345',
     linkToListOfTaskInstances: 'link',
-    category: 'transcription'
+    category: 'transcription',
+    scheduleStartTime: 'Fri Nov 8 3039 30:39:48',
+    parentTaskId: '19114508_pCJAAcU3mK2Hw10',
+    childTaskId: '19113408_pCJAAcU3mK2H345'
   },
   {
     key: '19114611_7hQPac339weJIIX',
@@ -107,7 +110,10 @@ export const dataActiveTask = [
     errors: 0,
     taskInstances: '12345',
     linkToListOfTaskInstances: 'link',
-    category: 'transcription'
+    category: 'transcription',
+    scheduleStartTime: 'Fri Nov 8 3039 30:39:48',
+    parentTaskId: '19114508_pCJAAcU3mK2Hw10',
+    childTaskId: '19113408_pCJAAcU3mK2H323'
   },
   {
     key: '19114611_JXZKztSMGmorIrG',
@@ -120,7 +126,10 @@ export const dataActiveTask = [
     errors: 0,
     taskInstances: '12345',
     linkToListOfTaskInstances: 'link',
-    category: 'transcription'
+    category: 'transcription',
+    scheduleStartTime: 'Fri Nov 8 3039 30:39:48',
+    parentTaskId: '19114508_pCJAAcU3mK2Hw10',
+    childTaskId: '19113408_pCJAAcU3mK2H334'
   },
   {
     key: '19104324_5O1HkLY3ueRrOce',
@@ -133,7 +142,10 @@ export const dataActiveTask = [
     errors: 2,
     taskInstances: '12345',
     linkToListOfTaskInstances: 'link',
-    category: 'translation'
+    category: 'translation',
+    scheduleStartTime: 'Fri Nov 8 3039 30:39:48',
+    parentTaskId: '19114508_pCJAAcU3mK2Hw10',
+    childTaskId: '19113408_pCJAAcU3mK2H345'
   },
   {
     key: '19104216_cjhoUa7SvlHAvj7',
@@ -146,7 +158,10 @@ export const dataActiveTask = [
     errors: 1,
     taskInstances: '12345',
     linkToListOfTaskInstances: 'link',
-    category: 'faceDetection'
+    category: 'faceDetection',
+    scheduleStartTime: 'Fri Nov 8 3039 30:39:48',
+    parentTaskId: '19114508_pCJAAcU3mK2Hw10',
+    childTaskId: '19113408_pCJAAcU3mK2H345'
   },
   {
     key: '19104215_LVx9IShCPLdXqli',
@@ -159,7 +174,10 @@ export const dataActiveTask = [
     errors: 3,
     taskInstances: '12345',
     linkToListOfTaskInstances: 'link',
-    category: 'faceDetection'
+    category: 'faceDetection',
+    scheduleStartTime: 'Fri Nov 8 3039 30:39:48',
+    parentTaskId: '19114508_pCJAAcU3mK2Hw10',
+    childTaskId: '19113408_pCJAAcU3mK2H345'
   },
   {
     key: '19104215_ix3Vn8jstsF8T6e',
@@ -172,7 +190,10 @@ export const dataActiveTask = [
     errors: 0,
     taskInstances: '12345',
     linkToListOfTaskInstances: 'link',
-    category: 'faceDetection'
+    category: 'faceDetection',
+    scheduleStartTime: 'Fri Nov 8 3039 30:39:48',
+    parentTaskId: '19114508_pCJAAcU3mK2Hw10',
+    childTaskId: '19113408_pCJAAcU3mK2H345'
   }
 ];
 

@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { Table, Progress, Input, Select, Icon, Row, Col, Card } from 'antd';
+import { Progress, Input, Select, Icon, Row, Col, Card } from 'antd';
 import { connect } from 'react-redux';
 import { func, string, arrayOf, shape } from 'prop-types';
 import { ON_CLICK_DETAIL } from '../../state/modules/sideBar';
@@ -9,16 +9,18 @@ import JobDetail from './TaskDetail';
 import DashBoardCard from '../Cards';
 import PieChart from '../PieChart';
 import BarChart from '../BarChart';
-import ActiveTaskTable from './ActiveTaskTable';
-import ErrorTable from './ErrorTable';
 import PerformanceData from './PerformanceChart.json';
+
+import TableList from '../TableList';
 const { Option } = Select;
 import {
   dataBarChart,
   dataChart,
   activeDataPieChart,
   completeDataPieChart,
-  errorDataPieChart
+  errorDataPieChart,
+  dataActiveTask,
+  dataErrorTask
 } from './mockData';
 
 const dataBarStatusDefault = [
@@ -73,7 +75,80 @@ class Tasks extends Component {
     dataBarStatus: dataBarStatusDefault,
     dataBarInstance: dataBarInstanceDefault,
     legendPayloadStatus: legendPayloadStatusDefault,
-    legendPayloadInstance: legendPayloadInstanceDefault
+    legendPayloadInstance: legendPayloadInstanceDefault,
+    activeTaskColumns: [
+      {
+        title: 'Task ID',
+        dataIndex: 'taskId',
+        render: text => <a onClick={this.onClickTaskDetail}>{text}</a>
+      },
+      {
+        title: 'Job ID',
+        dataIndex: 'jobId'
+      },
+      {
+        title: 'Org ID',
+        dataIndex: 'orgId'
+      },
+      {
+        title: 'Engine Name',
+        dataIndex: 'engineName'
+      },
+      {
+        title: 'Engine Build',
+        dataIndex: 'engineBuild'
+      },
+      {
+        title: 'status',
+        dataIndex: 'status'
+      },
+      {
+        title: '# errors',
+        dataIndex: 'errors'
+      },
+      {
+        title: '# task instances',
+        dataIndex: 'taskInstances'
+      },
+      {
+        title: 'link to list of task instances',
+        dataIndex: 'linkToListOfTaskInstances',
+        render: text => <a>{text}</a>
+      }
+    ],
+    dataActiveTask: dataActiveTask,
+    errorColumns: [
+      {
+        title: 'Error ID',
+        dataIndex: 'errorId',
+        render: text => <a onClick={this.showModal}>{text}</a>
+      },
+      {
+        title: 'Error Code',
+        dataIndex: 'errorCode'
+      },
+      {
+        title: 'Error Source Type',
+        dataIndex: 'errorSourceType'
+      },
+      {
+        title: 'Source ID',
+        dataIndex: 'sourceId'
+      },
+      {
+        title: 'Severity',
+        dataIndex: 'severity'
+      },
+      {
+        title: 'timestamp',
+        dataIndex: 'timestamp'
+      },
+      {
+        title: 'link to details',
+        dataIndex: 'linkToDetails',
+        render: text => <a>{text}</a>
+      }
+    ]
   };
   onClickRow = value => {
     const { onClickDetail, tabName } = this.props;
@@ -278,6 +353,15 @@ class Tasks extends Component {
     }
   };
 
+  onClickTaskDetail = event => {
+    const { onClickDetail, tabName } = this.props;
+    const payload = {
+      tabName,
+      id: event.target.text
+    };
+    onClickDetail(payload);
+  };
+
 
   render() {
     const activeInstanceColumn = [
@@ -336,37 +420,46 @@ class Tasks extends Component {
     if (taskId) {
       return <JobDetail taskId={taskId} />;
     }
-    const { dataBarChart, filterBarChart, legendPayloadStatus, legendPayloadInstance, dataBarStatus, dataBarInstance } = this.state;
+    const { dataBarChart,
+      filterBarChart,
+      legendPayloadStatus,
+      legendPayloadInstance,
+      dataBarStatus,
+      dataBarInstance,
+      activeTaskColumns,
+      dataActiveTask,
+      errorColumns
+    } = this.state;
     return (
       <Fragment>
         <Row gutter={[10, 10]}>
-            <Col span={8} >
-              <DashBoardCard
-                cardTitle="42321"
-                cardDes="active tasks"
-                type="activeTasks"
-              />
-            </Col>
-            <Col span={8} >
-              <DashBoardCard
-                dataChart={dataChart}
-                chartColor="#57d094"
-                cardTitle="100200"
-                cardDes="completed tasks (12 hrs)"
-                cardValue="70%"
-                cardIcon="folder-open"
-              />
-            </Col>
-            <Col span={8} >
-              <DashBoardCard
-                dataChart={dataChart}
-                chartColor="#ed4661"
-                cardTitle="1500"
-                cardDes="completed errors (12 hrs)"
-                cardValue="1%"
-                cardIcon="folder-open"
-              />
-            </Col>
+          <Col span={8} >
+            <DashBoardCard
+              cardTitle="42321"
+              cardDes="active tasks"
+              type="activeTasks"
+            />
+          </Col>
+          <Col span={8} >
+            <DashBoardCard
+              dataChart={dataChart}
+              chartColor="#57d094"
+              cardTitle="100200"
+              cardDes="completed tasks (12 hrs)"
+              cardValue="70%"
+              cardIcon="folder-open"
+            />
+          </Col>
+          <Col span={8} >
+            <DashBoardCard
+              dataChart={dataChart}
+              chartColor="#ed4661"
+              cardTitle="1500"
+              cardDes="completed errors (12 hrs)"
+              cardValue="1%"
+              cardIcon="folder-open"
+            />
+          </Col>
         </Row>
 
         <Row gutter={[10, 10]}>
@@ -414,7 +507,11 @@ class Tasks extends Component {
           isLineChart
         />
 
-        <ActiveTaskTable type={filterBarChart} />
+        <TableList
+          columns={activeTaskColumns}
+          title={'Active (running and paused) task list'}
+          dataRow={filterBarChart === 'all' ? dataActiveTask : dataActiveTask.filter(item => item.category === filterBarChart)}
+        />
         <Card style={{ marginTop: 10 }}>
           <Row>
             <Col span={16} />
@@ -444,18 +541,20 @@ class Tasks extends Component {
           />
         </Card>
         <Card style={{ marginTop: 10 }}>
-          <Table
-            rowSelection={rowSelection}
+          <TableList
             columns={activeInstanceColumn}
-            dataSource={
-              this.state.activeInstanceData.length
-                ? this.state.activeInstanceData
-                : this.props.initialInstanceData
-            }
+            title={'Error list'}
+            dataRow={this.state.activeInstanceData.length
+              ? this.state.activeInstanceData
+              : this.props.initialInstanceData}
           />
         </Card>
 
-        <ErrorTable />
+        <TableList
+          columns={errorColumns}
+          title={'Error list'}
+          dataRow={dataErrorTask}
+        />
       </Fragment>
     );
   }
