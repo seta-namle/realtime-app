@@ -28,7 +28,12 @@ import { func, number, bool, arrayOf, object } from 'prop-types';
 const { Title, Text } = Typography;
 import HeaderDetail from '../../HeaderDetail';
 import styles from './styles.scss';
-import { dataChart, dataTableDetail } from './mockData';
+import {
+  dataChart,
+  dataTableDetail,
+  dataErrorTableDetail,
+  dataErrorDetail
+} from './mockData';
 import TableDetail from '../../TableDetail';
 
 const ErrorModal = ({
@@ -46,30 +51,29 @@ const ErrorModal = ({
       width={1000}
     >
       <Row>
-        <Col span={24}>
-          <Text>Task instance detail</Text>
-        </Col>
-
-        <Col span={12} className={styles['task-detail-left']}>
+        <Col span={16} className={styles['task-detail-left']}>
           <Descriptions
             bordered
             column={{ xxl: 1, xl: 1, lg: 1, md: 1, sm: 1, xs: 1 }}
           >
             {listErrors.map(item => {
               return (
-                <Descriptions.Item key label={item.name}>
+                <Descriptions.Item key label={item.name} span="3">
                   {item.value}
                 </Descriptions.Item>
               );
             })}
           </Descriptions>
         </Col>
-        <Col span={12} className={styles['task-detail-right']}>
+        <Col span={8} className={styles['task-detail-right']}>
           <Text>Log file output related to error</Text> <br />
         </Col>
         <Col span={24} className={styles['task-detail-action']}>
-          <Button type="primary">Export</Button>
-          <Button>Watch</Button>
+          <Button type="primary" onClick={handleOk}>
+            Export
+          </Button>
+          <Button onClick={handleOk}>Assign</Button>
+          <Button onClick={handleOk}>Mute Error Code</Button>
         </Col>
       </Row>
     </Modal>
@@ -164,6 +168,34 @@ class JobDetail extends Component {
       }
     ];
 
+    const error_columns = [
+      {
+        title: 'Error ID',
+        dataIndex: 'id',
+        render: text => <a>{text}</a>
+      },
+      {
+        title: 'Error Code',
+        dataIndex: 'code'
+      },
+      {
+        title: 'Error Source Type',
+        dataIndex: 'sourceType'
+      },
+      {
+        title: 'Source ID',
+        dataIndex: 'sourceId'
+      },
+      {
+        title: 'Severity',
+        dataIndex: 'severity'
+      },
+      {
+        title: 'timestamp',
+        dataIndex: 'timestamp'
+      }
+    ];
+
     const dataJobDetail = [
       {
         name: 'Job Id',
@@ -198,10 +230,7 @@ class JobDetail extends Component {
         />
         <Row gutter={[10, 10]}>
           <Col span={12} className={styles['task-detail-left']}>
-            <TableDetail
-              title={`Job Detail`}
-              data={dataJobDetail}
-            />
+            <TableDetail title={`Job Detail`} data={dataJobDetail} />
           </Col>
 
           <Col span={12} className={styles['task-detail']}>
@@ -281,8 +310,8 @@ class JobDetail extends Component {
 
             <Col span={24} className={styles['task-detail-left']}>
               <Table
-                columns={columns}
-                dataSource={dataTableDetail}
+                columns={error_columns}
+                dataSource={dataErrorTableDetail}
                 onRow={(record, rowIndex) => {
                   return {
                     onClick: event => {
@@ -303,7 +332,7 @@ class JobDetail extends Component {
           visibleModal={this.state.visibleModal}
           handleOk={this.handleOkErrorModal}
           handleCancel={this.handleCancelErrorModal}
-          listErrors={dataJobDetail}
+          listErrors={dataErrorDetail}
         />
       </Fragment>
     );

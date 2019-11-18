@@ -40,25 +40,65 @@ const dataBarInstanceDefault = [
 ];
 
 const legendPayloadStatusDefault = [
-  { value: 'Running', id: 'running', type: 'rect', color: '#8884d8', legendType: 'status' },
-  { value: 'Started', id: 'started', type: 'rect', color: '#82ca9d', legendType: 'status' },
-  { value: 'Paused', id: 'paused', type: 'rect', color: '#ef7c4d', legendType: 'status' },
+  {
+    value: 'Running',
+    id: 'running',
+    type: 'rect',
+    color: '#8884d8',
+    legendType: 'status'
+  },
+  {
+    value: 'Started',
+    id: 'started',
+    type: 'rect',
+    color: '#82ca9d',
+    legendType: 'status'
+  },
+  {
+    value: 'Paused',
+    id: 'paused',
+    type: 'rect',
+    color: '#ef7c4d',
+    legendType: 'status'
+  },
   { value: 'All', id: 'all', type: 'rect', color: 'gray', legendType: 'status' }
 ];
 const legendPayloadInstanceDefault = [
-  { value: 'Translation', id: 'translation', type: 'rect', color: '#6666ff', legendType: 'instance' },
-  { value: 'Face Detection', id: 'faceDetection', type: 'rect', color: '#7fbf7f', legendType: 'instance' },
-  { value: 'Transcription', id: 'transcription', type: 'rect', color: '#ff7f7f', legendType: 'instance' },
-  { value: 'All', id: 'all', type: 'rect', color: 'gray', legendType: 'instance' }
-]
+  {
+    value: 'Translation',
+    id: 'translation',
+    type: 'rect',
+    color: '#6666ff',
+    legendType: 'instance'
+  },
+  {
+    value: 'Face Detection',
+    id: 'faceDetection',
+    type: 'rect',
+    color: '#7fbf7f',
+    legendType: 'instance'
+  },
+  {
+    value: 'Transcription',
+    id: 'transcription',
+    type: 'rect',
+    color: '#ff7f7f',
+    legendType: 'instance'
+  },
+  {
+    value: 'All',
+    id: 'all',
+    type: 'rect',
+    color: 'gray',
+    legendType: 'instance'
+  }
+];
 class Tasks extends Component {
   static propTypes = {
     onClickDetail: func,
     tabName: string,
     taskId: string,
-    initialInstanceData: arrayOf(
-      shape({})
-    )
+    initialInstanceData: arrayOf(shape({}))
   };
 
   state = {
@@ -78,13 +118,13 @@ class Tasks extends Component {
     legendPayloadInstance: legendPayloadInstanceDefault,
     activeTaskColumns: [
       {
-        title: 'Task ID',
-        dataIndex: 'taskId',
-        render: text => <a onClick={this.onClickTaskDetail}>{text}</a>
+        title: 'Job ID',
+        dataIndex: 'jobId',
+        render: text => <a onClick={this.onClickJobDetail}>{text}</a>
       },
       {
-        title: 'Job ID',
-        dataIndex: 'jobId'
+        title: 'Task ID',
+        dataIndex: 'taskId'
       },
       {
         title: 'Org ID',
@@ -169,8 +209,12 @@ class Tasks extends Component {
     return dataBar;
   };
   onClickPieChart = (data, index) => {
-
-    const { activeIndex, activeIndexCompleted, activeIndexError, dataBarStatus } = this.state;
+    const {
+      activeIndex,
+      activeIndexCompleted,
+      activeIndexError,
+      dataBarStatus
+    } = this.state;
     const { payload } = data.payload;
     const filterBarChart = payload.key;
     const type = payload.type;
@@ -190,7 +234,11 @@ class Tasks extends Component {
           barChartType: type,
           activeIndexCompleted: null,
           activeIndexError: null,
-          dataBarStatus: this.renderDataBar(dataBarStatus, ['running', 'started', 'paused']),
+          dataBarStatus: this.renderDataBar(dataBarStatus, [
+            'running',
+            'started',
+            'paused'
+          ]),
           legendPayloadStatus: legendPayloadStatusDefault
         });
       }
@@ -202,7 +250,14 @@ class Tasks extends Component {
           activeIndexCompleted: null,
           barChartType: type,
           dataBarStatus: this.renderDataBar(dataBarStatus, ['completed']),
-          legendPayloadStatus: [{ value: 'Completed', id: 'completed', type: 'rect', color: '#8884d8' }]
+          legendPayloadStatus: [
+            {
+              value: 'Completed',
+              id: 'completed',
+              type: 'rect',
+              color: '#8884d8'
+            }
+          ]
         });
       } else {
         this.setState({
@@ -212,7 +267,14 @@ class Tasks extends Component {
           activeIndex: null,
           activeIndexError: null,
           dataBarStatus: this.renderDataBar(dataBarStatus, ['completed']),
-          legendPayloadStatus: [{ value: 'Completed', id: 'completed', type: 'rect', color: '#8884d8' }]
+          legendPayloadStatus: [
+            {
+              value: 'Completed',
+              id: 'completed',
+              type: 'rect',
+              color: '#8884d8'
+            }
+          ]
         });
       }
     }
@@ -224,7 +286,9 @@ class Tasks extends Component {
           activeIndexError: null,
           barChartType: type,
           dataBarStatus: this.renderDataBar(dataBarStatus, ['error']),
-          legendPayloadStatus: [{ value: 'Error', id: 'error', type: 'rect', color: '#ec4258' }]
+          legendPayloadStatus: [
+            { value: 'Error', id: 'error', type: 'rect', color: '#ec4258' }
+          ]
         });
       } else {
         this.setState({
@@ -234,7 +298,9 @@ class Tasks extends Component {
           activeIndexCompleted: null,
           activeIndex: null,
           dataBarStatus: this.renderDataBar(dataBarStatus, ['error']),
-          legendPayloadStatus: [{ value: 'Error', id: 'error', type: 'rect', color: '#ec4258' }]
+          legendPayloadStatus: [
+            { value: 'Error', id: 'error', type: 'rect', color: '#ec4258' }
+          ]
         });
       }
     }
@@ -245,9 +311,9 @@ class Tasks extends Component {
       return {
         ...item,
         isEnabled: item.key === id ? true : false
-      }
-    })
-  }
+      };
+    });
+  };
   onClickLegend = (data, index) => {
     const { dataBarStatus, dataBarInstance } = this.state;
     let dataBarStatusUpdate = dataBarStatus;
@@ -257,22 +323,25 @@ class Tasks extends Component {
 
     if (id === 'all') {
       if (legendType === 'status') {
-        dataBarStatusUpdate = dataBarStatusDefault
+        dataBarStatusUpdate = dataBarStatusDefault;
       } else {
-        dataBarInstanceUpdate = dataBarInstanceDefault
+        dataBarInstanceUpdate = dataBarInstanceDefault;
       }
     } else {
       if (legendType === 'status') {
         dataBarStatusUpdate = this.renderDataLegend(dataBarStatusUpdate, id);
       } else {
-        dataBarInstanceUpdate = this.renderDataLegend(dataBarInstanceUpdate, id);
+        dataBarInstanceUpdate = this.renderDataLegend(
+          dataBarInstanceUpdate,
+          id
+        );
       }
     }
 
     this.setState({
       dataBarStatus: dataBarStatusUpdate,
       dataBarInstance: dataBarInstanceUpdate
-    })
+    });
     if (legendType === 'instance') {
       const activeItem = initialInstanceData.filter(
         item => item.task_type === id
@@ -282,22 +351,24 @@ class Tasks extends Component {
       if (activeItem.length) {
         activeInstanceData = PerformanceData.data.reduce((result, value) => {
           result[0].total += value[id];
-          result
+          result;
           return result;
         }, activeItem);
       }
       this.setState({
         activeInstanceData,
         selectedLegend: id
-      })
+      });
     }
-  }
+  };
   handleSelectBar = (data, index) => {
     const { transcription, faceDetection, translation } = data.payload;
     const totalNum = transcription + faceDetection + translation;
     const { activeInstanceData } = this.state;
-    const { initialInstanceData } = this.props
-    const holder = activeInstanceData.length ? [...activeInstanceData] : [...initialInstanceData];
+    const { initialInstanceData } = this.props;
+    const holder = activeInstanceData.length
+      ? [...activeInstanceData]
+      : [...initialInstanceData];
     const tableData = holder.reduce((acc, value, index) => {
       if (value.task_type === 'All') {
         const all = {
@@ -353,7 +424,7 @@ class Tasks extends Component {
     }
   };
 
-  onClickTaskDetail = event => {
+  onClickJobDetail = event => {
     const { onClickDetail, tabName } = this.props;
     const payload = {
       tabName,
@@ -361,7 +432,6 @@ class Tasks extends Component {
     };
     onClickDetail(payload);
   };
-
 
   render() {
     const activeInstanceColumn = [
@@ -420,7 +490,8 @@ class Tasks extends Component {
     if (jobId) {
       return <JobDetail jobId={jobId} />;
     }
-    const { dataBarChart,
+    const {
+      dataBarChart,
       filterBarChart,
       legendPayloadStatus,
       legendPayloadInstance,
@@ -433,24 +504,24 @@ class Tasks extends Component {
     return (
       <Fragment>
         <Row gutter={[10, 10]}>
-          <Col span={8} >
+          <Col span={8}>
             <DashBoardCard
               cardTitle="42321"
-              cardDes="active tasks"
+              cardDes="active jobs"
               type="activeTasks"
             />
           </Col>
-          <Col span={8} >
+          <Col span={8}>
             <DashBoardCard
               dataChart={dataChart}
               chartColor="#57d094"
               cardTitle="100200"
-              cardDes="completed tasks (12 hrs)"
+              cardDes="completed jobs (12 hrs)"
               cardValue="70%"
               cardIcon="folder-open"
             />
           </Col>
-          <Col span={8} >
+          <Col span={8}>
             <DashBoardCard
               dataChart={dataChart}
               chartColor="#ed4661"
@@ -467,7 +538,7 @@ class Tasks extends Component {
             <PieChart
               data={activeDataPieChart}
               colors={colors}
-              title={`Active tasks by engine category`}
+              title={`Active jobs by engine category`}
               onClick={this.onClickPieChart}
               onPieEnter={this.onPieEnter}
               activeIndex={this.state.activeIndex}
@@ -478,7 +549,7 @@ class Tasks extends Component {
             <PieChart
               data={completeDataPieChart}
               colors={colors}
-              title={`Completed tasks by engine category`}
+              title={`Completed jobs by engine category`}
               onClick={this.onClickPieChart}
               onPieEnter={this.onPieEnter}
               activeIndex={this.state.activeIndexCompleted}
@@ -489,7 +560,7 @@ class Tasks extends Component {
             <PieChart
               data={errorDataPieChart}
               colors={colors}
-              title={`Task errors by engine category`}
+              title={`Jobs errors by engine category`}
               onClick={this.onClickPieChart}
               onPieEnter={this.onPieEnter}
               activeIndex={this.state.activeIndexError}
@@ -503,14 +574,18 @@ class Tasks extends Component {
           dataBar={dataBarStatus}
           onClickLegend={this.onClickLegend}
           legendPayload={legendPayloadStatus}
-          title={`${this.state.barChartType} tasks by status`}
+          title={`${this.state.barChartType} jobs by status`}
           isLineChart
         />
 
         <TableList
           columns={activeTaskColumns}
-          title={'Active (running and paused) task list'}
-          dataRow={filterBarChart === 'all' ? dataActiveTask : dataActiveTask.filter(item => item.category === filterBarChart)}
+          title={'Active (running and paused) job list'}
+          dataRow={
+            filterBarChart === 'all'
+              ? dataActiveTask
+              : dataActiveTask.filter(item => item.category === filterBarChart)
+          }
         />
         <Card style={{ marginTop: 10 }}>
           <Row>
@@ -535,7 +610,7 @@ class Tasks extends Component {
             dataBar={dataBarInstance}
             onClickLegend={this.onClickLegend}
             legendPayload={legendPayloadInstance}
-            title={`Active task instance count by category by server`}
+            title={`Active jobs instance count by category by server`}
             isLineChart={false}
             onClick={this.handleSelectBar}
           />
@@ -544,9 +619,11 @@ class Tasks extends Component {
           <TableList
             columns={activeInstanceColumn}
             title={'Error list'}
-            dataRow={this.state.activeInstanceData.length
-              ? this.state.activeInstanceData
-              : this.props.initialInstanceData}
+            dataRow={
+              this.state.activeInstanceData.length
+                ? this.state.activeInstanceData
+                : this.props.initialInstanceData
+            }
           />
         </Card>
 

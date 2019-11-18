@@ -1,10 +1,10 @@
 .job-image-component {
-    width: 100%;
-    height: 100px;
+  width: 100%;
+  height: 100px;
 }
 
 .job-status-component {
-    width: 200px;
+  width: 200px;
 }
 
 .task-detail,
@@ -43,7 +43,9 @@
     color: #fff;
   }
 }
-
+.task-detail-left {
+  padding: 5px;
+}
 .task-detail-action {
   margin: 10px;
 
