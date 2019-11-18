@@ -9,7 +9,6 @@ import JobDetail from './TaskDetail';
 import DashBoardCard from '../Cards';
 import PieChart from '../PieChart';
 import BarChart from '../BarChart';
-import PerformanceData from './PerformanceChart.json';
 import TableList from '../TableList';
 import styles from './styles.scss';
 const { Option } = Select;
@@ -20,7 +19,8 @@ import {
   completeDataPieChart,
   errorDataPieChart,
   dataActiveTask,
-  dataErrorTask
+  dataErrorTask,
+  PerformanceData
 } from './mockData';
 
 const dataBarStatusDefault = [
