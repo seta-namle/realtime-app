@@ -100,18 +100,21 @@ export const graph = {
     {
       id: 1,
       label: 'Webstream\nAdapter',
-      shape: 'diamond',
       size: 30,
-      color: '#15c853'
+      group: 'complete',
     },
     {
       id: 2,
       label: 'Stream\nIngestion',
-      shape: 'dot',
       size: 30,
-      color: '#15c853'
+      group: 'complete'
     },
-    { id: 3, label: 'Speech\nmatic', shape: 'dot', size: 30, color: '#FFA807' }
+    { 
+      id: 3, 
+      label: 'Speech\nmatic', 
+      size: 30, 
+      group: 'running' 
+    }
   ],
   edges: [
     { from: 1, to: 2, value: 0.5, color: { inherit: 'to' } },
