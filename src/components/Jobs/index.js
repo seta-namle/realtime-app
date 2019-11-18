@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import 'antd/dist/antd.css';
+
 import { Table, Progress, Input, Select, Icon, Row, Col, Card } from 'antd';
 import { connect } from 'react-redux';
 import { func, string } from 'prop-types';

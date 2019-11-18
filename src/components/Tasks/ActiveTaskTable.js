@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import 'antd/dist/antd.css';
+
 import { Card, Table } from 'antd';
 import { connect } from 'react-redux';
 import { func, string } from 'prop-types';

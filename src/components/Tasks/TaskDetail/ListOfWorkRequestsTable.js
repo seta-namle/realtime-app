@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import 'antd/dist/antd.css';
+
 import { Card, Table, Button, Row, Col } from 'antd';
 import styles from './styles.scss'
 class ListOfWorkRequestsTable extends Component {

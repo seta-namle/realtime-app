@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import 'antd/dist/antd.css';
+
 import { Card, Descriptions, Col, Row, Button } from 'antd';
 import { string } from 'prop-types';
 import styles from './styles.scss';
