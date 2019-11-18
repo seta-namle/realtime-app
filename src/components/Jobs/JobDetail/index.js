@@ -21,30 +21,20 @@ import {
   Legend
 } from 'recharts';
 import { connect } from 'react-redux';
-
+import NetworkGraph from './NetworkGraph';
 import { ON_CLICK_DETAIL } from '../../../state/modules/sideBar';
 import { selectCurrentRoutePayload } from 'state/modules/routing';
 import { func, number, bool, arrayOf, object } from 'prop-types';
 const { Title, Text } = Typography;
+import HeaderDetail from '../../HeaderDetail';
 import styles from './styles.scss';
-
-const JobStatusComponent = ({ percent = 20 }) => {
-  return (
-    <div>
-      <Row gutter={10} style={{ paddingLeft: 3 }}>
-        <div style={{ fontSize: 25, color: '#52c41a' }}>{percent}%</div>
-        <div style={{ fontSize: 15 }}>completed</div>
-      </Row>
-      <Row>
-        <Progress percent={percent} showInfo={false} strokeColor="#52c41a" />
-      </Row>
-    </div>
-  );
-};
-
-JobStatusComponent.propTypes = {
-  percent: number
-};
+import {
+  dataChart,
+  dataTableDetail,
+  dataErrorTableDetail,
+  dataErrorDetail
+} from './mockData';
+import TableDetail from '../../TableDetail';
 
 const ErrorModal = ({
   handleOk,
@@ -61,30 +51,29 @@ const ErrorModal = ({
       width={1000}
     >
       <Row>
-        <Col span={24}>
-          <Text>Task instance detail</Text>
-        </Col>
-
-        <Col span={12} className={styles['task-detail-left']}>
+        <Col span={16} className={styles['task-detail-left']}>
           <Descriptions
             bordered
             column={{ xxl: 1, xl: 1, lg: 1, md: 1, sm: 1, xs: 1 }}
           >
             {listErrors.map(item => {
               return (
-                <Descriptions.Item key label={item.name}>
+                <Descriptions.Item key label={item.name} span="3">
                   {item.value}
                 </Descriptions.Item>
               );
             })}
           </Descriptions>
         </Col>
-        <Col span={12} className={styles['task-detail-right']}>
+        <Col span={8} className={styles['task-detail-right']}>
           <Text>Log file output related to error</Text> <br />
         </Col>
         <Col span={24} className={styles['task-detail-action']}>
-          <Button type="primary">Export</Button>
-          <Button>Watch</Button>
+          <Button type="primary" onClick={handleOk}>
+            Export
+          </Button>
+          <Button onClick={handleOk}>Assign</Button>
+          <Button onClick={handleOk}>Mute Error Code</Button>
         </Col>
       </Row>
     </Modal>
@@ -153,67 +142,16 @@ class JobDetail extends Component {
     });
   };
 
-  onClickTaskRow = (task = { id: 0 }) => {
+  onClickTaskRow = value => {
     const { onClickDetail } = this.props;
     const payload = {
       tabName: 'tasks',
-      id: 10
+      id: '19114508_pCJAAcUsmKkHwNA'
     };
     onClickDetail(payload);
   };
 
   render() {
-    const dataChart = [
-      {
-        name: 'Task 1',
-        cpu: 4000,
-        gpu: 1200,
-        mem: 2400,
-        byteWrittenErrors: 2400
-      },
-      {
-        name: 'Task 2',
-        cpu: 3000,
-        gpu: 1400,
-        mem: 1398,
-        byteWrittenErrors: 2210
-      },
-      {
-        name: 'Task 3',
-        cpu: 2000,
-        mem: 9800,
-        gpu: 1200,
-        byteWrittenErrors: 2290
-      },
-      {
-        name: 'Task 4',
-        cpu: 2780,
-        mem: 3908,
-        gpu: 200,
-        byteWrittenErrors: 2000
-      },
-      {
-        name: 'Task 5',
-        cpu: 1890,
-        mem: 4800,
-        gpu: 1000,
-        byteWrittenErrors: 2181
-      },
-      {
-        name: 'Task 6',
-        cpu: 2390,
-        mem: 3800,
-        gpu: 1200,
-        byteWrittenErrors: 2500
-      },
-      {
-        name: 'Task 7',
-        cpu: 3490,
-        mem: 4300,
-        gpu: 1200,
-        byteWrittenErrors: 2100
-      }
-    ];
     const columns = [
       {
         title: 'Name',
@@ -229,63 +167,46 @@ class JobDetail extends Component {
         dataIndex: 'date'
       }
     ];
-    const data = [
+
+    const error_columns = [
       {
-        key: '1',
-        name: 'Tasks demo 1',
-        status: 'Complete',
-        date: 'Fri Nov 8 2019 10:19:48'
+        title: 'Error ID',
+        dataIndex: 'id',
+        render: text => <a>{text}</a>
       },
       {
-        key: '2',
-        name: 'Tasks demo 2',
-        status: 'Complete',
-        date: 'Fri Nov 8 2019 10:19:48'
+        title: 'Error Code',
+        dataIndex: 'code'
       },
       {
-        key: '3',
-        name: 'Tasks demo 3',
-        status: 'Complete',
-        date: 'Fri Nov 8 2019 10:19:48'
+        title: 'Error Source Type',
+        dataIndex: 'sourceType'
       },
       {
-        key: '4',
-        name: 'Tasks demo 4',
-        status: 'Complete',
-        date: 'Fri Nov 8 2019 10:19:48'
+        title: 'Source ID',
+        dataIndex: 'sourceId'
+      },
+      {
+        title: 'Severity',
+        dataIndex: 'severity'
+      },
+      {
+        title: 'timestamp',
+        dataIndex: 'timestamp'
       }
     ];
+
     const dataJobDetail = [
       {
-        name: 'Task Id',
-        value: '10'
-      },
-      {
-        name: 'Task Name',
-        value: 'Task Demo 1'
-      },
-      {
         name: 'Job Id',
-        value: '10'
+        value: this.props.jobId
       },
       {
-        name: 'Task Engine Type',
-        value: 'Task Engine Type'
-      },
-      {
-        name: 'Task Engine Type',
-        value: '10'
+        name: 'Engine Type',
+        value: 'Engine Type'
       },
       {
         name: 'Schedule Start Time',
-        value: '10'
-      },
-      {
-        name: 'Parent Task Id',
-        value: '10'
-      },
-      {
-        name: 'Child Task Id',
         value: '10'
       },
       {
@@ -298,50 +219,27 @@ class JobDetail extends Component {
       }
     ];
 
-    const listErrors = [];
+    const { jobId } = this.props;
     return (
       <Fragment>
-        <Card>
-          <Row gutter={20}>
-            <Col span={18}>
-              <Title level={3}>123456789-897-789</Title>
-              <Text>JobId</Text>
-            </Col>
-            <Col span={6}>
-              <JobStatusComponent />
-            </Col>
-          </Row>
-        </Card>
-        <Card className={styles['task-detail']}>
-          <Row>
-            <Col span={24}>
-              <Text>Job detail</Text>
-            </Col>
+        <HeaderDetail
+          id={jobId}
+          title={`Job Id`}
+          processValue={`64.89%`}
+          processTime={`Complete`}
+        />
+        <Row gutter={[10, 10]}>
+          <Col span={12} className={styles['task-detail-left']}>
+            <TableDetail title={`Job Detail`} data={dataJobDetail} />
+          </Col>
 
-            <Col span={12} className={styles['task-detail-left']}>
-              <Descriptions
-                bordered
-                column={{ xxl: 1, xl: 1, lg: 1, md: 1, sm: 1, xs: 1 }}
-              >
-                {dataJobDetail.map(item => {
-                  return (
-                    <Descriptions.Item key label={item.name}>
-                      {item.value}
-                    </Descriptions.Item>
-                  );
-                })}
-              </Descriptions>{' '}
-            </Col>
-            <Col span={12} className={styles['task-detail-right']}>
-              <Text>Log file output</Text> <br />
-            </Col>
-            <Col span={24} className={styles['task-detail-action']}>
-              <Button type="primary">Export</Button>
-              <Button>Share</Button>
-              <Button>Watch</Button>
-            </Col>
-          </Row>
-        </Card>
+          <Col span={12} className={styles['task-detail']}>
+            <Card>
+              <NetworkGraph />
+            </Card>
+          </Col>
+        </Row>
+
         <Card className={styles['task-detail']}>
           <Row>
             <Col span={24}>
@@ -359,7 +257,17 @@ class JobDetail extends Component {
             </Col>
 
             <Col span={24} className={styles['task-detail-left']}>
-              <Table columns={columns} dataSource={data} />
+              <Table
+                columns={columns}
+                dataSource={dataTableDetail}
+                onRow={(record, rowIndex) => {
+                  return {
+                    onClick: () => {
+                      this.onClickTaskRow(record);
+                    }
+                  };
+                }}
+              />
             </Col>
             <Col span={24} className={styles['task-detail-action']}>
               <Button type="primary">Export</Button>
@@ -377,7 +285,7 @@ class JobDetail extends Component {
             <Col span={24} className={styles['task-detail-left']}>
               <Table
                 columns={columns}
-                dataSource={data}
+                dataSource={dataTableDetail}
                 onRow={(record, rowIndex) => {
                   return {
                     onClick: () => {
@@ -402,8 +310,8 @@ class JobDetail extends Component {
 
             <Col span={24} className={styles['task-detail-left']}>
               <Table
-                columns={columns}
-                dataSource={data}
+                columns={error_columns}
+                dataSource={dataErrorTableDetail}
                 onRow={(record, rowIndex) => {
                   return {
                     onClick: event => {
@@ -424,7 +332,7 @@ class JobDetail extends Component {
           visibleModal={this.state.visibleModal}
           handleOk={this.handleOkErrorModal}
           handleCancel={this.handleCancelErrorModal}
-          listErrors={dataJobDetail}
+          listErrors={dataErrorDetail}
         />
       </Fragment>
     );
@@ -432,8 +340,8 @@ class JobDetail extends Component {
 }
 export default connect(
   state => ({
-    tabName: selectCurrentRoutePayload(state).tabName,
-    jobId: selectCurrentRoutePayload(state).id
+    tabName: selectCurrentRoutePayload(state).tabName
+    //jobId: selectCurrentRoutePayload(state).id
   }),
   {
     onClickDetail: payload => ({

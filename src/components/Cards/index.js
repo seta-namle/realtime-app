@@ -14,13 +14,19 @@ const DashBoardCard = ({
   cardDes,
   cardValue,
   cardIcon,
-  type
+  type,
+  titleColor,
+  customStyle
 }) => {
   if (type === 'activeTasks') {
     return (
-      <Card className={styles['card-dashboard-active']}>
+      <Card className={customStyle ? styles['card-dashboard-custom'] : styles['card-dashboard-active']}>
         <div className={styles['card-dashboard-content']}>
-          <Title level={1} className={styles['card-title']}>
+          <Title
+            level={1}
+            className={styles['card-title']}
+            style={{ color: titleColor }}
+          >
             {formatNumber(cardTitle)}
           </Title>
           <Text>{cardDes}</Text>
@@ -31,18 +37,20 @@ const DashBoardCard = ({
   return (
     <Card className={styles['card-dashboard']}>
       <Row>
-        <Col span={14} className={styles['card-header']}>
+        <Col span={24} lg={14} className={styles['card-header']}>
           <Title level={1} className={styles['card-title']}>
             {formatNumber(cardTitle)}
           </Title>
           <Text>{cardDes}</Text>
         </Col>
-        <Col span={10} className={styles['card-header-right']}>
+        <Col span={24} lg={10} className={styles['card-header-right']}>
           <span>
             <span className={styles['card-title']}>{cardValue}</span>
             <Icon type={cardIcon} className={styles['card-icon']} />
           </span>
         </Col>
+      </Row>
+      <Row>
         <Col span={24}>
           <ResponsiveContainer width="100%" height={85}>
             <AreaChart data={dataChart} margin={{}}>
@@ -67,6 +75,7 @@ DashBoardCard.propTypes = {
   cardDes: PropTypes.string,
   cardValue: PropTypes.string,
   cardIcon: PropTypes.string,
-  type: PropTypes.string
+  type: PropTypes.string,
+  titleColor: PropTypes.string
 };
 export default DashBoardCard;

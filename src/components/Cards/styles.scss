@@ -3,13 +3,14 @@
 }
 
 .card-title {
-  color: #848484 !important;
+  color: #848484;
   margin-bottom: 0px !important;
   font-size: 38px;
 }
 
 .card-header {
   padding: 20px;
+  overflow-wrap: break-word;
 }
 
 .card-icon {
@@ -22,8 +23,10 @@
 }
 
 .card-dashboard-active {
-  height: 194px;
-  position: relative;
+  min-height: 194px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   h1 {
     font-size: 68px !important;
@@ -36,14 +39,29 @@
 }
 
 .card-dashboard-content {
-  margin: 0;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  width: 100%;
+  word-break: break-all;
 }
 
 .card-header-right {
   padding: 20px;
   text-align: right;
+  overflow-wrap: break-word;
+}
+
+.card-dashboard-custom{
+  min-height: 110px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  h1{
+    font-size: 40px !important;
+    text-align: center;
+  }
+
+  span {
+    text-align: center;
+    display: block;
+  }
 }

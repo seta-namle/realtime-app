@@ -1,26 +1,61 @@
 import React, { Component, Fragment } from 'react';
-import {
-  Card,
-  Row,
-  Col,
-  Typography,
-  Progress,
-  Button,
-  Modal,
-  Descriptions
-} from 'antd';
-import { Table } from 'antd';
-const { Title, Text } = Typography;
+import { Row, Col } from 'antd';
 import { string } from 'prop-types';
 import styles from './styles.scss';
-import { BarChart, Bar, Cell } from 'recharts';
-
-import { Chart } from 'react-google-charts';
+import ComboChart from '../../ComboChart';
+import BoxStatisticChart from '../../BoxStatisticChart';
+import DashBoardCard from '../../Cards';
+import HeaderDetail from '../../HeaderDetail';
+import TableDetail from '../../TableDetail';
+import TableList from '../../TableList';
+import { dataJobDetail } from '../../Jobs/JobDetail/mockData';
+import {
+  dataPerformance,
+  boxsStatistic,
+  taskDetailCards,
+  instancesCards,
+  listOfWorkRequests
+} from './mockData';
+import { dataActiveTask, dataErrorTask } from '../../Tasks/mockData';
 class TaskDetail extends Component {
   static propTypes = {
     taskId: string
   };
-  state = { visible: false };
+  state = {
+    visible: false,
+    errorColumns: [
+      {
+        title: 'Error ID',
+        dataIndex: 'errorId',
+        render: text => <a onClick={this.showModal}>{text}</a>
+      },
+      {
+        title: 'Error Code',
+        dataIndex: 'errorCode'
+      },
+      {
+        title: 'Error Source Type',
+        dataIndex: 'errorSourceType'
+      },
+      {
+        title: 'Source ID',
+        dataIndex: 'sourceId'
+      },
+      {
+        title: 'Severity',
+        dataIndex: 'severity'
+      },
+      {
+        title: 'timestamp',
+        dataIndex: 'timestamp'
+      },
+      {
+        title: 'link to details',
+        dataIndex: 'linkToDetails',
+        render: text => <a>{text}</a>
+      }
+    ]
+  };
   onClickRow = () => {
     this.setState({
       visible: true
@@ -43,711 +78,146 @@ class TaskDetail extends Component {
 
   render() {
     const { taskId } = this.props;
-    const dataTaskDetail = [
-      {
-        name: 'Task Id',
-        value: taskId
-      },
-      {
-        name: 'Task Name',
-        value: `Task Demo ${taskId}`
-      },
-      {
-        name: 'Job Id',
-        value: taskId
-      },
-      {
-        name: 'Task Engine Type',
-        value: 'Task Engine Type'
-      },
-      {
-        name: 'Engine Build',
-        value: '10'
-      },
-      {
-        name: 'Schedule Start Time',
-        value: '10'
-      },
-      {
-        name: 'Parent Task Id',
-        value: '10'
-      },
-      {
-        name: 'Child Task Id',
-        value: '10'
-      },
-      {
-        name: 'Status',
-        value: 'Complete'
-      },
-      {
-        name: 'Error Count',
-        value: '10'
-      }
-    ];
-    const dataJobDetail = [
-      {
-        name: 'Job Id',
-        value: taskId
-      },
-      {
-        name: 'Org Id',
-        value: '10'
-      },
-      {
-        name: 'Priority',
-        value: 'Medium'
-      },
-      {
-        name: 'Job Template Id',
-        value: '10'
-      },
-      {
-        name: 'Schedule Id',
-        value: '10'
-      },
-      {
-        name: '# Tasks',
-        value: 10
-      },
-      {
-        name: 'Start Time',
-        value: 'Fri Nov 8 3039 30:39:48'
-      },
-      {
-        name: '# Tasks Complete',
-        value: 5
-      },
-      {
-        name: '# Active Tasks',
-        value: 0
-      },
-      {
-        name: '# Errors',
-        value: 5
-      }
-    ];
 
-    const columns = [
-      {
-        title: 'Name',
-        dataIndex: 'name',
-        render: text => <a>{text}</a>
-      },
-      {
-        title: 'Status',
-        dataIndex: 'status'
-      },
-      {
-        title: 'Date',
-        dataIndex: 'date'
-      }
-    ];
-    const dataTaskInJob = [
-      {
-        key: '1',
-        name: 'Tasks demo 1',
-        status: 'Complete',
-        date: 'Fri Nov 8 2019 10:19:48'
-      },
-      {
-        key: '2',
-        name: 'Tasks demo 2',
-        status: 'Complete',
-        date: 'Fri Nov 8 2019 10:19:48'
-      },
-      {
-        key: '3',
-        name: 'Tasks demo 3',
-        status: 'Complete',
-        date: 'Fri Nov 8 2019 10:19:48'
-      },
-      {
-        key: '4',
-        name: 'Tasks demo 4',
-        status: 'Complete',
-        date: 'Fri Nov 8 2019 10:19:48'
-      }
-    ];
-
-    const dataSelectedTaskDetail = [
-      {
-        name: 'Task Id',
-        value: '10'
-      },
-      {
-        name: 'Task Name',
-        value: '10'
-      },
-      {
-        name: 'Task Engine Type',
-        value: 'Priority'
-      },
-      {
-        name: 'Engine Build',
-        value: '10'
-      },
-      {
-        name: 'Schedule Start Time',
-        value: '10'
-      },
-      {
-        name: 'Parent Task Id',
-        value: '10'
-      },
-      {
-        name: 'Child Task Id',
-        value: '10'
-      },
-      {
-        name: 'Status',
-        value: 'Complete'
-      },
-      {
-        name: 'Error Count',
-        value: '10'
-      }
-    ];
-
-    const dataPerformance = [
-      [
-        'Time',
-        'CPU %',
-        'Bytes written',
-        'Memory %',
-        'Output files written',
-        'GPU %'
-      ],
-      [new Date(2019, 11, 14, 0), 12, 56, 48, 60, 99],
-      [new Date(2019, 11, 14, 1), 65, 78, 22, 98, 50],
-      [new Date(2019, 11, 14, 2), 35, 40, 99, 68, 88],
-      [new Date(2019, 11, 14, 3), 57, 67, 58, 80, 97],
-      [new Date(2019, 11, 14, 4), 39, 90, 15, 68, 15],
-      [new Date(2019, 11, 14, 5), 36, 51, 29, 26, 66],
-      [new Date(2019, 11, 14, 6), 25, 34, 50, 67, 84],
-      [new Date(2019, 11, 14, 7), 12, 56, 48, 60, 99],
-      [new Date(2019, 11, 14, 8), 65, 78, 22, 98, 50],
-      [new Date(2019, 11, 14, 9), 35, 40, 99, 68, 88],
-      [new Date(2019, 11, 14, 10), 57, 67, 58, 80, 97],
-      [new Date(2019, 11, 14, 11), 39, 90, 15, 68, 15],
-      [new Date(2019, 11, 14, 12), 36, 51, 29, 26, 66],
-      [new Date(2019, 11, 14, 13), 25, 34, 50, 67, 84],
-      [new Date(2019, 11, 14, 14), 12, 56, 48, 60, 99],
-      [new Date(2019, 11, 14, 15), 65, 78, 22, 98, 50],
-      [new Date(2019, 11, 14, 16), 35, 40, 99, 68, 88],
-      [new Date(2019, 11, 14, 17), 57, 67, 58, 80, 97],
-      [new Date(2019, 11, 14, 18), 39, 90, 15, 68, 15],
-      [new Date(2019, 11, 14, 19), 36, 51, 29, 26, 66],
-      [new Date(2019, 11, 14, 20), 25, 34, 50, 67, 84],
-      [new Date(2019, 11, 14, 21), 12, 56, 48, 60, 99],
-      [new Date(2019, 11, 14, 22), 36, 51, 29, 26, 66],
-      [new Date(2019, 11, 14, 23), 25, 34, 50, 67, 84]
-    ];
-
-    const sameOptionPerformance = {
-      colors: ['#D98186', '#C2D4C1', '#ff704d', '#52527a', '#FEE2CB'],
-      series: {
-        0: { type: 'bars' },
-        2: { type: 'scatter' },
-        3: { type: 'line' }
-      },
-      isStacked: true,
-      bar: {
-        groupWidth: '97%'
-      },
-      areaOpacity: 1,
-      curveType: 'function'
+    const seriesPerformance = {
+      0: { type: 'bars' },
+      2: { type: 'scatter' },
+      3: { type: 'line' }
     };
 
-    const dataBoxStatistic = [
-      {
-        name: 'Page A',
-        uv: 1000
-      },
-      {
-        name: 'Page B',
-        uv: 2000
-      },
-      {
-        name: 'Page C',
-        uv: 3000
-      },
-      {
-        name: 'Page D',
-        uv: 4780
-      },
-      {
-        name: 'Page E',
-        uv: 3890
-      },
-      {
-        name: 'Page F',
-        uv: 2390
-      },
-      {
-        name: 'Page G',
-        uv: 1000
-      },
-      {
-        name: 'Page H',
-        uv: 2000
-      },
-      {
-        name: 'Page I',
-        uv: 3000
-      },
-      {
-        name: 'Page L',
-        uv: 4780
-      },
-      {
-        name: 'Page L',
-        uv: 3890
-      },
-      {
-        name: 'Page M',
-        uv: 2390
-      }
+    const colorsPerformance = [
+      '#D98186',
+      '#C2D4C1',
+      '#ff704d',
+      '#52527a',
+      '#FEE2CB'
     ];
+    const dataActiveTaskById = dataActiveTask.find(item => item.taskId === taskId);
+    let dataTaskDetail = [];
+    if (dataActiveTaskById) {
+      dataTaskDetail = [
+        {
+          name: 'Task Id',
+          value: dataActiveTaskById.taskId
+        },
+        {
+          name: 'Task Name',
+          value: `Task Demo ${taskId}`
+        },
+        {
+          name: 'Job Id',
+          value: dataActiveTaskById.jobId
+        },
+        {
+          name: 'Task Engine Type',
+          value: dataActiveTaskById.category
+        },
+        {
+          name: 'Engine Build',
+          value: dataActiveTaskById.engineBuild
+        },
+        {
+          name: 'Schedule Start Time',
+          value: dataActiveTaskById.scheduleStartTime
+        },
+        {
+          name: 'Parent Task Id',
+          value: dataActiveTaskById.parentTaskId
+        },
+        {
+          name: 'Child Task Id',
+          value: dataActiveTaskById.childTaskId
+        },
+        {
+          name: 'Status',
+          value: dataActiveTaskById.status
+        },
+        {
+          name: 'Error Count',
+          value: dataActiveTaskById.errors
+        }
+      ];
+    }
+
 
     return (
       <Fragment>
-        <Card>
-          <Row>
-            <Col span={18}>
-              <Title level={3}>{this.props.taskId}</Title>
-              <Text>Task Instance Id</Text>
-            </Col>
-            <Col span={6}>
-              <Text>64.89%</Text> <br />
-              <Text>1m31sec ETC</Text>
-              <Progress percent={64.89} size="small" />
-            </Col>
-          </Row>
-        </Card>
-        <div className={styles['task-box-statistic']}>
+        <HeaderDetail
+          id={taskId}
+          title={`Task Instance Id`}
+          processValue={`64.89%`}
+          processTime={`1m31sec ETC`}
+        />
+        {boxsStatistic.length > 0 && (
           <Row gutter={20}>
-            <Col span={8}>
-              <Card bordered={false}>
-                <Row>
-                  <Col span={12}>
-                    <Title level={3}>32m53.2s</Title>
-                    <Text>Processing Time</Text>
-                  </Col>
-                  <Col span={12}>
-                    <BarChart width={150} height={40} data={dataBoxStatistic}>
-                      <Bar yAxisId="right" dataKey="uv" fill="#ff6600" />
-                    </BarChart>
-                  </Col>
-                </Row>
-              </Card>
-            </Col>
-            <Col span={8}>
-              <Card bordered={false}>
-                <Row>
-                  <Col span={12}>
-                    <Title level={3}>196.5</Title>
-                    <Text>CPU Minutes</Text>
-                  </Col>
-                  <Col span={12}>
-                    <BarChart width={150} height={40} data={dataBoxStatistic}>
-                      <Bar yAxisId="right" dataKey="uv" fill="#82ca9d" />
-                    </BarChart>
-                  </Col>
-                </Row>
-              </Card>
-            </Col>
-            <Col span={8}>
-              <Card bordered={false}>
-                <Row>
-                  <Col span={12}>
-                    <Title level={3}>3.2% / min</Title>
-                    <Text>Processing Rate</Text>
-                  </Col>
-                  <Col span={12}>
-                    <BarChart width={150} height={40} data={dataBoxStatistic}>
-                      <Bar yAxisId="right" dataKey="uv" fill="#ff1a1a" />
-                    </BarChart>
-                  </Col>
-                </Row>
-              </Card>
-            </Col>
-          </Row>
-        </div>
-        <Card className={styles['task-performance']}>
-          <Text>Task instance performance graph</Text>
-          <Chart
-            width="100%"
-            chartType="ComboChart"
-            loader={<div>Loading Chart</div>}
-            data={dataPerformance}
-            options={{
-              ...sameOptionPerformance,
-              seriesType: 'area',
-              vAxis: {
-                minValue: 0,
-                gridlines: { color: 'white' },
-                baselineColor: 'none',
-                textPosition: 'none'
-              },
-              hAxis: {
-                gridlines: { color: 'white' },
-                textPosition: 'none',
-                baselineColor: 'black'
-              },
-              chartArea: { width: '100%', height: '100%' },
-              legend: { position: 'in' }
-            }}
-            rootProps={{ 'data-testid': '1' }}
-            render={({ renderControl, renderChart }) => {
+            {boxsStatistic.map((el, index) => {
               return (
-                <div>
-                  {renderChart()}
-                  <div style={{ maxHeight: 70, overflow: 'hidden' }}>
-                    {renderControl(() => true)}
-                  </div>
-                </div>
+                <Col key={index} span={boxsStatistic.length % 3 === 0 ? 8 : 12}>
+                  <BoxStatisticChart
+                    title={el.title}
+                    subTitle={el.subTitle}
+                    dataKey={el.dataKey}
+                    data={el.data}
+                    color={el.color}
+                  />
+                </Col>
               );
-            }}
-            controls={[
-              {
-                controlType: 'ChartRangeFilter',
-                options: {
-                  filterColumnIndex: 0,
-                  ui: {
-                    chartType: 'AreaChart',
-                    chartOptions: {
-                      ...sameOptionPerformance,
-                      chartArea: { width: '100%', height: '30%' },
-                      hAxis: { baselineColor: 'none' }
-                    }
-                  }
-                },
-                controlPosition: 'bottom',
-                controlWrapperParams: {
-                  state: {
-                    range: {
-                      start: new Date(2019, 11, 14, 0),
-                      end: new Date(2019, 11, 14, 23)
-                    }
-                  }
-                }
-              }
-            ]}
-          />
-        </Card>
-
-        <Card>
-          <Row>
-            <Col span={6}>
-              <Row>
-                <Col span={12}>
-                  <div
-                    style={{
-                      textAlign: 'center',
-                      color: '#36cfc9',
-                      fontSize: '60px'
-                    }}
-                  >
-                    243
-                  </div>
-                </Col>
-                <Col span={12}>
-                  <div style={{ fontSize: '22px' }}>
-                    Chunks or Blocks Processed
-                  </div>
-                </Col>
-              </Row>
-            </Col>
-            <Col span={6}>
-              <Row>
-                <Col span={12}>
-                  <div
-                    style={{
-                      textAlign: 'center',
-                      color: '#ff4d4f',
-                      fontSize: '60px'
-                    }}
-                  >
-                    321
-                  </div>
-                </Col>
-                <Col span={12}>
-                  <div style={{ fontSize: '22px' }}>
-                    (Current / Actual) Remaining
-                  </div>
-                </Col>
-              </Row>
-            </Col>
-            <Col span={6}>
-              <Row>
-                <Col span={12}>
-                  <div
-                    style={{
-                      textAlign: 'center',
-                      color: '#bae637',
-                      fontSize: '60px'
-                    }}
-                  >
-                    123
-                  </div>
-                </Col>
-                <Col span={12}>
-                  <div style={{ fontSize: '22px' }}>A + B</div>
-                </Col>
-              </Row>
-            </Col>
-            <Col span={6}>
-              <Row>
-                <Col span={12}>
-                  <div
-                    style={{
-                      textAlign: 'center',
-                      color: '#ffc53d',
-                      fontSize: '60px'
-                    }}
-                  >
-                    4323
-                  </div>
-                </Col>
-                <Col span={12}>
-                  <div style={{ fontSize: '22px' }}>Errors / Retries</div>
-                </Col>
-              </Row>
-            </Col>
+            })}
           </Row>
-        </Card>
+        )}
+        <ComboChart
+          title="Task instance performance graph"
+          data={dataPerformance}
+          series={seriesPerformance}
+          colors={colorsPerformance}
+          isRangeFilter
+        />
 
-        <Card title="task detail" className={styles['task-detail']}>
-          <Row>
-            <Col span={24} className={styles['task-detail-left']}>
-              <Descriptions
-                bordered
-                column={{ xxl: 1, xl: 1, lg: 1, md: 1, sm: 1, xs: 1 }}
-              >
-                {dataTaskDetail.map(item => {
-                  return (
-                    <Descriptions.Item key={item.name} label={item.name}>
-                      {item.value}
-                    </Descriptions.Item>
-                  );
-                })}
-              </Descriptions>
-            </Col>
-            <Col span={24} className={styles['task-detail-action']}>
-              <Button type="primary">Export</Button>
-              <Button>Watch</Button>
-            </Col>
-          </Row>
-        </Card>
-
-        <Card>
-          <Row>
-            <Col span={6}>
-              <Row>
-                <Col span={12}>
-                  <div
-                    style={{
-                      textAlign: 'center',
-                      color: '#36cfc9',
-                      fontSize: '60px'
-                    }}
-                  >
-                    243
-                  </div>
-                </Col>
-                <Col span={12}>
-                  <div style={{ fontSize: '22px' }}>Actice Instances</div>
-                </Col>
-              </Row>
-            </Col>
-            <Col span={6}>
-              <Row>
-                <Col span={12}>
-                  <div
-                    style={{
-                      textAlign: 'center',
-                      color: '#ff4d4f',
-                      fontSize: '60px'
-                    }}
-                  >
-                    321
-                  </div>
-                </Col>
-                <Col span={12}>
-                  <div style={{ fontSize: '22px' }}>Completed Instances</div>
-                </Col>
-              </Row>
-            </Col>
-            <Col span={6}>
-              <Row>
-                <Col span={12}>
-                  <div
-                    style={{
-                      textAlign: 'center',
-                      color: '#bae637',
-                      fontSize: '60px'
-                    }}
-                  >
-                    123
-                  </div>
-                </Col>
-                <Col span={12}>
-                  <div style={{ fontSize: '22px' }}>Paused Instances</div>
-                </Col>
-              </Row>
-            </Col>
-            <Col span={6}>
-              <Row>
-                <Col span={12}>
-                  <div
-                    style={{
-                      textAlign: 'center',
-                      color: '#ffc53d',
-                      fontSize: '60px'
-                    }}
-                  >
-                    4323
-                  </div>
-                </Col>
-                <Col span={12}>
-                  <div style={{ fontSize: '22px' }}>Peak Instances</div>
-                </Col>
-              </Row>
-            </Col>
-          </Row>
-        </Card>
-
-        <Card className={styles['task-detail']}>
-          <Row>
-            <Col span={24}>
-              <Text>Job detail</Text>
-            </Col>
-
-            <Col span={24} className={styles['task-detail-left']}>
-              <Descriptions
-                bordered
-                column={{ xxl: 1, xl: 1, lg: 1, md: 1, sm: 1, xs: 1 }}
-              >
-                {dataJobDetail.map(item => {
-                  return (
-                    <Descriptions.Item key={item.name} label={item.name}>
-                      {item.value}
-                    </Descriptions.Item>
-                  );
-                })}
-              </Descriptions>
-            </Col>
-            <Col span={24} className={styles['task-detail-action']}>
-              <Button type="primary">Export</Button>
-              <Button>Watch</Button>
-            </Col>
-          </Row>
-        </Card>
-
-        {/* <Card className={styles['task-detail']}>
-          <Row>
-            <Col span={24}>
-              <Text>List of tasks in job</Text>
-            </Col>
-
-            <Col span={24} className={styles['task-in-job']}>
-              <Table columns={columns} dataSource={dataTaskInJob} />
-            </Col>
-            <Col span={24} className={styles['task-detail-action']}>
-              <Button type="primary">Export</Button>
-              <Button>Watch</Button>
-            </Col>
-          </Row>
-        </Card> */}
-
-        {/* <Card className={styles['task-detail']}>
-          <Row>
-            <Col span={24}>
-              <Text>Selected task detail</Text>
-            </Col>
-
-            <Col span={24} className={styles['task-detail-left']}>
-              <Descriptions
-                bordered
-                column={{ xxl: 1, xl: 1, lg: 1, md: 1, sm: 1, xs: 1 }}
-              >
-                {dataSelectedTaskDetail.map(item => {
-                  return (
-                    <Descriptions.Item key label={item.name}>
-                      {item.value}
-                    </Descriptions.Item>
-                  );
-                })}
-              </Descriptions>
-            </Col>
-            <Col span={24} className={styles['task-detail-action']}>
-              <Button type="primary">Export</Button>
-              <Button>Watch</Button>
-            </Col>
-          </Row>
-        </Card> */}
-
-        <Card className={styles['task-detail']}>
-          <Row>
-            <Col span={24}>
-              <Text>Error In Task Instance</Text>
-            </Col>
-
-            <Col span={24} className={styles['task-in-job']}>
-              <Table
-                columns={columns}
-                dataSource={dataTaskInJob}
-                onRow={(record, rowIndex) => {
-                  return {
-                    onClick: event => {
-                      this.onClickRow(record);
-                    }
-                  };
-                }}
+        <Row className={styles['card-row']}>
+          {taskDetailCards.map(item => (
+            <Col key={item.cardTitle} span={6}>
+              <DashBoardCard
+                cardTitle={item.cardTitle}
+                cardDes={item.cardDes}
+                type="activeTasks"
+                titleColor={item.titleColor}
+                customStyle="taskDetails"
               />
             </Col>
-            <Col span={24} className={styles['task-detail-action']}>
-              <Button type="primary">Export</Button>
-              <Button>Watch</Button>
+          ))}
+        </Row>
+        <TableDetail
+          title={`Task Detail`}
+          data={dataTaskDetail}
+        />
+        <Row className={styles['card-row']}>
+          {instancesCards.map(item => (
+            <Col key={item.cardTitle} span={6}>
+              <DashBoardCard
+                cardTitle={item.cardTitle}
+                cardDes={item.cardDes}
+                type="activeTasks"
+                titleColor={item.titleColor}
+                customStyle="taskDetails"
+              />
             </Col>
-          </Row>
-        </Card>
-        <Modal
-          title="Error Detail"
-          visible={this.state.visible}
-          onOk={this.handleOk}
-          onCancel={this.handleCancel}
-          width={1000}
-        >
-          <Row>
-            <Col span={24}>
-              <Text>Task instance detail</Text>
-            </Col>
+          ))}
+        </Row>
+        <TableList
+          columns={listOfWorkRequests.columns}
+          title={listOfWorkRequests.title}
+          dataRow={listOfWorkRequests.data}
+        />
+        <TableDetail
+          title={`Job Detail`}
+          data={dataJobDetail}
+        />
+        <TableList
+          columns={this.state.errorColumns}
+          title={`error list`}
+          dataRow={dataErrorTask}
+        />
 
-            <Col span={12} className={styles['task-detail-left']}>
-              <Descriptions
-                bordered
-                column={{ xxl: 1, xl: 1, lg: 1, md: 1, sm: 1, xs: 1 }}
-              >
-                {dataTaskDetail.map(item => {
-                  return (
-                    <Descriptions.Item key label={item.name}>
-                      {item.value}
-                    </Descriptions.Item>
-                  );
-                })}
-              </Descriptions>
-            </Col>
-            <Col span={12} className={styles['task-detail-right']}>
-              <Text>Log file output related to error</Text> <br />
-            </Col>
-            <Col span={24} className={styles['task-detail-action']}>
-              <Button type="primary">Export</Button>
-              <Button>Watch</Button>
-            </Col>
-          </Row>
-        </Modal>
       </Fragment>
     );
   }

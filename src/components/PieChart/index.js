@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {
   PieChart,
   Pie,
@@ -35,7 +35,7 @@ const renderActiveShape = props => {
   const ex = mx + (cos >= 0 ? 1 : -1) * 22;
   const ey = my;
   const textAnchor = cos >= 0 ? 'start' : 'end';
-
+console.log('cx', cx)
   return (
     <g>
       {/* <text x={cx} y={cy} dy={8} textAnchor="middle" fill={fill}>{payload.name}</text> */}
@@ -67,55 +67,66 @@ const renderActiveShape = props => {
   );
 };
 
-const Chart = ({ data, colors, title, onClick, onPieEnter, activeIndex }) => (
-  <Card className={styles['card-chart']}>
-    <Text>{title}</Text>
-    <ResponsiveContainer width="100%" height={350}>
-      <PieChart>
-        <Pie
-          data={data}
-          fill="#8884d8"
-          startAngle={90}
-          endAngle={-270}
-          label={({
-            cx,
-            cy,
-            midAngle,
-            innerRadius,
-            outerRadius,
-            value,
-            index
-          }) => {
-            const RADIAN = Math.PI / 180;
-            const radius = 25 + innerRadius + (outerRadius - innerRadius);
-            const x = cx + radius * Math.cos(-midAngle * RADIAN);
-            const y = cy + radius * Math.sin(-midAngle * RADIAN);
-            return (
-              <text
-                x={x}
-                y={y}
-                fill="#8884d8"
-                textAnchor={x > cx ? 'start' : 'end'}
-                dominantBaseline="central"
-              >
-                {data[index].name}
-              </text>
-            );
-          }}
-          onClick={onClick}
-          activeShape={renderActiveShape}
-          onMouseEnter={onPieEnter}
-          activeIndex={activeIndex}
-        >
-          {data.map((entry, index) => (
-            <Cell key fill={colors[index % colors.length]} />
-          ))}
-        </Pie>
-        <Tooltip />
-      </PieChart>
-    </ResponsiveContainer>
-  </Card>
-);
+class Chart extends Component {
+  render() {
+  let { data, colors, title, onClick, onPieEnter, activeIndex, type } = this.props;
+    data = data.map(item => {
+      return {
+        ...item,
+        type
+      }
+    })
+    return (
+      <Card className={styles['card-chart']}>
+        <Text>{title}</Text>
+        <ResponsiveContainer width="100%" height={350}>
+          <PieChart>
+            <Pie
+              data={data}
+              fill="#8884d8"
+              startAngle={90}
+              endAngle={-270}
+              label={({
+                cx,
+                cy,
+                midAngle,
+                innerRadius,
+                outerRadius,
+                value,
+                index
+              }) => {
+                const RADIAN = Math.PI / 180;
+                const radius = 25 + innerRadius + (outerRadius - innerRadius);
+                const x = cx + radius * Math.cos(-midAngle * RADIAN);
+                const y = cy + radius * Math.sin(-midAngle * RADIAN);
+                return (
+                  <text
+                    x={x}
+                    y={y}
+                    fill="#8884d8"
+                    textAnchor={x > cx ? 'start' : 'end'}
+                    dominantBaseline="central"
+                  >
+                    {data[index].name}
+                  </text>
+                );
+              }}
+              onClick={onClick}
+              activeShape={renderActiveShape}
+              // onMouseEnter={onPieEnter}
+              activeIndex={activeIndex}
+            >
+              {data.map((entry, index) => (
+                <Cell key fill={colors[index % colors.length]} />
+              ))}
+            </Pie>
+            <Tooltip />
+          </PieChart>
+        </ResponsiveContainer>
+      </Card>
+    )
+  }
+}
 
 Chart.propTypes = {
   data: PropTypes.arrayOf(PropTypes.shape({})),
