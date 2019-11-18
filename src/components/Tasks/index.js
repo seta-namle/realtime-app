@@ -16,7 +16,6 @@ import ActiveTaskTable from './ActiveTaskTable';
 import ErrorTable from './ErrorTable';
 import PerformanceChart from './PerformanceChart';
 import PerformanceData from './PerformanceChart.json';
-import { random } from 'node-forge';
 const { Option } = Select;
 const TOTAL_HOURS = 12;
 const _all = [];
@@ -159,7 +158,6 @@ class Tasks extends Component {
     const activeItem = this.props.initialInstanceData.filter(
       item => item.task_type === id
     );
-    console.log('aciveItem', activeItem);
     let activeInstanceData = this.props.initialInstanceData;
     if (activeItem.length) {
       activeInstanceData = PerformanceData.data.reduce((result, value) => {

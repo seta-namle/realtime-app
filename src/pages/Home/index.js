@@ -8,22 +8,13 @@ import Tasks from 'components/Tasks';
 import DashBoard from 'components/DashBoard';
 import { string } from 'prop-types';
 import styles from './styles.scss';
-import Login from 'components/Login';
 class Home extends React.Component {
   static propTypes = {
     routeTab: string
   };
-  state = {
-    isLogin: true
-  }
-
-  handleLogin = () => {
-    this.setState(prevState => ({ isLogin: !prevState.isLogin }))
-  }
 
   render() {
     const TabComponent = {
-      // loginPath: Login,
       jobs: Jobs,
       tasks: Tasks,
       home: DashBoard
@@ -31,18 +22,12 @@ class Home extends React.Component {
     return (
       <Fragment>
         <div className={styles['home']}>
-          {
-            this.state.isLogin && <Login onLogin={this.handleLogin} />
-          }
-          {
-            !this.state.isLogin &&
-            <Fragment>
-              <AppBar />
-              <SideBar>
-                <TabComponent />
-              </SideBar>
-            </Fragment>
-          }
+          <Fragment>
+            <AppBar />
+            <SideBar>
+              <TabComponent />
+            </SideBar>
+          </Fragment>
         </div>
       </Fragment>
     );

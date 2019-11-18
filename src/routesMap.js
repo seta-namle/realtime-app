@@ -15,10 +15,10 @@ import { loadExampleTabsPage } from 'modules/exampleTabs/saga';
 
 export default {
   [ROUTE_AUTH]: {
-    path: '/login',
-    component: 'Auth',
-    saga: loadAuthPage,
-    requiresAuth: false
+    path: '/auth/login',
+    component: 'Login',
+    // saga: loadAuthPage,
+    //requiresAuth: false
   },
   [ROUTE_HOME]: {
     path: '/:tabName?/:id?',

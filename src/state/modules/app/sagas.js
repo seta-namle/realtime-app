@@ -30,6 +30,7 @@ const {
 import importPendo from 'resources/vendor/js/pendo';
 
 import {
+  ROUTE_HOME,
   ROUTE_AUTH,
   selectRouteType,
   selectCurrentRoutePayload
@@ -67,20 +68,27 @@ function* getAppStartupDependencies() {
 }
 
 function* watchAppBoot() {
-  yield takeLatest(BOOT, function*() {
+  yield takeLatest(BOOT, function* () {
     const config = yield select(getConfig);
-    const user = yield* fetchUserWithStoredTokenOrCookie();
 
-    if (user) {
+    const token = yield call([localStorage, 'getItem'], 'token');
+  
+    // const user = yield* fetchUserWithStoredTokenOrCookie();
+
+    if (token !== '123-456-7890') {
+      // if (user) {
       // login success with stored credentials or cookie
-      yield* getAppStartupDependencies();
-      yield put(bootFinished());
+      //   yield* getAppStartupDependencies();
+      //   yield put(bootFinished());
+      // } else {
+      // if (config.useOAuthGrant) {
+      yield* redirectAndAwaitOAuthGrant();
+      // } else {
+      // yield* redirectToVeritoneInternalLogin();
+      // }
+      // }
     } else {
-      if (config.useOAuthGrant) {
-        yield* redirectAndAwaitOAuthGrant();
-      } else {
-        yield* redirectToVeritoneInternalLogin();
-      }
+      yield* fetchUserWithStoredTokenOrCookie()
     }
   });
 }
@@ -113,7 +121,7 @@ function* redirectAndAwaitOAuthGrant() {
 function* redirectToVeritoneInternalLogin() {
   const config = yield select(getConfig);
 
-  window.location = `${config.loginRoute}/?redirect=${window.location.href}`;
+  // window.location = `${config.loginRoute}/?redirect=${window.location.href}`;
 }
 
 function* fetchUserWithStoredTokenOrCookie() {
@@ -126,7 +134,9 @@ function* fetchUserWithStoredTokenOrCookie() {
     yield put(setOAuthToken(existingOAuthToken));
   }
 
-  yield put(fetchUser());
+  // TODO: new fetchUser for token
+  // yield put(fetchUser());
+  yield put({ type: FETCH_USER_SUCCESS, payload: { token: 'somebody I am used to know' } })
 
   const [successAction] = yield race([
     take(FETCH_USER_SUCCESS),
@@ -139,7 +149,7 @@ function* fetchUserWithStoredTokenOrCookie() {
 }
 
 function* storeTokenAfterSuccessfulOAuthGrant() {
-  yield takeLatest(OAUTH_GRANT_FLOW_SUCCESS, function*({
+  yield takeLatest(OAUTH_GRANT_FLOW_SUCCESS, function* ({
     payload: { OAuthToken }
   }) {
     yield call([localStorage, 'setItem'], 'OAuthToken', OAuthToken);
@@ -147,10 +157,17 @@ function* storeTokenAfterSuccessfulOAuthGrant() {
 }
 
 function* clearStoredTokenAfterLogout() {
-  yield takeLatest(LOGOUT_SUCCESS, function*() {
+  yield takeLatest(LOGOUT_SUCCESS, function* () {
+    yield call([localStorage, 'removeItem'], 'token');
     yield call([localStorage, 'removeItem'], 'OAuthToken');
     yield call([location, 'reload']);
   });
+}
+
+function* reBoot() {
+  yield takeLatest(ROUTE_HOME, function* () {
+    yield put(boot())
+  })
 }
 
 function* initializePendoAfterUserLogin() {
@@ -184,6 +201,7 @@ export default function* auth() {
     fork(watchAppBoot),
     fork(storeTokenAfterSuccessfulOAuthGrant),
     fork(clearStoredTokenAfterLogout),
-    fork(initializePendoAfterUserLogin)
+    fork(initializePendoAfterUserLogin),
+    fork(reBoot)
   ]);
 }

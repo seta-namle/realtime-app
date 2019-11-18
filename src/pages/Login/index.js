@@ -1,16 +1,20 @@
 import React from "react";
 import "antd/dist/antd.css";
 import style from './style.scss';
+import { connect } from 'react-redux';
 import veritoneLogo from 'resources/images/Veritone-logo-300x300.jpg';
 import { Form, Icon, Input, Button, Checkbox, Divider } from "antd";
+import { ROUTE_HOME } from "state/modules/routing";
 
 class Login extends React.Component {
     handleSubmit = e => {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
-            if (!err) {
-                console.log("Received values of form: ", values);
-                this.props.onLogin()
+            const { username, password } = values;
+            if (!err && username === 'demo' && password === 'demo') {
+                this.props.redirectToHome(username, password)
+            } else {
+                alert(`please enter demo/demo to login`)
             }
         });
     };
@@ -20,12 +24,12 @@ class Login extends React.Component {
         return (
             <div className={style['form-container']}>
                 <div className={style["login-form"]}>
-                    <img src={veritoneLogo} style={{ margin: '0 auto', display: 'block'}} alt="Veritone Logo" />
+                    <img src={veritoneLogo} style={{ margin: '0 auto', display: 'block' }} alt="Veritone Logo" />
                     <Divider style={{ color: 'gray', fontSize: 13 }}>Easily Using</Divider>
                     <div style={{ display: 'flex', justifyContent: 'center' }}>
-                        <Button style={{color: 'black', borderColor: 'black'}} icon="github" size="large" />
+                        <Button style={{ color: 'black', borderColor: 'black' }} icon="github" size="large" />
                         &nbsp; &nbsp;
-                        <Button style={{color: 'black', borderColor: 'black'}} icon="smile" size="large" />
+                        <Button style={{ color: 'black', borderColor: 'black' }} icon="smile" size="large" />
                     </div>
 
                     <Divider style={{ color: 'gray', fontSize: 13 }}>OR Using Account Details</Divider>
@@ -88,4 +92,12 @@ const WrappedLogin = Form.create({ name: "normal_login" })(
     Login
 );
 
-export default WrappedLogin;
+export default connect(
+    null,
+    {
+        redirectToHome: (user, pass) => ({
+            type: ROUTE_HOME,
+            payload: { user, pass }
+        })
+    }
+)(WrappedLogin);

@@ -47,7 +47,6 @@ export default connect(state => {
   const routesMap = selectRoutesMap(state);
   const routeType = selectRouteType(state);
   const currentRoute = routesMap[routeType];
-
   return {
     currentRoute,
     isPermittedToRenderCurrentPage:
@@ -55,6 +54,6 @@ export default connect(state => {
     pageComponent: currentRoute.component,
     // in addition to showing the loading screen as chunks load,
     // we render it until initial app bootup finishes
-    isLoading: !bootDidFinish(state)
+    isLoading: false//!bootDidFinish(state)
   };
 })(RootRoute);
