@@ -17,7 +17,8 @@
     "format": "prettier --write \"./**/*.{js,css,scss,md,json}\"",
     "lint": "yarn run lint:js && yarn run lint:styles",
     "lint:js": "eslint ./ --max-warnings 0",
-    "lint:styles": "stylelint \"./**/*.{css,scss}\""
+    "lint:styles": "stylelint \"./**/*.{css,scss}\"",
+    "heroku-postbuild": "neutrino build"
   },
   "devDependencies": {
     "@neutrinojs/jest": "^8.3.0",
