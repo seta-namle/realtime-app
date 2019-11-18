@@ -12,6 +12,7 @@ import BarChart from '../BarChart';
 import ActiveTaskTable from './ActiveTaskTable';
 import ErrorTable from './ErrorTable';
 import PerformanceData from './PerformanceChart.json';
+import styles from './styles.scss';
 const { Option } = Select;
 import {
   dataBarChart,
@@ -339,38 +340,38 @@ class Tasks extends Component {
     const { dataBarChart, filterBarChart, legendPayloadStatus, legendPayloadInstance, dataBarStatus, dataBarInstance } = this.state;
     return (
       <Fragment>
-        <Row gutter={[10, 10]}>
-            <Col span={8} >
-              <DashBoardCard
-                cardTitle="42321"
-                cardDes="active tasks"
-                type="activeTasks"
-              />
-            </Col>
-            <Col span={8} >
-              <DashBoardCard
-                dataChart={dataChart}
-                chartColor="#57d094"
-                cardTitle="100200"
-                cardDes="completed tasks (12 hrs)"
-                cardValue="70%"
-                cardIcon="folder-open"
-              />
-            </Col>
-            <Col span={8} >
-              <DashBoardCard
-                dataChart={dataChart}
-                chartColor="#ed4661"
-                cardTitle="1500"
-                cardDes="completed errors (12 hrs)"
-                cardValue="1%"
-                cardIcon="folder-open"
-              />
-            </Col>
+        <Row gutter={16}>
+          <Col span={24} md={8}>
+            <DashBoardCard
+              cardTitle="42321"
+              cardDes="active tasks"
+              type="activeTasks"
+            />
+          </Col>
+          <Col span={24} md={8} className={styles['block-dashBoard__marginTop']} >
+            <DashBoardCard
+              dataChart={dataChart}
+              chartColor="#57d094"
+              cardTitle="100200"
+              cardDes="completed tasks (12 hrs)"
+              cardValue="70%"
+              cardIcon="folder-open"
+            />
+          </Col>
+          <Col span={24} md={8} className={styles['block-dashBoard__marginTop']}>
+            <DashBoardCard
+              dataChart={dataChart}
+              chartColor="#ed4661"
+              cardTitle="1500"
+              cardDes="completed errors (12 hrs)"
+              cardValue="1%"
+              cardIcon="folder-open"
+            />
+          </Col>
         </Row>
 
-        <Row gutter={[10, 10]}>
-          <Col span={8}>
+        <Row gutter={16}>
+          <Col span={24} lg={8} >
             <PieChart
               data={activeDataPieChart}
               colors={colors}
@@ -381,7 +382,7 @@ class Tasks extends Component {
               type={'Active'}
             />
           </Col>
-          <Col span={8}>
+          <Col span={24} lg={8} >
             <PieChart
               data={completeDataPieChart}
               colors={colors}
@@ -392,7 +393,7 @@ class Tasks extends Component {
               type={'Completed'}
             />
           </Col>
-          <Col span={8}>
+          <Col span={24} lg={8} >
             <PieChart
               data={errorDataPieChart}
               colors={colors}
