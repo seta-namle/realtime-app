@@ -10,8 +10,8 @@ import DashBoardCard from '../Cards';
 import PieChart from '../PieChart';
 import BarChart from '../BarChart';
 import PerformanceData from './PerformanceChart.json';
-
 import TableList from '../TableList';
+import styles from './styles.scss';
 const { Option } = Select;
 import {
   dataBarChart,
@@ -432,15 +432,15 @@ class Tasks extends Component {
     } = this.state;
     return (
       <Fragment>
-        <Row gutter={[10, 10]}>
-          <Col span={8} >
+        <Row gutter={16}>
+          <Col span={24} md={8}>
             <DashBoardCard
               cardTitle="42321"
               cardDes="active tasks"
               type="activeTasks"
             />
           </Col>
-          <Col span={8} >
+          <Col span={24} md={8} className={styles['block-dashBoard__marginTop']} >
             <DashBoardCard
               dataChart={dataChart}
               chartColor="#57d094"
@@ -450,7 +450,7 @@ class Tasks extends Component {
               cardIcon="folder-open"
             />
           </Col>
-          <Col span={8} >
+          <Col span={24} md={8} className={styles['block-dashBoard__marginTop']}>
             <DashBoardCard
               dataChart={dataChart}
               chartColor="#ed4661"
@@ -462,8 +462,8 @@ class Tasks extends Component {
           </Col>
         </Row>
 
-        <Row gutter={[10, 10]}>
-          <Col span={8}>
+        <Row gutter={16}>
+          <Col span={24} lg={8} >
             <PieChart
               data={activeDataPieChart}
               colors={colors}
@@ -474,7 +474,7 @@ class Tasks extends Component {
               type={'Active'}
             />
           </Col>
-          <Col span={8}>
+          <Col span={24} lg={8} >
             <PieChart
               data={completeDataPieChart}
               colors={colors}
@@ -485,7 +485,7 @@ class Tasks extends Component {
               type={'Completed'}
             />
           </Col>
-          <Col span={8}>
+          <Col span={24} lg={8} >
             <PieChart
               data={errorDataPieChart}
               colors={colors}
