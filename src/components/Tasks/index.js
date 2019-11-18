@@ -440,6 +440,7 @@ class Tasks extends Component {
           onClickLegend={this.onClickLegend}
           legend={this.state.legend}
           legendPayload={this.state.legendPayload}
+          title={`tasks by status`}
         />
 
         <ActiveTaskTable type={filterBarChart} />

@@ -127,49 +127,53 @@ class TaskDetailTable extends Component {
 
   render() {
     const { taskId } = this.props
-    const dataTask = this.state.data.filter(item => item.taskId === taskId)[0]
-    const dataTaskDetail = [
-      {
-        name: 'Task Id',
-        value: taskId
-      },
-      {
-        name: 'Task Name',
-        value: `Task Demo ${taskId}`
-      },
-      {
-        name: 'Job Id',
-        value: dataTask.jobId
-      },
-      {
-        name: 'Task Engine Type',
-        value: dataTask.category
-      },
-      {
-        name: 'Engine Build',
-        value: dataTask.engineBuild
-      },
-      {
-        name: 'Schedule Start Time',
-        value: dataTask.scheduleStartTime
-      },
-      {
-        name: 'Parent Task Id',
-        value: dataTask.parentTaskId
-      },
-      {
-        name: 'Child Task Id',
-        value: dataTask.childTaskId
-      },
-      {
-        name: 'Status',
-        value: dataTask.status
-      },
-      {
-        name: 'Error Count',
-        value: dataTask.errors
-      }
-    ]
+    const dataTask = this.state.data.filter(item => item.taskId === taskId)[0];
+    let dataTaskDetail = [];
+    if(dataTask){
+      dataTaskDetail = [
+        {
+          name: 'Task Id',
+          value: taskId
+        },
+        {
+          name: 'Task Name',
+          value: `Task Demo ${taskId}`
+        },
+        {
+          name: 'Job Id',
+          value: dataTask.jobId
+        },
+        {
+          name: 'Task Engine Type',
+          value: dataTask.category
+        },
+        {
+          name: 'Engine Build',
+          value: dataTask.engineBuild
+        },
+        {
+          name: 'Schedule Start Time',
+          value: dataTask.scheduleStartTime
+        },
+        {
+          name: 'Parent Task Id',
+          value: dataTask.parentTaskId
+        },
+        {
+          name: 'Child Task Id',
+          value: dataTask.childTaskId
+        },
+        {
+          name: 'Status',
+          value: dataTask.status
+        },
+        {
+          name: 'Error Count',
+          value: dataTask.errors
+        }
+      ]
+    }
+ 
     return (
       <Card title="task detail" className={styles['task-detail']}>
         <Row>

@@ -5,28 +5,18 @@ import styles from '../styles.scss'
 const NetworkGraph = () => {
     const graph = {
         nodes: [
-            { id: 1, label: "Node 1", color: "#e09c41" },
-            { id: 2, label: "Things", color: "white" },
-            { id: 3, label: "Node 3", color: "#e0df41" },
-            { id: 4, label: "Node 4", color: "#e09c41" },
-            { id: 5, label: "Node 5", color: "#e09c41" }
+            { id: 1, label: "Webstream\nAdapter", shape: "diamond", size: 30, color: "#15c853" },
+            { id: 2, label: "Stream\nIngestion", shape: "dot", size: 30, color: "#15c853" },
+            { id: 3, label: "Speech\nmatic", shape: "dot", size: 30, color: "#FFA807" }
         ],
         edges: [
-            { from: 1, to: 2 },
-            { from: 1, to: 3 },
-            { from: 2, to: 4 },
-            { from: 2, to: 5 }
+            { from: 1, to: 2, value: 0.5, color: { inherit: "to" } },
+            { from: 2, to: 3, value: 0.5, color: { inherit: "to" } }
         ]
     };
 
     const options = {
-        layout: {
-            hierarchical: true
-        },
-        edges: {
-            color: "#000000"
-        },
-        height: "500px"
+        height: "220px"
     };
 
     const events = {
@@ -44,7 +34,7 @@ const NetworkGraph = () => {
             graph={graph}
             options={options}
             events={events}
-            autoResize
+            // autoResize
             // getNetwork={network => {
             //     console.log('network', network);
             //     //  if you want access to vis.js network api you can set the state in a parent component using this property

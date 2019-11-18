@@ -15,11 +15,12 @@ const DashBoardCard = ({
   cardValue,
   cardIcon,
   type,
-  titleColor
+  titleColor,
+  customStyle
 }) => {
   if (type === 'activeTasks') {
     return (
-      <Card className={styles['card-dashboard-active']}>
+      <Card className={customStyle ? styles['card-dashboard-custom'] : styles['card-dashboard-active']}>
         <div className={styles['card-dashboard-content']}>
           <Title
             level={1}
