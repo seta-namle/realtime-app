@@ -1,5 +1,4 @@
 import React from 'react';
-import 'antd/dist/antd.css';
 import { Layout, Menu, Breadcrumb, Icon, Select, Row, Col } from 'antd';
 import styles from './styles.scss';
 const { Header, Content, Footer, Sider } = Layout;

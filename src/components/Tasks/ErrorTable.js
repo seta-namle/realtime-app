@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import 'antd/dist/antd.css';
+
 import { Card, Table, Button, Modal, Row, Col, Descriptions } from 'antd';
 import styles from './TaskDetail/styles.scss';
 import { dataErrorTask } from './mockData';

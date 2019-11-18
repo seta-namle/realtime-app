@@ -22,7 +22,6 @@ import {
 } from 'recharts';
 import { connect } from 'react-redux';
 import NetworkGraph from './NetworkGraph';
-
 import { ON_CLICK_DETAIL } from '../../../state/modules/sideBar';
 import { selectCurrentRoutePayload } from 'state/modules/routing';
 import { func, number, bool, arrayOf, object } from 'prop-types';

@@ -126,6 +126,7 @@ module.exports = {
           plugins: [
             'react-hot-loader/babel',
             ...extraBabelPlugins,
+            ["import", { "libraryName": "antd", "libraryDirectory": "es", "style": "css" }], // `style: true` for less,
             // hack: remove hot loader v3 from preset-react so we can use the
             // v4 plugin instead
             ...without(
