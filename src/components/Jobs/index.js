@@ -15,45 +15,15 @@ import ActiveJobTable from '../Jobs/ActiveJobTable';
 import ErrorTable from '../Tasks/ErrorTable';
 import PerformanceChart from '../Tasks/PerformanceChart';
 import PerformanceData from '../Tasks/PerformanceChart.json';
-const { Option } = Select;
-const TOTAL_HOURS = 12;
-const _all = [];
-for (let j = 1; j <= 6; j++) {
-  let _key = 'all';
-  switch (j) {
-    case 1:
-      _key = 'all';
-      break;
-    case 2:
-      _key = 'translation';
-      break;
-    case 3:
-      _key = 'faceDetection';
-      break;
-    case 4:
-      _key = 'transcription';
-      break;
-    case 5:
-      _key = 'logoRecognition';
-      break;
-    case 6:
-      _key = 'licensePlate';
-  }
-  for (let i = 1; i <= TOTAL_HOURS; i++) {
-    const tmp = {
-      name: `${i}:00 AM`,
-      Running: Math.round(Math.random() * 10000),
-      Started: Math.round(Math.random() * 5000),
-      Paused: Math.round(Math.random() * 2000),
-      'Error rate': Math.round(Math.random() * 1000),
-      Completed: Math.round(Math.random() * 2000),
-      Error: Math.round(Math.random() * 2000),
-      key: _key
-    };
-    _all.push(tmp);
-  }
-}
+import {
+  dataBarChart,
+  dataChart,
+  activeDataPieChart,
+  completeDataPieChart,
+  errorDataPieChart
+} from './mockData';
 
+const { Option } = Select;
 const dataBarDefault = [
   { isEnabled: true, key: 'Running', color: '#8884d8' },
   { isEnabled: true, key: 'Started', color: '#82ca9d' },
@@ -68,7 +38,7 @@ const legendPayloadDefault = [
   { value: 'Started', id: 'started', type: 'rect', color: '#82ca9d' },
   { value: 'Paused', id: 'paused', type: 'rect', color: '#ef7c4d' },
   { value: 'All', id: 'all', type: 'rect', color: 'gray' }
-]
+];
 class Tasks extends Component {
   static propTypes = {
     onClickDetail: func,
@@ -78,7 +48,7 @@ class Tasks extends Component {
 
   state = {
     filterBarChart: 'all',
-    dataBarChart: [..._all],
+    dataBarChart: dataBarChart,
     activeIndex: null,
     chartData: PerformanceData.data,
     activeInstanceData: [],
@@ -105,18 +75,22 @@ class Tasks extends Component {
       return {
         ...item,
         isEnabled: status.includes(item.key) ? true : false
-      }
-    })
-    return dataBar
-  }
+      };
+    });
+    return dataBar;
+  };
   onClickPieChart = (data, index) => {
-
-    const { activeIndex, activeIndexCompleted, activeIndexError, dataBar } = this.state;
+    const {
+      activeIndex,
+      activeIndexCompleted,
+      activeIndexError,
+      dataBar
+    } = this.state;
     const { payload } = data.payload;
     const filterBarChart = payload.key;
     const type = payload.type;
     if (type === 'Active') {
-      if ((activeIndex || activeIndex === 0)) {
+      if (activeIndex || activeIndex === 0) {
         this.setState({
           filterBarChart: 'all',
           activeIndex: null,
@@ -131,19 +105,30 @@ class Tasks extends Component {
           barChartType: type,
           activeIndexCompleted: null,
           activeIndexError: null,
-          dataBar: this.renderDataBar(dataBar, ['Running', 'Started', 'Paused']),
+          dataBar: this.renderDataBar(dataBar, [
+            'Running',
+            'Started',
+            'Paused'
+          ]),
           legendPayload: legendPayloadDefault
         });
       }
     }
     if (type === 'Completed') {
-      if ((activeIndexCompleted || activeIndexCompleted === 0)) {
+      if (activeIndexCompleted || activeIndexCompleted === 0) {
         this.setState({
           filterBarChart: 'all',
           activeIndexCompleted: null,
           barChartType: type,
           dataBar: this.renderDataBar(dataBar, ['Completed']),
-          legendPayload: [{ value: 'Completed', id: 'completed', type: 'rect', color: '#8884d8' }]
+          legendPayload: [
+            {
+              value: 'Completed',
+              id: 'completed',
+              type: 'rect',
+              color: '#8884d8'
+            }
+          ]
         });
       } else {
         this.setState({
@@ -153,19 +138,33 @@ class Tasks extends Component {
           activeIndex: null,
           activeIndexError: null,
           dataBar: this.renderDataBar(dataBar, ['Completed']),
-          legendPayload: [{ value: 'Completed', id: 'completed', type: 'rect', color: '#8884d8' }]
+          legendPayload: [
+            {
+              value: 'Completed',
+              id: 'completed',
+              type: 'rect',
+              color: '#8884d8'
+            }
+          ]
         });
       }
     }
 
     if (type === 'Error') {
-      if ((activeIndexError || activeIndexError === 0)) {
+      if (activeIndexError || activeIndexError === 0) {
         this.setState({
           filterBarChart: 'all',
           activeIndexError: null,
           barChartType: type,
           dataBar: this.renderDataBar(dataBar, ['Error']),
-          legendPayload: [{ value: 'Completed', id: 'completed', type: 'rect', color: '#8884d8' }]
+          legendPayload: [
+            {
+              value: 'Completed',
+              id: 'completed',
+              type: 'rect',
+              color: '#8884d8'
+            }
+          ]
         });
       } else {
         this.setState({
@@ -175,7 +174,9 @@ class Tasks extends Component {
           activeIndexCompleted: null,
           activeIndex: null,
           dataBar: this.renderDataBar(dataBar, ['Error']),
-          legendPayload: [{ value: 'Error', id: 'error', type: 'rect', color: '#ec4258' }]
+          legendPayload: [
+            { value: 'Error', id: 'error', type: 'rect', color: '#ec4258' }
+          ]
         });
       }
     }
@@ -184,20 +185,20 @@ class Tasks extends Component {
   onClickLegend = (data, index) => {
     let dataBarUpdate = this.state.dataBar;
     const key = data.value;
-    if(key === 'All'){
-      dataBarUpdate = dataBarDefault
-    }else {
+    if (key === 'All') {
+      dataBarUpdate = dataBarDefault;
+    } else {
       dataBarUpdate = dataBarUpdate.map(item => {
         return {
           ...item,
           isEnabled: item.key === key ? true : false
-        }
-      })
+        };
+      });
     }
     this.setState({
       dataBar: dataBarUpdate
-    })
-  }
+    });
+  };
   // onPieEnter = (data, index) => {
   //   console.log(index)
   //   this.setState({
@@ -328,36 +329,6 @@ class Tasks extends Component {
       })
     };
 
-    const dataChart = [
-      { name: 'Page A', uv: 4000, pv: 2400, amt: 2400 },
-      { name: 'Page B', uv: 3000, pv: 1398, amt: 2210 },
-      { name: 'Page C', uv: 2000, pv: 9800, amt: 2290 },
-      { name: 'Page D', uv: 2780, pv: 3908, amt: 2000 },
-      { name: 'Page E', uv: 1890, pv: 4800, amt: 2181 },
-      { name: 'Page F', uv: 2390, pv: 3800, amt: 2500 },
-      { name: 'Page G', uv: 3490, pv: 4300, amt: 2100 }
-    ];
-    const activeDataPieChart = [
-      { name: 'Translation', value: 5231, key: 'translation' },
-      { name: 'Face Detection', value: 4236, key: 'faceDetection' },
-      { name: 'Transcription', value: 25380, key: 'transcription' },
-      { name: 'Logo Recognition ', value: 4274, key: 'logoRecognition' },
-      { name: 'License Plate (ALPR)', value: 3200, key: 'licensePlate' }
-    ];
-    const completeDataPieChart = [
-        { name: 'Translation', value: 15231, key: 'translation' },
-        { name: 'Face Detection', value: 4236, key: 'faceDetection' },
-        { name: 'Transcription', value: 72380, key: 'transcription' },
-        { name: 'Logo Recognition ', value: 4153, key: 'logoRecognition' },
-        { name: 'License Plate (ALPR)', value: 3200, key: 'licensePlate' }
-      ];
-      const errorDataPieChart = [
-        { name: 'Translation', value: 531, key: 'translation' },
-        { name: 'Face Detection', value: 236, key: 'faceDetection' },
-        { name: 'Transcription', value: 538, key: 'transcription' },
-        { name: 'Logo Recognition ', value: 95, key: 'logoRecognition' },
-        { name: 'License Plate (ALPR)', value: 100, key: 'licensePlate' }
-      ];
     const colors = ['#48a5a8', '#616d82', '#ef7c4d', '#ec4258', '#57d094'];
 
     const { jobId } = this.props;

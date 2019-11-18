@@ -107,7 +107,7 @@ const ComboChart = ({
 };
 
 ComboChart.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  data: PropTypes.arrayOf(PropTypes.array).isRequired,
   title: PropTypes.string,
   colors: PropTypes.arrayOf(PropTypes.string).isRequired,
   series: PropTypes.object,

@@ -29,8 +29,7 @@ import { func, number, bool, arrayOf, object } from 'prop-types';
 const { Title, Text } = Typography;
 import HeaderDetail from '../../HeaderDetail';
 import styles from './styles.scss';
-
-
+import { dataChart, dataTableDetail } from './mockData';
 
 const ErrorModal = ({
   handleOk,
@@ -139,7 +138,7 @@ class JobDetail extends Component {
     });
   };
 
-  onClickTaskRow = (value) => {
+  onClickTaskRow = value => {
     const { onClickDetail } = this.props;
     const payload = {
       tabName: 'tasks',
@@ -149,29 +148,6 @@ class JobDetail extends Component {
   };
 
   render() {
-    const dataChart = [
-      {
-        name: 'Task 1',
-        cpu: 4000,
-        gpu: 1200,
-        mem: 2400,
-        byteWrittenErrors: 2400
-      },
-      {
-        name: 'Task 2',
-        cpu: 3000,
-        gpu: 1400,
-        mem: 1398,
-        byteWrittenErrors: 2210
-      },
-      {
-        name: 'Task 3',
-        cpu: 2000,
-        mem: 9800,
-        gpu: 1200,
-        byteWrittenErrors: 2290
-      }
-    ];
     const columns = [
       {
         title: 'Name',
@@ -187,26 +163,7 @@ class JobDetail extends Component {
         dataIndex: 'date'
       }
     ];
-    const data = [
-      {
-        key: '1',
-        name: 'Tasks demo 1',
-        status: 'Complete',
-        date: 'Fri Nov 8 2019 10:19:48'
-      },
-      {
-        key: '2',
-        name: 'Tasks demo 2',
-        status: 'Complete',
-        date: 'Fri Nov 8 2019 10:19:48'
-      },
-      {
-        key: '3',
-        name: 'Tasks demo 3',
-        status: 'Running',
-        date: 'Fri Nov 8 2019 10:19:48'
-      }
-    ];
+
     const dataJobDetail = [
       {
         name: 'Job Id',
@@ -230,7 +187,7 @@ class JobDetail extends Component {
       }
     ];
 
-    const {jobId} = this.props;
+    const { jobId } = this.props;
     return (
       <Fragment>
         <HeaderDetail
@@ -259,12 +216,11 @@ class JobDetail extends Component {
                 })}
               </Descriptions>{' '}
             </Col>
-            
+
             <Col span={12}>
-            <Card>
-            <NetworkGraph/>
-            </Card>
-          
+              <Card>
+                <NetworkGraph />
+              </Card>
             </Col>
             <Col span={24} className={styles['task-detail-action']}>
               <Button type="primary">Export</Button>
@@ -274,7 +230,6 @@ class JobDetail extends Component {
           </Row>
         </Card>
 
-        
         <Card className={styles['task-detail']}>
           <Row>
             <Col span={24}>
@@ -292,17 +247,17 @@ class JobDetail extends Component {
             </Col>
 
             <Col span={24} className={styles['task-detail-left']}>
-              <Table 
-              columns={columns} 
-              dataSource={data} 
-              onRow={(record, rowIndex) => {
-                return {
-                  onClick: () => {
-                    this.onClickTaskRow(record);
-                  }
-                };
-              }}
-               />
+              <Table
+                columns={columns}
+                dataSource={dataTableDetail}
+                onRow={(record, rowIndex) => {
+                  return {
+                    onClick: () => {
+                      this.onClickTaskRow(record);
+                    }
+                  };
+                }}
+              />
             </Col>
             <Col span={24} className={styles['task-detail-action']}>
               <Button type="primary">Export</Button>
@@ -320,7 +275,7 @@ class JobDetail extends Component {
             <Col span={24} className={styles['task-detail-left']}>
               <Table
                 columns={columns}
-                dataSource={data}
+                dataSource={dataTableDetail}
                 onRow={(record, rowIndex) => {
                   return {
                     onClick: () => {
@@ -346,7 +301,7 @@ class JobDetail extends Component {
             <Col span={24} className={styles['task-detail-left']}>
               <Table
                 columns={columns}
-                dataSource={data}
+                dataSource={dataTableDetail}
                 onRow={(record, rowIndex) => {
                   return {
                     onClick: event => {
@@ -375,7 +330,7 @@ class JobDetail extends Component {
 }
 export default connect(
   state => ({
-    tabName: selectCurrentRoutePayload(state).tabName,
+    tabName: selectCurrentRoutePayload(state).tabName
     //jobId: selectCurrentRoutePayload(state).id
   }),
   {
