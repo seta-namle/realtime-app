@@ -207,15 +207,15 @@ class JobDetail extends Component {
       },
       {
         name: 'Schedule Start Time',
-        value: '10'
+        value: 'Fri Nov 8 2019 10:19:48'
       },
       {
         name: 'Status',
-        value: 'Complete'
+        value: 'Running'
       },
       {
         name: 'Error Count',
-        value: '10'
+        value: '3'
       }
     ];
 
