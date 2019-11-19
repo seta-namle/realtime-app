@@ -95,9 +95,9 @@ const WrappedLogin = Form.create({ name: "normal_login" })(
 export default connect(
     null,
     {
-        redirectToHome: (user, pass) => ({
+        redirectToHome: (username, password) => ({
             type: ROUTE_HOME,
-            payload: { user, pass }
+            payload: { username, password }
         })
     }
 )(WrappedLogin);

@@ -21,16 +21,7 @@ const reducer = createReducer(defaultState, {
     ...state,
     isBooting: false,
     bootDidFinish: true
-  }),
-  [ROUTE_HOME]: (state, action) => {
-    const { user, pass } = action.payload;
-    if (user && pass ) {
-      localStorage.setItem('token', '123-456-7890')
-    }
-    return {
-      ...state,
-    }
-  }
+  })
 });
 
 export default reducer;

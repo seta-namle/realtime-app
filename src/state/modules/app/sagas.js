@@ -69,24 +69,10 @@ function* getAppStartupDependencies() {
 
 function* watchAppBoot() {
   yield takeLatest(BOOT, function* () {
-    const config = yield select(getConfig);
-
     const token = yield call([localStorage, 'getItem'], 'token');
-  
-    // const user = yield* fetchUserWithStoredTokenOrCookie();
 
     if (token !== '123-456-7890') {
-      // if (user) {
-      // login success with stored credentials or cookie
-      //   yield* getAppStartupDependencies();
-      //   yield put(bootFinished());
-      // } else {
-      // if (config.useOAuthGrant) {
       yield* redirectAndAwaitOAuthGrant();
-      // } else {
-      // yield* redirectToVeritoneInternalLogin();
-      // }
-      // }
     } else {
       yield* fetchUserWithStoredTokenOrCookie()
     }
@@ -118,12 +104,6 @@ function* redirectAndAwaitOAuthGrant() {
   yield put(boot());
 }
 
-function* redirectToVeritoneInternalLogin() {
-  const config = yield select(getConfig);
-
-  // window.location = `${config.loginRoute}/?redirect=${window.location.href}`;
-}
-
 function* fetchUserWithStoredTokenOrCookie() {
   const existingOAuthToken = yield call(
     [localStorage, 'getItem'],
@@ -148,25 +128,21 @@ function* fetchUserWithStoredTokenOrCookie() {
   return successAction ? successAction.payload : false;
 }
 
-function* storeTokenAfterSuccessfulOAuthGrant() {
-  yield takeLatest(OAUTH_GRANT_FLOW_SUCCESS, function* ({
-    payload: { OAuthToken }
-  }) {
-    yield call([localStorage, 'setItem'], 'OAuthToken', OAuthToken);
-  });
-}
 
 function* clearStoredTokenAfterLogout() {
   yield takeLatest(LOGOUT_SUCCESS, function* () {
     yield call([localStorage, 'removeItem'], 'token');
-    yield call([localStorage, 'removeItem'], 'OAuthToken');
     yield call([location, 'reload']);
   });
 }
 
 function* reBoot() {
-  yield takeLatest(ROUTE_HOME, function* () {
-    yield put(boot())
+  yield takeLatest(ROUTE_HOME, function* (action) {
+    const { username, password } = action.payload;
+    if (username && password) {
+      yield call([localStorage, 'setItem'], 'token', '123-456-7890');
+      yield put(boot())
+    }
   })
 }
 
@@ -199,7 +175,6 @@ function* initializePendoAfterUserLogin() {
 export default function* auth() {
   yield all([
     fork(watchAppBoot),
-    fork(storeTokenAfterSuccessfulOAuthGrant),
     fork(clearStoredTokenAfterLogout),
     fork(initializePendoAfterUserLogin),
     fork(reBoot)
