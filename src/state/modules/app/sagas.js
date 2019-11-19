@@ -35,7 +35,7 @@ import {
   selectRouteType,
   selectCurrentRoutePayload
 } from '../routing';
-import { BOOT, bootFinished, boot } from './';
+import { BOOT, bootFinished, boot, authenticateUser } from './';
 
 function* getAppStartupDependencies() {
   // fetch stuff
@@ -68,13 +68,13 @@ function* getAppStartupDependencies() {
 }
 
 function* watchAppBoot() {
-  yield takeLatest(BOOT, function* () {
+  yield takeLatest(BOOT, function*() {
     const token = yield call([localStorage, 'getItem'], 'token');
 
     if (token !== '123-456-7890') {
       yield* redirectAndAwaitOAuthGrant();
     } else {
-      yield* fetchUserWithStoredTokenOrCookie()
+      yield* fetchUserWithStoredTokenOrCookie();
     }
   });
 }
@@ -116,7 +116,10 @@ function* fetchUserWithStoredTokenOrCookie() {
 
   // TODO: new fetchUser for token
   // yield put(fetchUser());
-  yield put({ type: FETCH_USER_SUCCESS, payload: { token: 'somebody I am used to know' } })
+  yield put({
+    type: FETCH_USER_SUCCESS,
+    payload: { token: 'somebody I am used to know' }
+  });
 
   const [successAction] = yield race([
     take(FETCH_USER_SUCCESS),
@@ -128,22 +131,23 @@ function* fetchUserWithStoredTokenOrCookie() {
   return successAction ? successAction.payload : false;
 }
 
-
 function* clearStoredTokenAfterLogout() {
-  yield takeLatest(LOGOUT_SUCCESS, function* () {
+  yield takeLatest(LOGOUT_SUCCESS, function*() {
     yield call([localStorage, 'removeItem'], 'token');
     yield call([location, 'reload']);
   });
 }
 
 function* reBoot() {
-  yield takeLatest(ROUTE_HOME, function* (action) {
+  yield takeLatest(ROUTE_HOME, function*(action) {
     const { username, password } = action.payload;
     if (username && password) {
-      yield call([localStorage, 'setItem'], 'token', '123-456-7890');
-      yield put(boot())
+      const authPromise = yield put(authenticateUser());
+      const userAuthToken = yield authPromise;
+      yield call([localStorage, 'setItem'], 'token', userAuthToken.token);
+      yield put(boot());
     }
-  })
+  });
 }
 
 function* initializePendoAfterUserLogin() {

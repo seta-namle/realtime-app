@@ -12,6 +12,7 @@ import enginesExampleReducer, {
 import sideBarReducer, {
   namespace as sideBarReducerNamspace
 } from 'modules/sideBar';
+import { taskReducer, namespace as taskNamespace } from '../state/modules/task';
 export default extraReducers =>
   combineReducers({
     form: formReducer,
@@ -22,6 +23,6 @@ export default extraReducers =>
     [userNamespace]: userReducer,
     [sideBarReducerNamspace]: sideBarReducer,
     [config.namespace]: (state = window.config) => state, // fixme?
-    // [searchNamespace]: searchReducer,
+    [taskNamespace]: taskReducer,
     ...extraReducers
   });

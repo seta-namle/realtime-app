@@ -81,6 +81,7 @@
     "babel-merge": "^1.1.1",
     "babel-plugin-import": "^1.12.2",
     "date-fns": "^1.29.0",
+    "lodash": "^4.17.15",
     "prop-types": "^15.6.1",
     "query-string": "^6.1.0",
     "react": "^16.3.2",

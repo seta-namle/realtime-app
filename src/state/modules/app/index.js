@@ -1,6 +1,12 @@
 import { helpers } from 'veritone-redux-common';
+import { configService } from '../../../services/config';
 import { ROUTE_HOME } from 'state/modules/routing';
+import services from '../../../services';
 const { createReducer } = helpers;
+const { loginService } = services;
+export const AUTHENTICATE_USER = 'authenticate user';
+export const AUTHENTICATE_USER_SUCCESS = 'authenticate user success';
+export const AUTHENTICATE_USER_FAILURE = 'authenticate user fail';
 
 export const BOOT = 'boot saga: sequence all the stuff needed to start the app';
 export const BOOT_FINISHED = 'boot saga finished';
@@ -31,6 +37,19 @@ export const boot = (options = {}) => ({
   type: BOOT,
   payload: options
 });
+
+export const authenticateUser = () => async dispatch => {
+  try {
+    const { getUserAuthToken } = loginService;
+    const token = await getUserAuthToken(configService);
+    return token;
+  } catch (error) {
+    dispatch({
+      type: AUTHENTICATE_USER_FAILURE,
+      payload: error
+    });
+  }
+};
 
 export const bootFinished = () => ({
   type: BOOT_FINISHED
