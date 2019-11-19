@@ -4,7 +4,7 @@ import { Progress } from 'antd';
 const { createReducer } = helpers;
 export const ON_CLICK_MENU = 'on click menu';
 export const ON_CLICK_DETAIL = 'on click detail';
-export const OPTIONS = ['jobs', 'tasks', 'home'];
+export const OPTIONS = ['jobs', 'tasks', 'home', 'users'];
 const defaultState = {
   isBooting: false,
   bootDidFinish: false,

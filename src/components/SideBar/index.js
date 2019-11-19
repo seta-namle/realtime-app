@@ -26,6 +26,7 @@ class SideBar extends React.Component {
     const payload = {
       tabName: event.key
     };
+    console.log(payload);
     this.props.onClickMenu(payload);
   };
   onClickBreadCrumb = event => {
@@ -90,9 +91,6 @@ class SideBar extends React.Component {
         <Layout style={{ marginLeft: 200 }}>
           <Header style={{ background: '#fff', padding: 0 }} />
           <Content style={{ margin: '24px 16px 0', overflow: 'initial' }}>
-
-
-
             <Row>
               <Col span={20}>
                 <Breadcrumb style={{ margin: '16px 0' }}>
@@ -111,7 +109,7 @@ class SideBar extends React.Component {
                   {routePayload.id && (
                     <Breadcrumb.Item>{`${routePayload.tabName} detail: ${
                       routePayload.id
-                      }`}</Breadcrumb.Item>
+                    }`}</Breadcrumb.Item>
                   )}
                 </Breadcrumb>
               </Col>
@@ -122,11 +120,7 @@ class SideBar extends React.Component {
                 </Select>
               </Col>
             </Row>
-            <Row>
-              {children}
-            </Row>
-
-
+            <Row>{children}</Row>
           </Content>
           <Footer style={{ textAlign: 'center' }}>Veritone ©2019</Footer>
         </Layout>

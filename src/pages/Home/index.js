@@ -5,6 +5,7 @@ import SideBar from 'components/SideBar';
 import { connect } from 'react-redux';
 import Jobs from 'components/Jobs';
 import Tasks from 'components/Tasks';
+import Users from 'components/Users';
 import DashBoard from 'components/DashBoard';
 import { string } from 'prop-types';
 import styles from './styles.scss';
@@ -16,6 +17,7 @@ class Home extends React.Component {
     const TabComponent = {
       jobs: Jobs,
       tasks: Tasks,
+      users: Users,
       home: DashBoard
     }[this.props.routeTab];
     return (
