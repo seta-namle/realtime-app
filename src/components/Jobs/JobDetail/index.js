@@ -35,7 +35,17 @@ import {
   dataErrorDetail
 } from './mockData';
 import TableDetail from '../../TableDetail';
-
+const renderFooter  = () => {
+  return (
+    <div>
+        <Button type="primary" >
+          Export
+        </Button>
+        <Button >Assign</Button>
+        <Button >Mute Error Code</Button>
+    </div>
+  );
+};
 const ErrorModal = ({
   handleOk,
   handleCancel,
@@ -49,6 +59,7 @@ const ErrorModal = ({
       onOk={handleOk}
       onCancel={handleCancel}
       width={1000}
+      footer={renderFooter()}
     >
       <Row>
         <Col span={16} className={styles['task-detail-left']}>
@@ -67,13 +78,6 @@ const ErrorModal = ({
         </Col>
         <Col span={8} className={styles['task-detail-right']}>
           <Text>Log file output related to error</Text> <br />
-        </Col>
-        <Col span={24} className={styles['task-detail-action']}>
-          <Button type="primary" onClick={handleOk}>
-            Export
-          </Button>
-          <Button onClick={handleOk}>Assign</Button>
-          <Button onClick={handleOk}>Mute Error Code</Button>
         </Col>
       </Row>
     </Modal>
