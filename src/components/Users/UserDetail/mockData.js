@@ -40,6 +40,30 @@ export const dataActivity = [
     detail: 'Alexander Edited Customer Task'
   },
   {
+    userId: '429397d0-7f64-48eb-866f-e905f001b1ad',
+    activityId: '429397d0-7f64-48eb-866f-e905f001b1yte',
+    timestamp: '2018-11-14T19:25:28.000Z',
+    on: 'Contacts',
+    action: 'edit',
+    detail: 'Alexander Edited Customer Task'
+  },
+  {
+    userId: '429397d0-7f64-48eb-866f-e905f001b1ad',
+    activityId: '429397d0-7f64-48eb-866f-e905f001b123',
+    timestamp: '2018-11-14T19:25:28.000Z',
+    on: 'Contacts',
+    action: 'edit',
+    detail: 'Alexander Edited Customer Task'
+  },
+  {
+    userId: '429397d0-7f64-48eb-866f-e905f001b1ad',
+    activityId: '429397d0-7f64-48eb-866f-e905f001b134',
+    timestamp: '2018-11-14T19:25:28.000Z',
+    on: 'Contacts',
+    action: 'edit',
+    detail: 'Alexander Edited Customer Task'
+  },
+  {
     userId: '',
     activityId: '',
     timestamp: '',
