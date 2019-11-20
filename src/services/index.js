@@ -1,4 +1,6 @@
-import taskService from './task';
+import taskService from './Task';
+import jobService from './Job';
 export default {
-  taskService
+  taskService,
+  jobService
 };

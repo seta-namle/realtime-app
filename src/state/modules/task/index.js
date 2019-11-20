@@ -1,4 +1,3 @@
-import { configService } from '../../../services/config';
 import services from '../../../services';
 import { get } from 'lodash';
 export const FETCH_LIST_TASKS = 'request list tasks';
@@ -30,10 +29,10 @@ export function taskReducer(state = defaultState, action) {
 
 export const namespace = 'task';
 
-export const fetchListTasks = options => async (dispatch, getState) => {
+export const fetchListTasks = (queryObject = {}, paramObject = {}) => async (dispatch, getState) => {
   try {
     const { getListTasks } = taskService;
-    const tasks = await getListTasks(configService);
+    const tasks = await getListTasks(queryObject, paramObject);
     return tasks;
   } catch (error) {
     dispatch({

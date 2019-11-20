@@ -8,7 +8,7 @@
     "alias": "veritone-app-boilerplate-react"
   },
   "scripts": {
-    "start": "neutrino start",
+    "start": "neutrino start | node ./mock-server/index.js",
     "build": "neutrino build",
     "test": "neutrino test",
     "deploy": "now && now alias",
@@ -78,7 +78,10 @@
     "@material-ui/icons": "^1.0.0",
     "antd": "^3.25.0",
     "babel-merge": "^1.1.1",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
     "date-fns": "^1.29.0",
+    "express": "^4.17.1",
     "lodash": "^4.17.15",
     "prop-types": "^15.6.1",
     "query-string": "^6.1.0",

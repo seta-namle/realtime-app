@@ -9,7 +9,6 @@ import configureStore from 'state/configureStore';
 import 'resources/styles/global.scss';
 
 import App from 'pages/App';
-
 validateAppConfig();
 
 function bootstrap() {

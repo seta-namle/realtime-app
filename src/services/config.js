@@ -1,12 +1,11 @@
 export const configService = {
-    task: {
-        getListTasks: {
-            url: '',
-            useMock: true
-        },
-        getTaskDetail: {
-            url: '',
-            useMock: true
-        }
+  baseUrl: 'http://localhost:3030',
+  task: {
+    getListTasks: {
+      endpoint: '/api/tasks'
+    },
+    getTaskDetail: {
+      endpoint: '/api/tasks/:id'
     }
-}
+  }
+};
