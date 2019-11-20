@@ -6,7 +6,7 @@ import styles from './styles.scss';
 
 const { Text, Title } = Typography;
 const BoxStatisticChart = ({ title, subTitle, data, dataKey, color }) => (
-  <Card bordered={false}>
+  <Card bordered={false} className={styles['wrapper-box']}>
     <Row>
       <Col span={24} lg={12}>
         <Title className={styles['title-box-statistic']} level={3}>

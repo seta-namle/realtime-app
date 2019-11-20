@@ -37,18 +37,20 @@ const DashBoardCard = ({
   return (
     <Card className={styles['card-dashboard']}>
       <Row>
-        <Col span={14} className={styles['card-header']}>
+        <Col span={24} lg={14} className={styles['card-header']}>
           <Title level={1} className={styles['card-title']}>
             {formatNumber(cardTitle)}
           </Title>
           <Text>{cardDes}</Text>
         </Col>
-        <Col span={10} className={styles['card-header-right']}>
+        <Col span={24} lg={10} className={styles['card-header-right']}>
           <span>
             <span className={styles['card-title']}>{cardValue}</span>
             <Icon type={cardIcon} className={styles['card-icon']} />
           </span>
         </Col>
+      </Row>
+      <Row>
         <Col span={24}>
           <ResponsiveContainer width="100%" height={85}>
             <AreaChart data={dataChart} margin={{}}>

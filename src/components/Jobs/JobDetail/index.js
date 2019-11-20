@@ -22,16 +22,30 @@ import {
 } from 'recharts';
 import { connect } from 'react-redux';
 import NetworkGraph from './NetworkGraph';
-
 import { ON_CLICK_DETAIL } from '../../../state/modules/sideBar';
 import { selectCurrentRoutePayload } from 'state/modules/routing';
 import { func, number, bool, arrayOf, object } from 'prop-types';
 const { Title, Text } = Typography;
 import HeaderDetail from '../../HeaderDetail';
 import styles from './styles.scss';
-
-
-
+import {
+  dataChart,
+  dataTableDetail,
+  dataErrorTableDetail,
+  dataErrorDetail
+} from './mockData';
+import TableDetail from '../../TableDetail';
+const renderFooter  = () => {
+  return (
+    <div>
+        <Button type="primary" >
+          Export
+        </Button>
+        <Button >Assign</Button>
+        <Button >Mute Error Code</Button>
+    </div>
+  );
+};
 const ErrorModal = ({
   handleOk,
   handleCancel,
@@ -45,32 +59,25 @@ const ErrorModal = ({
       onOk={handleOk}
       onCancel={handleCancel}
       width={1000}
+      footer={renderFooter()}
     >
       <Row>
-        <Col span={24}>
-          <Text>Task instance detail</Text>
-        </Col>
-
-        <Col span={12} className={styles['task-detail-left']}>
+        <Col span={16} className={styles['task-detail-left']}>
           <Descriptions
             bordered
             column={{ xxl: 1, xl: 1, lg: 1, md: 1, sm: 1, xs: 1 }}
           >
             {listErrors.map(item => {
               return (
-                <Descriptions.Item key label={item.name}>
+                <Descriptions.Item key label={item.name} span="3">
                   {item.value}
                 </Descriptions.Item>
               );
             })}
           </Descriptions>
         </Col>
-        <Col span={12} className={styles['task-detail-right']}>
+        <Col span={8} className={styles['task-detail-right']}>
           <Text>Log file output related to error</Text> <br />
-        </Col>
-        <Col span={24} className={styles['task-detail-action']}>
-          <Button type="primary">Export</Button>
-          <Button>Watch</Button>
         </Col>
       </Row>
     </Modal>
@@ -139,7 +146,7 @@ class JobDetail extends Component {
     });
   };
 
-  onClickTaskRow = (value) => {
+  onClickTaskRow = value => {
     const { onClickDetail } = this.props;
     const payload = {
       tabName: 'tasks',
@@ -149,29 +156,6 @@ class JobDetail extends Component {
   };
 
   render() {
-    const dataChart = [
-      {
-        name: 'Task 1',
-        cpu: 4000,
-        gpu: 1200,
-        mem: 2400,
-        byteWrittenErrors: 2400
-      },
-      {
-        name: 'Task 2',
-        cpu: 3000,
-        gpu: 1400,
-        mem: 1398,
-        byteWrittenErrors: 2210
-      },
-      {
-        name: 'Task 3',
-        cpu: 2000,
-        mem: 9800,
-        gpu: 1200,
-        byteWrittenErrors: 2290
-      }
-    ];
     const columns = [
       {
         title: 'Name',
@@ -187,26 +171,35 @@ class JobDetail extends Component {
         dataIndex: 'date'
       }
     ];
-    const data = [
+
+    const error_columns = [
       {
-        key: '1',
-        name: 'Tasks demo 1',
-        status: 'Complete',
-        date: 'Fri Nov 8 2019 10:19:48'
+        title: 'Error ID',
+        dataIndex: 'id',
+        render: text => <a>{text}</a>
       },
       {
-        key: '2',
-        name: 'Tasks demo 2',
-        status: 'Complete',
-        date: 'Fri Nov 8 2019 10:19:48'
+        title: 'Error Code',
+        dataIndex: 'code'
       },
       {
-        key: '3',
-        name: 'Tasks demo 3',
-        status: 'Running',
-        date: 'Fri Nov 8 2019 10:19:48'
+        title: 'Error Source Type',
+        dataIndex: 'sourceType'
+      },
+      {
+        title: 'Source ID',
+        dataIndex: 'sourceId'
+      },
+      {
+        title: 'Severity',
+        dataIndex: 'severity'
+      },
+      {
+        title: 'timestamp',
+        dataIndex: 'timestamp'
       }
     ];
+
     const dataJobDetail = [
       {
         name: 'Job Id',
@@ -218,19 +211,19 @@ class JobDetail extends Component {
       },
       {
         name: 'Schedule Start Time',
-        value: '10'
+        value: 'Fri Nov 8 2019 10:19:48'
       },
       {
         name: 'Status',
-        value: 'Complete'
+        value: 'Running'
       },
       {
         name: 'Error Count',
-        value: '10'
+        value: '3'
       }
     ];
 
-    const {jobId} = this.props;
+    const { jobId } = this.props;
     return (
       <Fragment>
         <HeaderDetail
@@ -239,42 +232,18 @@ class JobDetail extends Component {
           processValue={`64.89%`}
           processTime={`Complete`}
         />
-        <Card className={styles['task-detail']}>
-          <Row>
-            <Col span={24}>
-              <Text>Job detail</Text>
-            </Col>
+        <Row gutter={[10, 10]}>
+          <Col span={12} className={styles['task-detail-left']}>
+            <TableDetail title={`Job Detail`} data={dataJobDetail} />
+          </Col>
 
-            <Col span={12} className={styles['task-detail-left']}>
-              <Descriptions
-                bordered
-                column={{ xxl: 1, xl: 1, lg: 1, md: 1, sm: 1, xs: 1 }}
-              >
-                {dataJobDetail.map(item => {
-                  return (
-                    <Descriptions.Item key label={item.name}>
-                      {item.value}
-                    </Descriptions.Item>
-                  );
-                })}
-              </Descriptions>{' '}
-            </Col>
-            
-            <Col span={12}>
+          <Col span={12} className={styles['task-detail']}>
             <Card>
-            <NetworkGraph/>
+              <NetworkGraph />
             </Card>
-          
-            </Col>
-            <Col span={24} className={styles['task-detail-action']}>
-              <Button type="primary">Export</Button>
-              <Button>Share</Button>
-              <Button>Watch</Button>
-            </Col>
-          </Row>
-        </Card>
+          </Col>
+        </Row>
 
-        
         <Card className={styles['task-detail']}>
           <Row>
             <Col span={24}>
@@ -292,17 +261,17 @@ class JobDetail extends Component {
             </Col>
 
             <Col span={24} className={styles['task-detail-left']}>
-              <Table 
-              columns={columns} 
-              dataSource={data} 
-              onRow={(record, rowIndex) => {
-                return {
-                  onClick: () => {
-                    this.onClickTaskRow(record);
-                  }
-                };
-              }}
-               />
+              <Table
+                columns={columns}
+                dataSource={dataTableDetail}
+                onRow={(record, rowIndex) => {
+                  return {
+                    onClick: () => {
+                      this.onClickTaskRow(record);
+                    }
+                  };
+                }}
+              />
             </Col>
             <Col span={24} className={styles['task-detail-action']}>
               <Button type="primary">Export</Button>
@@ -320,7 +289,7 @@ class JobDetail extends Component {
             <Col span={24} className={styles['task-detail-left']}>
               <Table
                 columns={columns}
-                dataSource={data}
+                dataSource={dataTableDetail}
                 onRow={(record, rowIndex) => {
                   return {
                     onClick: () => {
@@ -345,8 +314,8 @@ class JobDetail extends Component {
 
             <Col span={24} className={styles['task-detail-left']}>
               <Table
-                columns={columns}
-                dataSource={data}
+                columns={error_columns}
+                dataSource={dataErrorTableDetail}
                 onRow={(record, rowIndex) => {
                   return {
                     onClick: event => {
@@ -367,7 +336,7 @@ class JobDetail extends Component {
           visibleModal={this.state.visibleModal}
           handleOk={this.handleOkErrorModal}
           handleCancel={this.handleCancelErrorModal}
-          listErrors={dataJobDetail}
+          listErrors={dataErrorDetail}
         />
       </Fragment>
     );
@@ -375,7 +344,7 @@ class JobDetail extends Component {
 }
 export default connect(
   state => ({
-    tabName: selectCurrentRoutePayload(state).tabName,
+    tabName: selectCurrentRoutePayload(state).tabName
     //jobId: selectCurrentRoutePayload(state).id
   }),
   {

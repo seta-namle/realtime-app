@@ -80,6 +80,7 @@
     "babel-merge": "^1.1.1",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
+    "babel-plugin-import": "^1.12.2",
     "date-fns": "^1.29.0",
     "express": "^4.17.1",
     "lodash": "^4.17.15",
