@@ -5,11 +5,10 @@ import {
   ROUTE_FORBIDDEN,
   ROUTE_EXAMPLE_TAKEOVER,
   ROUTE_EXAMPLE_TABS,
-  ROUTE_JOBS,
-  ROUTE_TASKS
+  ROUTE_REGISTER
 } from 'modules/routing';
 
-import { loadAuthPage } from 'modules/auth/saga';
+// import { loadAuthPage } from 'modules/auth/saga';
 import { loadExampleTabsPage } from 'modules/exampleTabs/saga';
 // import { sideBar } from 'modules/sideBar/sagas';
 
@@ -17,8 +16,10 @@ export default {
   [ROUTE_AUTH]: {
     path: '/auth/login',
     component: 'Login',
-    // saga: loadAuthPage,
-    //requiresAuth: false
+  },
+  [ROUTE_REGISTER]: {
+    path: '/auth/register',
+    component: 'Register'
   },
   [ROUTE_HOME]: {
     path: '/:tabName?/:id?',
@@ -61,17 +62,5 @@ export default {
     path: '/forbidden',
     component: 'Forbidden',
     requiresAuth: true
-  },
-  // [ROUTE_JOBS]: {
-  //   path: '/jobs',
-  //   modalOver: ROUTE_HOME,
-  //   component: 'Jobs',
-  //   requiresAuth: true
-  // },
-  // [ROUTE_TASKS]: {
-  //   path: '/tasks',
-  //   modalOver: ROUTE_HOME,
-  //   component: 'Tasks',
-  //   requiresAuth: true
-  // }
+  }
 };

@@ -33,7 +33,8 @@ import {
   ROUTE_HOME,
   ROUTE_AUTH,
   selectRouteType,
-  selectCurrentRoutePayload
+  selectCurrentRoutePayload,
+  ROUTE_REGISTER
 } from '../routing';
 import { BOOT, bootFinished, boot, authenticateUser } from './';
 
@@ -68,7 +69,7 @@ function* getAppStartupDependencies() {
 }
 
 function* watchAppBoot() {
-  yield takeLatest(BOOT, function*() {
+  yield takeLatest(BOOT, function* () {
     const token = yield call([localStorage, 'getItem'], 'token');
 
     if (token !== '123-456-7890') {
@@ -83,7 +84,9 @@ function* redirectAndAwaitOAuthGrant() {
   const routeType = yield select(selectRouteType);
   const routePayload = yield select(selectCurrentRoutePayload);
 
-  if (routeType !== ROUTE_AUTH) {
+  console.log('routeType', routeType);
+
+  if (routeType !== ROUTE_AUTH && routeType !== ROUTE_REGISTER) {
     yield put({
       type: ROUTE_AUTH,
       payload: {
@@ -118,7 +121,7 @@ function* fetchUserWithStoredTokenOrCookie() {
   // yield put(fetchUser());
   yield put({
     type: FETCH_USER_SUCCESS,
-    payload: { token: 'somebody I am used to know' }
+    payload: { token: 'user data' }
   });
 
   const [successAction] = yield race([
@@ -132,14 +135,14 @@ function* fetchUserWithStoredTokenOrCookie() {
 }
 
 function* clearStoredTokenAfterLogout() {
-  yield takeLatest(LOGOUT_SUCCESS, function*() {
+  yield takeLatest(LOGOUT_SUCCESS, function* () {
     yield call([localStorage, 'removeItem'], 'token');
     yield call([location, 'reload']);
   });
 }
 
 function* reBoot() {
-  yield takeLatest(ROUTE_HOME, function*(action) {
+  yield takeLatest(ROUTE_HOME, function* (action) {
     const { username, password } = action.payload;
     if (username && password) {
       const authPromise = yield put(authenticateUser());

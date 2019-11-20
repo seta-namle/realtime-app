@@ -4,7 +4,7 @@ import style from './style.scss';
 import { connect } from 'react-redux';
 import veritoneLogo from 'resources/images/Veritone-logo-300x300.jpg';
 import { Form, Icon, Input, Button, Checkbox, Divider } from "antd";
-import { ROUTE_HOME } from "state/modules/routing";
+import { ROUTE_HOME, ROUTE_REGISTER } from "state/modules/routing";
 
 class Login extends React.Component {
     handleSubmit = e => {
@@ -19,20 +19,29 @@ class Login extends React.Component {
         });
     };
 
+    handleRegister = () => {
+        console.log('REGISTER PAGE');
+        this.props.navigateRegisterPage();
+    }
+
     render() {
         const { getFieldDecorator } = this.props.form;
         return (
             <div className={style['form-container']}>
                 <div className={style["login-form"]}>
                     <img src={veritoneLogo} style={{ margin: '0 auto', display: 'block' }} alt="Veritone Logo" />
-                    <Divider style={{ color: 'gray', fontSize: 13 }}>Easily Using</Divider>
+                    <Divider style={{ color: 'gray' }}>
+                        <span style={{ fontSize: 13 }}>Easily Using</span>
+                    </Divider>
                     <div style={{ display: 'flex', justifyContent: 'center' }}>
                         <Button style={{ color: 'black', borderColor: 'black' }} icon="github" size="large" />
                         &nbsp; &nbsp;
                         <Button style={{ color: 'black', borderColor: 'black' }} icon="smile" size="large" />
                     </div>
 
-                    <Divider style={{ color: 'gray', fontSize: 13 }}>OR Using Account Details</Divider>
+                    <Divider style={{ color: 'gray' }}>
+                        <span style={{ fontSize: 13 }}>OR Using Account Details</span>
+                    </Divider>
 
                     <div style={{ margin: '0 auto' }}>
                         <Form onSubmit={this.handleSubmit}>
@@ -54,7 +63,7 @@ class Login extends React.Component {
                             </Form.Item>
                             <Form.Item>
                                 {getFieldDecorator("remember", {
-                                    valuePropName: "unchecked",
+                                    valuePropName: "checked",
                                     initialValue: true
                                 })(<Checkbox>Remember me</Checkbox>)}
                                 <a className={style["login-form-forgot"]} href="">
@@ -68,7 +77,7 @@ class Login extends React.Component {
                                     className={style["login-form-button"]}
                                 >
                                     Login
-                            </Button>
+                                </Button>
                                 <Divider style={{ fontWeight: 520, color: '#ff4d4f' }}>New to aiWARE ?</Divider>
                                 <Button
                                     icon="user"
@@ -76,9 +85,10 @@ class Login extends React.Component {
                                     ghost
                                     // htmlType="submit"
                                     className={style["login-form-button"]}
+                                    onClick={this.handleRegister}
                                 >
                                     Register
-                            </Button>
+                                </Button>
                             </Form.Item>
                         </Form>
                     </div>
@@ -98,6 +108,9 @@ export default connect(
         redirectToHome: (username, password) => ({
             type: ROUTE_HOME,
             payload: { username, password }
+        }),
+        navigateRegisterPage: () => ({
+            type: ROUTE_REGISTER
         })
     }
 )(WrappedLogin);
