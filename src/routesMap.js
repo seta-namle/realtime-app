@@ -21,7 +21,7 @@ export default {
     requiresAuth: false
   },
   [ROUTE_HOME]: {
-    path: '/:tabName?/:id?',
+    path: '/:tabName?/:id?/:workRequestId?',
     component: 'Home',
     requiresAuth: true
   },

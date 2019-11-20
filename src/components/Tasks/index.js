@@ -11,6 +11,7 @@ import PieChart from '../PieChart';
 import BarChart from '../BarChart';
 import TableList from '../TableList';
 import styles from './styles.scss';
+import WorkRequests from '../WorkRequests';
 const { Option } = Select;
 import {
   dataBarChart,
@@ -416,8 +417,13 @@ class Tasks extends Component {
 
     const colors = ['#48a5a8', '#616d82', '#ef7c4d', '#ec4258', '#57d094'];
 
-    const { taskId } = this.props;
+    const { taskId, workRequestId } = this.props;
+    
     if (taskId) {
+      if(workRequestId) {
+        return <WorkRequests taskId={taskId} workRequestId={workRequestId} />
+      }
+
       return <JobDetail taskId={taskId} />;
     }
     const { dataBarChart,
@@ -563,6 +569,7 @@ export default connect(
   state => ({
     tabName: selectCurrentRoutePayload(state).tabName,
     taskId: selectCurrentRoutePayload(state).id,
+    workRequestId: selectCurrentRoutePayload(state).workRequestId,
     initialInstanceData: getInitialTaskIntance(state)
   }),
   {

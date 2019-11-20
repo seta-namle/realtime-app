@@ -1,6 +1,9 @@
 import React, { Component, Fragment } from 'react';
 import { Row, Col } from 'antd';
 import { string } from 'prop-types';
+import { connect } from 'react-redux';
+import { ON_CLICK_DETAIL, getInitialTaskIntance } from 'state/modules/sideBar';
+import { selectCurrentRoutePayload } from 'state/modules/routing';
 import styles from './styles.scss';
 import ComboChart from '../../ComboChart';
 import BoxStatisticChart from '../../BoxStatisticChart';
@@ -14,7 +17,7 @@ import {
   boxsStatistic,
   taskDetailCards,
   instancesCards,
-  listOfWorkRequests
+  listOfWorkRequestsData
 } from './mockData';
 import { dataActiveTask, dataErrorTask } from '../../Tasks/mockData';
 class TaskDetail extends Component {
@@ -75,6 +78,16 @@ class TaskDetail extends Component {
       visible: false
     });
   };
+
+  onClickWorkRequestDetail = e => {
+    const { onClickDetail, tabName, taskId } = this.props;
+    const payload = {
+      tabName,
+      id: taskId,
+      workRequestId: e.target.text,
+    };
+    onClickDetail(payload);
+  }
 
   render() {
     const { taskId } = this.props;
@@ -139,7 +152,59 @@ class TaskDetail extends Component {
       ];
     }
 
+    const listOfWorkRequests = {
+      title: 'List of work requests',
+      columns: [
+        {
+          title: 'Engine Instance Id',
+          dataIndex: 'engineInstanceId',
+          render: text => <a onClick={this.onClickWorkRequestDetail}>{text}</a>
+        },
+        {
+          title: 'Task Id',
+          dataIndex: 'taskId'
+        },
+        {
+          title: 'Engine Name',
+          dataIndex: 'engineName'
+        },
+        {
+          title: 'Task Engine Type',
+          dataIndex: 'taskEngineType'
+        },
+        {
+          title: 'Engine Build',
+          dataIndex: 'engineBuild'
+        },
+        {
+          title: 'Start Time',
+          dataIndex: 'startTime'
+        },
+        {
+          title: 'End Time',
+          dataIndex: 'endTime'
+        },
+        {
+          title: 'Parent Task Id',
+          dataIndex: 'parentTaskId'
+        },
+        {
+          title: 'Child Task Id',
+          dataIndex: 'childTaskId'
+        },
+        {
+          title: 'Status',
+          dataIndex: 'status'
+        },
+        {
+          title: 'Error Count',
+          dataIndex: 'errorCount'
+        }
+      ],
+      data: listOfWorkRequestsData
+    };
 
+    
     return (
       <Fragment>
         <HeaderDetail
@@ -222,4 +287,18 @@ class TaskDetail extends Component {
     );
   }
 }
-export default TaskDetail;
+export default connect(
+  state => ({
+    tabName: selectCurrentRoutePayload(state).tabName,
+    taskId: selectCurrentRoutePayload(state).id,
+    initialInstanceData: getInitialTaskIntance(state)
+  }),
+  {
+    onClickDetail: payload => ({
+      type: ON_CLICK_DETAIL,
+      payload
+    })
+  }
+)(TaskDetail);
+
+// export default TaskDetail;

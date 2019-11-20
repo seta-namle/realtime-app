@@ -158,7 +158,7 @@ export const instancesCards = [
 /**
  *  Mock data for Tasks/TasksDetail/LisOfWorkRequestsTable.js
  */
-const listOfWorkRequestsData = [
+export const listOfWorkRequestsData = [
   {
     key: '12345',
     engineInstanceId: '12345',
@@ -202,54 +202,3 @@ const listOfWorkRequestsData = [
     errorCount: 0
   }
 ];
-
-export const listOfWorkRequests = {
-  title: 'List of work requests',
-  columns: [
-    {
-      title: 'Engine Instance Id',
-      dataIndex: 'engineInstanceId'
-    },
-    {
-      title: 'Task Id',
-      dataIndex: 'taskId'
-    },
-    {
-      title: 'Engine Name',
-      dataIndex: 'engineName'
-    },
-    {
-      title: 'Task Engine Type',
-      dataIndex: 'taskEngineType'
-    },
-    {
-      title: 'Engine Build',
-      dataIndex: 'engineBuild'
-    },
-    {
-      title: 'Start Time',
-      dataIndex: 'startTime'
-    },
-    {
-      title: 'End Time',
-      dataIndex: 'endTime'
-    },
-    {
-      title: 'Parent Task Id',
-      dataIndex: 'parentTaskId'
-    },
-    {
-      title: 'Child Task Id',
-      dataIndex: 'childTaskId'
-    },
-    {
-      title: 'Status',
-      dataIndex: 'status'
-    },
-    {
-      title: 'Error Count',
-      dataIndex: 'errorCount'
-    }
-  ],
-  data: listOfWorkRequestsData
-};

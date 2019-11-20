@@ -28,10 +28,9 @@ function* watchOnclickMenu() {
 
 function* watchOnclickDetail() {
   yield takeLatest(ON_CLICK_DETAIL, function*(action) {
-    const { tabName, id } = action.payload;
     yield put({
       type: ROUTE_HOME,
-      payload: { tabName, id }
+      payload: action.payload
     });
   });
 }
