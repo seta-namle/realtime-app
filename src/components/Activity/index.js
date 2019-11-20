@@ -1,10 +1,12 @@
 import React, { Component, Fragment } from 'react';
 import { string } from 'prop-types';
 
-import { Card, Row, Col, Timeline, Icon, Input, Pagination } from 'antd';
+import { Card, Row, Col, Timeline, Icon, Input, Pagination, Select } from 'antd';
 const { Search } = Input;
+const { Option } = Select;
 import { dataActivity } from '../Users/UserDetail/mockData';
 import styles from './styles.scss';
+const activityInit = (userId) => userId ? dataActivity.filter(item => item.userId === userId) : dataActivity
 class Activity extends Component {
     static propTypes = {
         userId: string
@@ -12,21 +14,46 @@ class Activity extends Component {
     state = {
         page: 1,
         pageSize: 5,
-        total: dataActivity.filter(item => item.userId === this.props.userId).length,
-        activity: dataActivity.filter(item => item.userId === this.props.userId).slice(0, 5)
+        total: activityInit(this.props.userId).length,
+        activity: activityInit(this.props.userId).slice(0, 5),
+        filterOtps: [{
+            value: 'date',
+            label: 'Date'
+        }, {
+            value: 'action',
+            label: 'Action'
+        }, {
+            value: 'user',
+            label: 'User'
+        }]
     }
     onChange = (page, pageSize) => {
-        const { userId } = this.props
-
         this.setState({
             page: page,
             pageSize: pageSize,
-            activity: dataActivity.filter(item => item.userId === userId).slice((page - 1) * pageSize, pageSize * page)
+            activity: activityInit(this.props.userId).slice((page - 1) * pageSize, pageSize * page)
         })
     }
+    onSearch = (event) => {
+        const validValue = event.target.value.replace(/\s{2,}/g, ' ').trim()
+        if (!validValue) {
+            return this.setState((state) => ({
+                activity: activityInit(this.props.userId).slice((state.page - 1) * state.pageSize, state.pageSize * state.page)
+            }))
+        }
+        this.setState(state => ({
+            activity: state.activity.filter(item => {
+                return item.on.toLowerCase().includes(validValue.toLowerCase())
+                    || item.detail.toLowerCase().includes(validValue.toLowerCase())
+                    || item.timestamp.toLowerCase().includes(validValue.toLowerCase())
+            })
+        }))
+    }
+    filter = (value) => {
+        console.log(value)
+    }
     render() {
-        const { userId } = this.props;
-        const { activity, page, pageSize, total } = this.state
+        const { activity, pageSize, total, filterOtps } = this.state
         const getIcon = (on, action) => {
             let color;
             switch (action) {
@@ -80,12 +107,18 @@ class Activity extends Component {
                         <Col span={18} className={styles['input-search-col']}>
                             <Search
                                 placeholder="Explore Modern Admin"
-                                onSearch={value => console.log(value)}
+                                onChange={this.onSearch}
                                 style={{ width: '50%' }}
                             />
                         </Col>
                     </Row>
-                    {/* <Row>Filter</Row> */}
+                    <Row>
+                        <Select placeholder="Type filter" onChange={this.filter} style={{ width: "50%", marginTop: 15 }}>
+                            {
+                                filterOtps.map(item => <Option key={item.value} value={item.value}>{item.label}</Option>)
+                            }
+                        </Select>
+                    </Row>
                     <Row className={styles['timeline']}>
                         <Timeline>
                             {activity.map((item, i) => (

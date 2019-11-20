@@ -48,51 +48,43 @@ export const dataActivity = [
     detail: 'Alexander Edited Customer Task'
   },
   {
-    userId: '429397d0-7f64-48eb-866f-e905f001b1ad',
+    userId: '9930a6dc-81df-439c-86f7-7bd07fbc4511',
     activityId: '429397d0-7f64-48eb-866f-e905f001b123',
     timestamp: '2018-11-14T19:25:28.000Z',
     on: 'Contacts',
     action: 'edit',
-    detail: 'Alexander Edited Customer Task'
+    detail: 'Adam Edited Customer Task'
   },
   {
-    userId: '429397d0-7f64-48eb-866f-e905f001b1ad',
+    userId: '9930a6dc-81df-439c-86f7-7bd07fbc4511',
     activityId: '429397d0-7f64-48eb-866f-e905f001b134',
-    timestamp: '2018-11-14T19:25:28.000Z',
+    timestamp: '2018-11-12T19:25:28.000Z',
     on: 'Contacts',
     action: 'edit',
-    detail: 'Alexander Edited Customer Task'
+    detail: 'Adam Edited Customer Task'
   },
   {
-    userId: '',
-    activityId: '',
-    timestamp: '',
-    on: '',
-    action: 'edit',
-    detail: ''
+    userId: 'def2a493-ee9b-4560-80f7-cfe4a3555f30',
+    activityId: 'def2a493-ee9b-4560-80f7-cfe4a3555f33',
+    timestamp: '2019-11-12T19:25:28.000Z',
+    on: 'Event',
+    action: 'create',
+    detail: 'Thomas Created Customer Created'
   },
   {
-    userId: '',
-    activityId: '',
-    timestamp: '',
-    on: '',
-    action: 'edit',
-    detail: ''
+    userId: 'def2a493-ee9b-4560-80f7-cfe4a3555f30',
+    activityId: 'def2a493-ee9b-4560-80f7-cfe4a3555f34',
+    timestamp: '2019-11-10T19:25:28.000Z',
+    on: 'Projects',
+    action: 'create',
+    detail: 'Thomas Attached 12 Documents For Project1 Customer Created'
   },
   {
-    userId: '',
-    activityId: '',
-    timestamp: '',
-    on: '',
+    userId: 'def2a493-ee9b-4560-80f7-cfe4a3555f30',
+    activityId: 'def2a493-ee9b-4560-80f7-cfe4a3555f39',
+    timestamp: '2019-10-12T19:25:28.000Z',
+    on: 'Contacts',
     action: 'edit',
-    detail: ''
-  },
-  {
-    userId: '',
-    activityId: '',
-    timestamp: '',
-    on: '',
-    action: 'edit',
-    detail: ''
+    detail: 'Thomas Edited Customer Task'
   }
 ];

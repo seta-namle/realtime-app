@@ -8,6 +8,7 @@ import { ON_CLICK_DETAIL } from '../../state/modules/sideBar';
 import { selectCurrentRoutePayload } from 'state/modules/routing';
 import UserDetail from './UserDetail';
 import { dataUsers } from './mockData';
+import Activity from '../Activity';
 
 class Users extends Component {
   static propTypes = {
@@ -61,6 +62,7 @@ class Users extends Component {
             </Col>
           </Row>
         </Card>
+        <Activity />
       </Fragment>
     );
   }
