@@ -5,7 +5,7 @@ export const configService = {
       endpoint: '/api/tasks'
     },
     getTaskDetail: {
-      endpoint: '/api/tasks/:id'
+      endpoint: '/api/tasks/:taskId'
     }
   }
 };

@@ -42,16 +42,13 @@ function buildQueryString(queryObject) {
 
 function buildUrlWithParams(urlPattern, params = {}) {
     const urlIdentifies = urlPattern.split('/');
-    console.log("TCL: buildUrlWithParams -> urlIdentifies", urlIdentifies)
     if (!includes(urlPattern, ':')){
         return urlPattern;
     }
     for (let i = 0; i < urlIdentifies.length; i++) {
         if (includes(urlIdentifies[i], ':')) {
-            console.log("TCL: buildUrlWithParams -> urlIdentifies[i]", urlIdentifies[i])
             const urlParam = urlIdentifies[i].slice(1, urlIdentifies[i].length);
             if (!params[urlParam]) {
-                console.log("TCL: buildUrlWithParams -> params[urlParam]", params[urlParam])
                 throw new Error('Params is not matched: ' + urlParam);
             }
             urlIdentifies[i] = params[urlParam];

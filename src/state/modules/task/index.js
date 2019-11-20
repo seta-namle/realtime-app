@@ -29,7 +29,10 @@ export function taskReducer(state = defaultState, action) {
 
 export const namespace = 'task';
 
-export const fetchListTasks = (queryObject = {}, paramObject = {}) => async (dispatch, getState) => {
+export const fetchListTasks = (queryObject = {}, paramObject = {}) => async (
+  dispatch,
+  getState
+) => {
   try {
     const { getListTasks } = taskService;
     const tasks = await getListTasks(queryObject, paramObject);
@@ -41,4 +44,11 @@ export const fetchListTasks = (queryObject = {}, paramObject = {}) => async (dis
     });
     return;
   }
+};
+
+export const fetchTaskDetail = (queryObject = {}, paramObject = {}) => async (
+  dispatch,
+  getState
+) => {
+  
 };
