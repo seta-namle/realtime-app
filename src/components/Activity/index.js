@@ -77,11 +77,11 @@ class Activity extends Component {
                     );
                 case 'Projects':
                     return (
-                        <Icon type="file" style={{ fontSize: '16px', color: color }} />
+                        <Icon type="project" style={{ fontSize: '16px', color: color }} />
                     );
                 case 'Note':
                     return (
-                        <Icon type="edit" style={{ fontSize: '16px', color: color }} />
+                        <Icon type="highlight" style={{ fontSize: '16px', color: color }} />
                     );
             }
         };
