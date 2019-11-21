@@ -62,7 +62,11 @@ class Users extends Component {
             </Col>
           </Row>
         </Card>
-        <Activity />
+        <Row>
+          <Col span={12}>
+            <Activity />
+          </Col>
+        </Row>
       </Fragment>
     );
   }

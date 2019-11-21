@@ -13,7 +13,15 @@ export const dataActivity = [
     timestamp: '2018-11-19T12:25:28.000Z',
     on: 'Projects',
     action: 'create',
-    detail: 'Alexander Attached 4 Documents For Project1 Customer Created'
+    detail: 'Alexander Attached 4 Documents For Project1 Customer Created',
+    images: [
+      'https://www.w3schools.com/howto/img_snow.jpg', 
+      'https://www.remove.bg/assets/start_remove-79a4598a05a77ca999df1dcb434160994b6fde2c3e9101984fb1be0f16d0a74e.png',
+      'https://images.immediate.co.uk/production/volatile/sites/23/2019/10/39r_CMYK-46a0fd4.jpg?quality=45&resize=620,413',
+      'https://stimg.cardekho.com/images/carexteriorimages/930x620/Tata/Tata-Altroz/6835/1551947126539/front-left-side-47.jpg?tr=w-375,e-sharpen',
+      'https://cdn.pixabay.com/photo/2018/02/09/21/46/rose-3142529__340.jpg',
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2-A9npqE7HsRMWwGVGb7__RCIPONZ-PyZ6bImKd-oEuHvWFpA&s'
+    ]
   },
   {
     userId: '429397d0-7f64-48eb-866f-e905f001b1ad',

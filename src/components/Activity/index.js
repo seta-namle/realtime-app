@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { string } from 'prop-types';
 
-import { Card, Row, Col, Timeline, Icon, Input, Pagination, Select } from 'antd';
+import { Card, Row, Col, Timeline, Icon, Input, Pagination, Select, DatePicker, Carousel } from 'antd';
 const { Search } = Input;
 const { Option } = Select;
 import { dataActivity } from '../Users/UserDetail/mockData';
@@ -97,6 +97,24 @@ class Activity extends Component {
             if (d1 === d2 && m1 === m2 && y1 === y2) return true;
             return false;
         };
+        const renderCarouselImage = (images) => {
+            const temp = images.slice(0, images.length - 3)
+            return <Carousel>
+                {
+                    temp.map((carousel, index) =>
+                        <Row key={carousel} >
+                            {
+                                [0, 1, 2, 3].map(item =>
+                                    <Col key={item} span={6}>
+                                        <img className={styles['carouse-img']} src={images[index + item]} />
+                                    </Col>
+                                )
+                            }
+                        </Row>
+                    )
+                }
+            </Carousel>
+        }
         return (
             <Fragment>
                 <Card className={styles['activity-card']}>
@@ -112,12 +130,20 @@ class Activity extends Component {
                             />
                         </Col>
                     </Row>
-                    <Row>
-                        <Select placeholder="Type filter" onChange={this.filter} style={{ width: "50%", marginTop: 15 }}>
-                            {
-                                filterOtps.map(item => <Option key={item.value} value={item.value}>{item.label}</Option>)
-                            }
-                        </Select>
+                    <Row className={styles['filter']}>
+                        <Col span={12}>
+                            <Select className={styles['filter-type']} placeholder="Type filter" onChange={this.filter}>
+                                {
+                                    filterOtps.map(item => <Option key={item.value} value={item.value}>{item.label}</Option>)
+                                }
+                            </Select>
+                        </Col>
+                        <Col span={6}>
+                            <DatePicker className={styles['start-date']} placeholder="Start Date" onChange={() => { }} />
+                        </Col>
+                        <Col span={6}>
+                            <DatePicker className={styles['end-date']} placeholder="End Date" onChange={() => { }} />
+                        </Col>
                     </Row>
                     <Row className={styles['timeline']}>
                         <Timeline>
@@ -143,6 +169,10 @@ class Activity extends Component {
                                                 {item.on}
                                             </span>
                                         </Row>
+                                        {
+                                            item.images && item.images.length &&
+                                            renderCarouselImage(item.images)
+                                        }
                                         <Row className={styles['timestamp']}>{item.timestamp}</Row>
                                     </Timeline.Item>
                                 </div>
