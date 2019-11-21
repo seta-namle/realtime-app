@@ -58,7 +58,7 @@ PreviewCode.propTypes = {
     isPreviewCode: PropTypes.bool,
     dataPreview: PropTypes.any,
     buttonTemplates: PropTypes.arrayOf(PropTypes.shape({
-        children: PropTypes.oneOfType(PropTypes.string, PropTypes.node),
+        children: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
         type: PropTypes.string,
         onClick: PropTypes.func,
     })),
@@ -70,16 +70,7 @@ PreviewCode.defaultProps = {
     title: '',
     isPreviewCode: false,
     dataPreview: '',
-    buttonTemplates: [
-        {
-            children: 'Export',
-            type: 'primary',
-        },
-        {
-            children: 'Watch',
-            type: '',
-        }
-    ],
+    buttonTemplates: [],
     isCardWrapper : true,
 }
 export default PreviewCode;

@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import {
   Typography,
   Modal,
+  Button
 } from 'antd';
 import { func, bool, arrayOf, object } from 'prop-types';
 
@@ -23,23 +24,16 @@ const ErrorModal = ({
   visibleModal = false,
   listErrors = []
 }) => {
-  const buttons = [
-    {
-      children : 'Export',
-      type: 'primary',
-      onClick: handleOk,
-    },
-    {
-      children : 'Assign',
-      type: '',
-      onClick: handleOk,
-    },
-    {
-      children : 'Mute Error Code',
-      type: '',
-      onClick: handleOk,
-    },
-  ]
+  const renderFooter = () => (
+    <React.Fragment>
+        <Button type="primary" >
+          Export
+        </Button>
+        <Button >Assign</Button>
+        <Button >Mute Error Code</Button>
+    </React.Fragment>
+  )
+
   return (
     <Modal
       title="Error Detail"
@@ -47,8 +41,9 @@ const ErrorModal = ({
       onOk={handleOk}
       onCancel={handleCancel}
       width={1000}
+      footer= {renderFooter()}
     >
-        <PreviewCode isPreviewCode isCardWrapper={false} data={listErrors} buttonTemplates={buttons}  />
+        <PreviewCode isPreviewCode isCardWrapper={false} data={listErrors}  />
     
     </Modal>
   );
@@ -281,7 +276,23 @@ class WorkRequests extends Component {
           processValue={`64.89%`}
           processTime={`Complete`}
         />
-        <PreviewCode title="Work Request Detail" data={dataWorkRequestDetail} dataPreview={"log file output from FS"} isPreviewCode  />
+        <PreviewCode title="Work Request Detail" 
+          data={dataWorkRequestDetail} 
+          dataPreview={"log file output from FS"} 
+          isPreviewCode
+          buttonTemplates={[
+            {
+               children: 'Export',
+               type: 'primary',
+               onClick: () => {},
+            },
+            {
+              children: 'Tag',
+              type: '',
+              onClick: () => {},
+           },
+          ]}  
+          />
         <ComboChart
           title="Work request performance graph"
           data={dataPerformance}

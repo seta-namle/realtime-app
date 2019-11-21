@@ -3,7 +3,7 @@ import { Layout, Menu, Breadcrumb, Icon, Select, Row, Col } from 'antd';
 import styles from './styles.scss';
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
-import { func, node, objectOf, string } from 'prop-types';
+import { func, node, object} from 'prop-types';
 import options from './options';
 import { connect } from 'react-redux';
 import { selectCurrentRoutePayload } from '../../state/modules/routing';
@@ -13,7 +13,7 @@ class SideBar extends React.Component {
   static propTypes = {
     onClickMenu: func,
     children: node,
-    routePayload: objectOf(string)
+    routePayload: object
   };
 
   state = {
