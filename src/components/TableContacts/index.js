@@ -1,22 +1,23 @@
 import React, { Component, Fragment } from 'react';
-import { string, func } from 'prop-types';
+import { string, func, arrayOf } from 'prop-types';
 import { Card, Row, Col, Table, Icon, Button, Menu, Dropdown, Input, InputNumber } from 'antd';
 const { Search } = Input;
 import styles from './styles.scss';
 import { connect } from 'react-redux';
 import { ON_CLICK_DETAIL } from '../../state/modules/sideBar';
 import { selectCurrentRoutePayload } from 'state/modules/routing';
-import { dataUsers } from '../Users/mockData';
-class AllContacts extends Component {
+class TableContacts extends Component {
     static propTypes = {
         tabName: string,
         userId: string,
-        onClickDetail: func
+        data: arrayOf(Object),
+        onClickDetail: func,
+        onSearch: func
     };
     state = {
         pageSize: 10,
         sortedInfo: {},
-        data: dataUsers
+        data: this.props.data
     }
     onClickDetail = event => {
         const { onClickDetail, tabName } = this.props;
@@ -33,19 +34,7 @@ class AllContacts extends Component {
         })
     }
     onSearch = (event) => {
-        const validValue = event.target.value.replace(/\s{2,}/g, ' ').trim()
-        if (!validValue) {
-            return this.setState((state) => ({
-                data: dataUsers
-            }))
-        }
-        this.setState(state => ({
-            data: dataUsers.filter(item => {
-                return item.userName.toLowerCase().includes(validValue.toLowerCase())
-                    || item.email.toLowerCase().includes(validValue.toLowerCase())
-                    || item.phone.toLowerCase().includes(validValue.toLowerCase())
-            })
-        }))
+        this.props.onSearch(event)
     }
     handleChange = (pagination, filters, sorter) => {
         this.setState({
@@ -62,7 +51,8 @@ class AllContacts extends Component {
         }),
     }
     render() {
-        const { data, pageSize } = this.state
+        const { pageSize } = this.state
+        const { data } = this.props
         let { sortedInfo } = this.state
         const renderFavorite = text => {
             return text
@@ -90,7 +80,7 @@ class AllContacts extends Component {
                 title: 'Name',
                 dataIndex: 'userName',
                 render: text => <a onClick={this.onClickDetail}>{text}</a>,
-                sorter: (a, b) => a.userName.length - b.userName.length,
+                sorter: (a, b) => a.userName.localeCompare(b.userName) > 0,
                 sortOrder: sortedInfo.columnKey === 'userName' && sortedInfo.order,
                 ellipsis: true
             },
@@ -98,14 +88,14 @@ class AllContacts extends Component {
                 title: 'Email',
                 dataIndex: 'email',
                 render: text => <a>{text}</a>,
-                sorter: (a, b) => a.email.length - b.email.length,
+                sorter: (a, b) => a.email.localeCompare(b.email) > 0,
                 sortOrder: sortedInfo.columnKey === 'email' && sortedInfo.order,
                 ellipsis: true,
             },
             {
                 title: 'Phone',
                 dataIndex: 'phone',
-                sorter: (a, b) => a.phone.length - b.phone.length,
+                sorter: (a, b) => a.phone.localeCompare(b.phone) > 0,
                 sortOrder: sortedInfo.columnKey === 'phone' && sortedInfo.order,
                 ellipsis: true,
             },
@@ -113,7 +103,7 @@ class AllContacts extends Component {
                 title: 'Favorite',
                 dataIndex: 'favorite',
                 render: text => renderFavorite(text),
-                sorter: (a, b) => a.favorite.length - b.favorite.length,
+                sorter: (a, b) => a.favorite,
                 sortOrder: sortedInfo.columnKey === 'favorite' && sortedInfo.order,
                 ellipsis: true,
             },
@@ -182,4 +172,4 @@ export default connect(
             payload
         })
     }
-)(AllContacts);
+)(TableContacts);

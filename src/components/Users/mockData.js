@@ -18,7 +18,8 @@ export const dataUsers = [
     lastPasswordReset: '2018-11-15T19:25:28.000Z',
     lastFailedLogin: '2018-11-15T19:26:28.000Z',
     accountLocked: 'false',
-    favorite: true
+    favorite: true,
+    role: 0
   },
   {
     userId: '9930a6dc-81df-439c-86f7-7bd07fbc4511',
@@ -39,7 +40,8 @@ export const dataUsers = [
     lastPasswordReset: '2018-11-15T19:25:28.000Z',
     lastFailedLogin: '2018-11-15T19:26:28.000Z',
     accountLocked: 'false',
-    favorite: true
+    favorite: true,
+    role: 0
   },
   {
     userId: 'def2a493-ee9b-4560-80f7-cfe4a3555f30',
@@ -60,7 +62,8 @@ export const dataUsers = [
     lastPasswordReset: '2018-11-15T19:25:28.000Z',
     lastFailedLogin: '2018-11-15T19:26:28.000Z',
     accountLocked: 'false',
-    favorite: false
+    favorite: false,
+    role: 1
   },
   {
     userId: '9930a6dc-81df-439c-86f7-7bd07fbc43fe',
@@ -81,7 +84,8 @@ export const dataUsers = [
     lastPasswordReset: '2018-11-15T19:25:28.000Z',
     lastFailedLogin: '2018-11-15T19:26:28.000Z',
     accountLocked: 'false',
-    favorite: true
+    favorite: true,
+    role: 2
   },
   {
     userId: '99fe23dc-81df-439c-86f7-7bd07fbc4511',
@@ -102,7 +106,8 @@ export const dataUsers = [
     lastPasswordReset: '2018-11-15T19:25:28.000Z',
     lastFailedLogin: '2018-11-15T19:26:28.000Z',
     accountLocked: 'false',
-    favorite: false
+    favorite: false,
+    role: 2
   },
   {
     userId: '9933df3c-81df-439c-86f7-7bd07fbc4511',
@@ -123,7 +128,8 @@ export const dataUsers = [
     lastPasswordReset: '2018-11-15T19:25:28.000Z',
     lastFailedLogin: '2018-11-15T19:26:28.000Z',
     accountLocked: 'false',
-    favorite: true
+    favorite: true,
+    role: 2
   },
   {
     userId: '9930erec-81df-439c-86f7-7bd07fbc4511',
@@ -144,7 +150,8 @@ export const dataUsers = [
     lastPasswordReset: '2018-11-15T19:25:28.000Z',
     lastFailedLogin: '2018-11-15T19:26:28.000Z',
     accountLocked: 'false',
-    favorite: false
+    favorite: false,
+    role: 2
   },
   {
     userId: '993033dc-81df-439c-86f7-7bd07fbc4511',
@@ -165,7 +172,8 @@ export const dataUsers = [
     lastPasswordReset: '2018-11-15T19:25:28.000Z',
     lastFailedLogin: '2018-11-15T19:26:28.000Z',
     accountLocked: 'false',
-    favorite: true
+    favorite: true,
+    role: 2
   },
   {
     userId: '9930a6df-81df-439c-86f7-7bd07fbc4511',
@@ -186,7 +194,8 @@ export const dataUsers = [
     lastPasswordReset: '2018-11-15T19:25:28.000Z',
     lastFailedLogin: '2018-11-15T19:26:28.000Z',
     accountLocked: 'false',
-    favorite: false
+    favorite: false,
+    role: 2
   },
   {
     userId: 'e930a6dc-81df-439c-86f7-7bd07fbc4511',
@@ -207,7 +216,8 @@ export const dataUsers = [
     lastPasswordReset: '2018-11-15T19:25:28.000Z',
     lastFailedLogin: '2018-11-15T19:26:28.000Z',
     accountLocked: 'false',
-    favorite: false
+    favorite: false,
+    role: 2
   },
   {
     userId: '93e0a6dc-81df-439c-86f7-7bd07fbc4511',
@@ -228,6 +238,7 @@ export const dataUsers = [
     lastPasswordReset: '2018-11-15T19:25:28.000Z',
     lastFailedLogin: '2018-11-15T19:26:28.000Z',
     accountLocked: 'false',
-    favorite: true
+    favorite: true,
+    role: 1
   }
 ];

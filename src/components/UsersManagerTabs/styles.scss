@@ -1,6 +1,30 @@
 .margin-top-20 {
     margin-top: 20px;
 }
+.head-list {
+    font-size: 18px;
+}
 .item-more {
     color: #2196f3;
+}
+.purple {
+    background-color: #9254de;
+}
+.cyan {
+    background-color: #36cfc9;
+}
+.gold {
+    background-color: #ffc53d;
+}
+.badge {
+    height: 20px;
+    font-size: 14px;
+    border-radius: 10px;
+    text-align: center;
+    color: white;
+    float: right;
+    padding: 0px 6px;
+}
+.opt-filter {
+    cursor: pointer;
 }
